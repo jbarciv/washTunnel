@@ -12,6 +12,6 @@
 #ifndef CONTROL_H_
 #define CONTROL_H_
 
-int Motor(motor_t, motor_status_t, direccion_t);
+void Motor(motor_t, motor_status_t, direccion_t);
 
 #endif /* CONTROL_H_ */

@@ -1,30 +1,38 @@
 /* ----------------------------------------------------------------------------
  * aquí se definen las funciones para el control
  * 
- * 
- * 
- * 
  * -------------------------------------------------------------------------- */
-
 
 #include "control.h"
 
-int Motor(motor_t motor, motor_status_t estado, direccion_t direccion)
+void Motor(motor_t motor, motor_status_t estado, direccion_t giro)
 {
     switch (motor)
     {
         case M1:
             if(estado == ENCENDIDO)
-            {
-                if (direccion == DERECHA) 
+            {   
+                if (giro == DERECHA) 
                 {
-                    PORTE = PORTE | 0x04;
+                    // establecer giro motor M1 a derechas;
                 } 
-                else PORTE = PORTE & 0xFB;
+                else
+                {
+                    // establecer giro motor M1 a izquierdas;
+                }
+                // encender motor M1 -> notar cómo primero se establece el sentido de giro deseado y luego ya se enciende;
             } 
-            else return 0;
+            else
+            {
+                // apagar motor M1; algo estilo esto: M1ENPORT &= 0xFD;
+            }
             break;
-        default:
-            break;
+            
+        // ... una vez definido bien el motor M1 -> replicar para resto de motores
+
+        default: // ¿tiene sentido poner default? ¿qué pondrías... un mensaje de error?
+        break;
     }
+    }
+    
 }
