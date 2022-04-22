@@ -1,13 +1,9 @@
 /* FUNCION PARA LUZ INDICADORA DE ESTADO */ 
 
-#include <avr/io.h>
-#include <avr/interrupt.h>
-#include <stdlib.h>
+#include "commonstuff.h"
 
 int i = 0;
-int LUZ = 0;
-int modo = 0;		// modo de funcionamiento (0 = standby, 1 = ON)
-
+int modo = 0;		// modo de funcionamiento (SEGUN EL STATUS_T)
 
 void setup_timer()
 {
@@ -19,24 +15,42 @@ void setup_timer()
 	sei();
 }
 
-ISR(TIMER1_COMPA_vect)
+ISR(TIMER1_COMPA_vect) 
 {
-	if (modo = 1)	// si queremos que conmute cada 0.5s
+	switch modo
 	{
-		LUZ = !LUZ; 		
+		case WAITING:
+		{
+			L1PORT = 0;			// un poco ñapa, para que no se quede el port a 1 si cambia el estado cuando esté a 1
+			i++;				//cada 10s parpadea
+			parpadeo(i);
+			break;
+		}
+		case BUSY:
+		{
+			L1PORT = !L1PORT; 	//conmuta cada 0.5s
+			break;	
+		}
+		default: break;
 	}
-	else 
-	{
-		i++;		// si queremos que cada 10s parpadee
-		/* logica parpadeo */
-	}
-	
 }
+
+void parpadeo(int ms)
+{
+	if (ms%20 == 0)				//han pasado 10s (revisar, solo cuenta cuando está en waiting)
+	{
+		L1PORT = 1;
+	}
+	if ((ms-1)%20 == 0)
+	{
+		L1PORT = 0;
+	}
+}
+
 int main(void)
 {
     setup_timer();
-    while (1) 
+    while (1)
     {
     }
 }
-

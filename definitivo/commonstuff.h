@@ -37,7 +37,7 @@ typedef enum {DERECHA, IZQUIERDA} direccion_t;
 #define M2DIDDR DDRC
 #define M2ENPORT PORTC
 #define M2DIPORT PORTC
-// Motor  M3 -> DDR# y PORT#
+// Motor  M3 -> DDR# y PORT# 
 #define M3ENDDR DDRA
 #define M3DIDDR DDRA
 #define M3ENPORT PORTA
@@ -138,8 +138,8 @@ typedef enum {DERECHA, IZQUIERDA} direccion_t;
 #define L5  (PINJ & 0b00100000) // PJ5 -> LED L5: semaforo rojo
 
 // LED L1 -> DDR# y PORT#
-#define L3DDR DDRJ
-#define L3PORT PORTJ
+#define L1DDR DDRJ
+#define L1PORT PORTJ
 // LED L4
 #define L4DDR DDRJ
 #define L4PORT PORTJ
