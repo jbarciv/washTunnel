@@ -1,0 +1,10 @@
+#COMENTARIOS
+
+
+
+#TAREAS
+
+ - Crear .h general para definir todos los pines, los prototipos de funciones, los define's, etc
+ - Definir .c donde poner el funcionamiento de los motores, sensores, microinterruptores y leds: estilo macro o función
+
+
