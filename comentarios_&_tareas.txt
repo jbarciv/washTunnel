@@ -24,18 +24,18 @@ M6----->PL5
 
     DESCRIPCIÓN               SENSOR   PUERTO
 
-Entrada de vehículos        S01----->PD0 (INT0)
-Cierre de barrera           S02----->PK0 (PCINT16)
-Lavado horizontal inicio    S03----->PK1 (PCINT17)
-Lavado horizontal medio     S04----->PK2 (PCINT18)
-Lavado horizontal final     S05----->PK3 (PCINT19)
-Paso intermedio             S06----->PK4 (PCINT20)
-Secado inicio               S07----->PK5 (PCINT21)
-Secado medio                S08----->PK6 (PCINT22)
-Secado final                S09----->PK7 (PCINT23)
-Abandono de cinta           S10----->PB0 (PCINT0)
-Paso final                  S11----->PB1 (PCINT1)
-Abandono de estación        S12----->PB2 (PCINT3)
+Entrada de vehículos        S01----->PK0 (PCINT16)
+Cierre de barrera           S02----->PK1 (PCINT17)
+Lavado horizontal inicio    S03----->PK2 (PCINT18)
+Lavado horizontal medio     S04----->PK3 (PCINT19)
+Lavado horizontal final     S05----->PK4 (PCINT20)
+Paso intermedio             S06----->PK5 (PCINT21)
+Secado inicio               S07----->PK6 (PCINT22)
+Secado medio                S08----->PK7 (PCINT23)
+Secado final                S09----->PB0 (PCINT0)
+Abandono de cinta           S10----->PB1 (PCINT1)
+Paso final                  S11----->PB2 (PCINT3)
+Abandono de estación        S12----->PB3 (PCINT4)
 
 -----------------------INTERRUPTORES-------------------------
 
