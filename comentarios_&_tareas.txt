@@ -8,3 +8,41 @@
  - Definir .c donde poner el funcionamiento de los motores, sensores, microinterruptores y leds: estilo macro o función
 
 
+
+Propuesta de disposición de motores y sensores
+
+----------------------MOTORES-------------------------
+
+M1----->PL0
+M2----->PL1
+M3----->PL4 (porque tiene OC3B que permite en PWM en caso de que lo necesitemos)
+M4----->PL2
+M5----->PL3
+M6----->PL5
+
+------------------------SENSORES------------------------
+
+    DESCRIPCIÓN               SENSOR   PUERTO
+
+Entrada de vehículos        S01----->PD0 (INT0)
+Cierre de barrera           S02----->PK0 (PCINT16)
+Lavado horizontal inicio    S03----->PK1 (PCINT17)
+Lavado horizontal medio     S04----->PK2 (PCINT18)
+Lavado horizontal final     S05----->PK3 (PCINT19)
+Paso intermedio             S06----->PK4 (PCINT20)
+Secado inicio               S07----->PK5 (PCINT21)
+Secado medio                S08----->PK6 (PCINT22)
+Secado final                S09----->PK7 (PCINT23)
+Abandono de cinta           S10----->PB0 (PCINT0)
+Paso final                  S11----->PB1 (PCINT1)
+Abandono de estación        S12----->PB2 (PCINT3)
+
+-----------------------INTERRUPTORES-------------------------
+
+    DESCRIPCIÓN                INTERRUPTOR     PUERTO
+
+Contador pulsos barrera             SW1-----> PDO (INT0)
+Fin de carrera lavado horizontal    SW2-----> PD1 (INT1)
+Fin de carrera Secado               SW3-----> PD2 (INT2)
+Parada de emergencia                SW4-----> PD3 (INT3)
+
