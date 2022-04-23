@@ -27,7 +27,7 @@ typedef enum {M1, M2, M3, M4, M5, M6} motor_t;
 typedef enum {ENCENDIDO, APAGADO} motor_status_t;
 typedef enum {DERECHA, IZQUIERDA} direccion_t;
 // Motor  M1 -> DDR# y PORT#
-#define M1ENPORT PORT
+#define M1ENPORT PORT           //no faltan los DDR?
 #define M1DIPORT PORT
 // Motor  M2 -> DDR# y PORT#
 #define M2ENPORT PORT
