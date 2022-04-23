@@ -16,137 +16,67 @@
 #ifndef LAVADERO_H_
 #define LAVADERO_H_
 
-
 // #define LIMITE_CUENTA_L3 1221 // 10 segundos
 // #define LIMITE_CUENTA_ATRACCION 10990 // 45 segundos
 // #define LIMITE_CUENTA_DOS_MINUTOS 14652
 // #define LIMITE_CUENTA_MEDIO_SEGUNDO 61
 // #define LIMITE_CUENTA_CINCO_SEGUNDOS 610
 
-
 /* Etiquetas para los motores */
 typedef enum {M1, M2, M3, M4, M5, M6} motor_t;
 typedef enum {ENCENDIDO, APAGADO} motor_status_t;
 typedef enum {DERECHA, IZQUIERDA} direccion_t;
 // Motor  M1 -> DDR# y PORT#
-#define M1ENDDR DDRC
-#define M1DIDDR DDRC
-#define M1ENPORT PORTC
-#define M1DIPORT PORTC
+#define M1ENPORT PORT
+#define M1DIPORT PORT
 // Motor  M2 -> DDR# y PORT#
-#define M2ENDDR DDRC
-#define M2DIDDR DDRC
-#define M2ENPORT PORTC
-#define M2DIPORT PORTC
+#define M2ENPORT PORT
+#define M2DIPORT PORT
 // Motor  M3 -> DDR# y PORT# 
-#define M3ENDDR DDRA
-#define M3DIDDR DDRA
-#define M3ENPORT PORTA
-#define M3DIPORT PORTA
+#define M3ENPORT PORT
+#define M3DIPORT PORT
 // Motor  M4 -> DDR# y PORT#
-#define M4ENDDR DDRA
-#define M4DIDDR DDRA
-#define M4ENPORT PORTA
-#define M4DIPORT PORTA
+#define M4ENPORT PORT
+#define M4DIPORT PORT
 // Motor  M5 -> DDR# y PORT#
-#define M5ENDDR DDRC
-#define M5DIDDR DDRC
-#define M5ENPORT PORTC
-#define M5DIPORT PORTC
+#define M5ENPORT PORT
+#define M5DIPORT PORT
 // Motor  M6 -> DDR# y PORT#
-#define M6ENDDR DDRC
-#define M6DIDDR DDRC
-#define M6ENPORT PORTC
-#define M6DIPORT PORTC
-
+#define M6ENPORT PORT
+#define M6DIPORT PORT
 
 /* Etiquetas para los sensores opticos */
-#define SO1  (PINJ & 0b00000001) // PJ0 -> Sensor de entrada "abajo"
-#define SO2  (PINJ & 0b00000100) // PJ2 -> Sensor de entrada barrera
-#define SO3  (PINJ & 0b00010000) // PJ4 -> Sensor lavado horiz. izqda.
-#define SO4  (PINJ & 0b01000000) // PJ6 -> Sensor lavado horiz. centro
-#define SO5  (PINE & 0b00000001) // PE0 -> Sensor lavado horiz. drcha.
-#define SO6  (PINE & 0b00000100) // PE2 -> ¡!sin utilidad definida
-#define SO7  (PINE & 0b00010000) // PE4 -> Sensor secado izqda.
-#define SO8  (PINE & 0b01000000) // PE6 -> Sensor secado centro.
-#define SO9  (PINE & 0b00000010) // PE1 -> Sensor secado drcha.
-#define SO10 (PINE & 0b00001000) // PE3 -> Sensor de "aviso" de salida
-#define SO11 (PINE & 0b00100000) // PE5 -> ¡!sin utilidad definida
-#define SO12 (PINE & 0b10000000) // PE7 -> Sensor de salida "definitiva"
-
-// Sensor  SO1 -> DDR# y PORT#
-#define SO1DDR DDRJ
-#define SO1PORT PORTJ
-// Sensor  SO2
-#define SO2DDR DDRJ
-#define SO2PORT PORTJ
-// Sensor  SO3
-#define SO3DDR DDRJ
-#define SO3PORT PORTJ
-// Sensor  SO4
-#define SO4DDR DDRJ
-#define SO4PORT PORTJ
-// Sensor  SO5
-#define SO5DDR DDRE
-#define SO5PORT PORTE
-// Sensor  SO6
-#define SO6DDR DDRE
-#define SO6PORT PORTE
-// Sensor  SO7
-#define SO7DDR DDRE
-#define SO7PORT PORTE
-// Sensor  SO8
-#define SO8DDR DDRE
-#define SO8PORT PORTE
-// Sensor  SO9
-#define SO9DDR DDRE
-#define SO9PORT PORTE
-// Sensor  SO10
-#define SO10DDR DDRE
-#define SO10PORT PORTE
-// Sensor  SO11
-#define SO11DDR DDRE
-#define SO11PORT PORTE
-// Sensor  SO12
-#define SO12DDR DDRE
-#define SO12PORT PORTE
-
+#define SO1  (PIND & 0b00000001) // PD0 -> Sensor de entrada "abajo"
+#define SO2  (PIN & 0b00000100) // P -> Sensor de entrada barrera
+#define SO3  (PIN & 0b00010000) // P -> Sensor lavado horiz. izqda.
+#define SO4  (PIN & 0b01000000) // P -> Sensor lavado horiz. centro
+#define SO5  (PIN & 0b00000001) // P -> Sensor lavado horiz. drcha.
+#define SO6  (PIN & 0b00000100) // P -> ¡!sin utilidad definida
+#define SO7  (PIN & 0b00010000) // P -> Sensor secado izqda.
+#define SO8  (PIN & 0b01000000) // P -> Sensor secado centro.
+#define SO9  (PIN & 0b00000010) // P -> Sensor secado drcha.
+#define SO10 (PIN & 0b00001000) // P -> Sensor de "aviso" de salida
+#define SO11 (PIN & 0b00100000) // P -> ¡!sin utilidad definida
+#define SO12 (PIN & 0b10000000) // P -> Sensor de salida "definitiva"
 
 /* Etiquetas para los sensores mecanicos (microinterruptores) */
-#define SW1  (PINA & 0b00000001) // PA0 -> Sensor apertura-cierre de barrera
-#define SW2  (PINA & 0b00000100) // PA2 -> Sensor finales de carrera lavado horiz.
-#define SW3  (PINA & 0b00010000) // PA4 -> Sensor finales de carrera secado
-#define SW4  (PINA & 0b01000000) // PA6 -> Sensor/botón para de emergencia
+#define SW1  (PIN & 0b00000001) // P -> Sensor apertura-cierre de barrera
+#define SW2  (PIN & 0b00000100) // P -> Sensor finales de carrera lavado horiz.
+#define SW3  (PIN & 0b00010000) // P -> Sensor finales de carrera secado
+#define SW4  (PIN & 0b01000000) // P -> Sensor/botón para de emergencia
 #define boton_emergencia SW4
 
-// Sensor  SW1 -> DDR# y PORT#
-#define SW1DDR DDRA
-#define SW1PORT PORTA
-// Sensor  SW2
-#define SW2DDR DDRA
-#define SW2PORT PORTA
-// Sensor  SW3
-#define SW3DDR DDRA
-#define SW3PORT PORTA
-// Sensor  SW4
-#define SW4DDR DDRA
-#define SW4PORT PORTA
-
-
 /* Etiquetas para los LEDs */
-#define L1  (PINJ & 0b00000010) // PJ1 -> LED L1: WAITING or BUSY
-#define L4  (PINJ & 0b00001000) // PJ3 -> LED L4: semaforo verde
-#define L5  (PINJ & 0b00100000) // PJ5 -> LED L5: semaforo rojo
+#define L1  (PIN & 0b00000010) // P -> LED L1: WAITING or BUSY
+#define L4  (PIN & 0b00001000) // P -> LED L4: semaforo verde
+#define L5  (PIN & 0b00100000) // P -> LED L5: semaforo rojo
 
 // LED L1 -> DDR# y PORT#
-#define L1DDR DDRJ
-#define L1PORT PORTJ
+#define L1PORT PORT
 // LED L4
-#define L4DDR DDRJ
-#define L4PORT PORTJ
+#define L4PORT PORT
 // LED L5
-#define L5DDR DDRJ
-#define L5PORT PORTJ
+#define L5PORT PORT
 
 
 /* Etiquetas para los 'estados' del tunel de lavado*/
