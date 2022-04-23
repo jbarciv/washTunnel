@@ -1,5 +1,5 @@
 #COMENTARIOS
-
+ - Hay que definir los pines todavía... en commonstuff he puesto simplemente lo que viene por decto según el conector del micro.
 
 
 #TAREAS
