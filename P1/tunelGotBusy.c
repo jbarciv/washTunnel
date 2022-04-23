@@ -23,12 +23,13 @@ sei();                     //Habilitamos las interrupciones globales
 
 //La apertura de barrera debe ser controlada por consulta periódica porque puede que justo cuando llega el coche no pueda ser abierta porque hay otro que acaba de entrar. Al hacerlo por consulta periódica coseguimos que pueda haber un periodo de espera fuera de las interrupciones, simplificándolas.
 
-ISR(PCINT1_vect)
+ISR(INTO_vect)
 {
     if (antireb_S01 > 300 && tPreviousCar >)
     {
         barrierUp();
         tunelGotBusy();
+        flag_S01 = 0;
     }
     else 
     {
@@ -36,16 +37,24 @@ ISR(PCINT1_vect)
     }
 }
 
-// Subrutina consulta periódica S01 en caso de no poder levantar la barrera en la interrupción
+ISR (PCINT2_vect)       // PCINT(23:16), puerto K
+{
+    if((PINK & (1<<PINK0) == 0) && antireb_SW1 > 50)
+    {
+        barrierPulseCounter++;
+        barrierPulseCounter == 5? barrierPulseCounter = 1 : ; //Movemos el motor siempre en el mismo sentido
+    }
 
+}
+
+// Subrutina consulta periódica S01 en caso de no poder levantar la barrera en la interrupción
 void barrierUp()
 {
-    barrierPulseCounter = 0;
-    if (barrierPulseCounter < 3)
+    if (barrierPulseCounter <= 3)
     {
         //establecemos motor encendido
         //establecemos dirección
     }
-    
 }
+
 
