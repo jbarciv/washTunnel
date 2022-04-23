@@ -2,7 +2,8 @@
  * Aquí debe ir definido todos los pines y prototipos de funciones
  * 
  * 
- * 
+ * ¡!: AÚN NO ESTÁ CLARA LA DISTRIBUCIÓN DE PINES... CONFORME NECESITÉIS INTERRUPCIONES
+ * PODÉIS IR MODIFICANDO ESTE DOCUMENTO...
  * 
  * -------------------------------------------------------------------------- */
 
