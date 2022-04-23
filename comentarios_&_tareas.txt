@@ -13,12 +13,23 @@ Propuesta de disposición de motores y sensores
 
 ----------------------MOTORES-------------------------
 
-M1----->PL0
-M2----->PL1
-M3----->PL4 (porque tiene OC3B que permite en PWM en caso de que lo necesitemos)
-M4----->PL2
-M5----->PL3
-M6----->PL5
+M1_en   ----->  PL0
+M1_dir  ----->  PL1
+
+M2_en   ----->  PL2
+M2_dir  ----->  PL3
+
+M3_en   ----->  PL4 (porque tiene OC3B que permite en PWM en caso de que lo necesitemos)
+M3_dir  ----->  PL5 
+
+M4_en   ----->  PL6
+M4_dir  ----->  PL7
+
+M5_en   ----->  PD4
+M5_dir  ----->  PD5
+
+M6_en   ----->  PD6
+M6_dir  ----->  PD7
 
 ------------------------SENSORES------------------------
 
