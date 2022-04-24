@@ -1,14 +1,3 @@
-#COMENTARIOS
- - Hay que definir los pines todavía... en commonstuff he puesto simplemente lo que viene por decto según el conector del micro.
-
-
-#TAREAS
-
- - Crear .h general para definir todos los pines, los prototipos de funciones, los define's, etc
- - Definir .c donde poner el funcionamiento de los motores, sensores, microinterruptores y leds: estilo macro o función
-
-
-
 Propuesta de disposición de motores y sensores
 
 ----------------------MOTORES-------------------------
@@ -19,7 +8,7 @@ M1_dir  ----->  PL1
 M2_en   ----->  PL2
 M2_dir  ----->  PL3
 
-M3_en   ----->  PL4 (porque tiene OC3B que permite en PWM en caso de que lo necesitemos)
+M3_en   ----->  PL4 (porque tiene OC3B que permite PWM en caso de que lo necesitemos)
 M3_dir  ----->  PL5 
 
 M4_en   ----->  PL6
