@@ -1,6 +1,6 @@
-Propuesta de disposición de motores y sensores
+Propuesta de disposición de motores y sensores -> habría que dejarlo TOTALMENTE claro cuanto antes!!!! (el martes 26 por tarde?).
 
-----------------------MOTORES-------------------------
+----------------------MOTORES--------------------------------
 
 M1_en   ----->  PL0
 M1_dir  ----->  PL1
@@ -20,7 +20,7 @@ M5_dir  ----->  PD5
 M6_en   ----->  PD6
 M6_dir  ----->  PD7
 
-------------------------SENSORES------------------------
+------------------------SENSORES-----------------------------
 
     DESCRIPCIÓN               SENSOR   PUERTO
 
