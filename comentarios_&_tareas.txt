@@ -55,9 +55,6 @@ Parada de emergencia                SW4-----> PD3 (INT3)
 
     DESCRIPCIÓN                INTERRUPTOR     PUERTO
 
-Contador pulsos barrera             SW1-----> PDO (INT0)
-Fin de carrera lavado horizontal    SW2-----> PD1 (INT1)
-Fin de carrera Secado               SW3-----> PD2 (INT2)
-Parada de emergencia                SW4-----> PD3 (INT3)
+
 
 

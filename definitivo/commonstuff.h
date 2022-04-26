@@ -1,9 +1,5 @@
 /* ----------------------------------------------------------------------------
- * Aquí debe ir definido todos los pines y prototipos de funciones
- * 
- * 
- * ¡!: AÚN NO ESTÁ CLARA LA DISTRIBUCIÓN DE PINES... CONFORME NECESITÉIS INTERRUPCIONES
- * PODÉIS IR MODIFICANDO ESTE DOCUMENTO...
+ *
  * 
  * -------------------------------------------------------------------------- */
 
@@ -27,23 +23,23 @@ typedef enum {M1, M2, M3, M4, M5, M6} motor_t;
 typedef enum {ENCENDIDO, APAGADO} motor_status_t;
 typedef enum {DERECHA, IZQUIERDA} direccion_t;
 // Motor  M1 -> BARRERA ENTRADA
-#define M1ENPORT PORTL     
-#define M1DIPORT PORTL
+#define M1ENPORT PORTL  // PL0
+#define M1DIPORT PORTL  // PL1
 // Motor  M2 -> LAVADO VERTICAL
-#define M2ENPORT PORTL
-#define M2DIPORT PORTL
+#define M2ENPORT PORTL  // PL2
+#define M2DIPORT PORTL  // PL3
 // Motor  M3 -> LAVADO HORIZONTAL
-#define M3ENPORT PORTL
-#define M3DIPORT PORTL
+#define M3ENPORT PORTL  // PL4
+#define M3DIPORT PORTL  // PL5
 // Motor  M4 -> GIRO LAVADO HORIZONTAL
-#define M4ENPORT PORTL
-#define M4DIPORT PORTL
-// Motor  M5 -> SECADO
-#define M5ENPORT PORTD
-#define M5DIPORT PORTD
+#define M4ENPORT PORTL  // PL6
+#define M4DIPORT PORTL  // PL7
+// Motor  M5 -> SECADO  
+#define M5ENPORT PORTD  // PD4
+#define M5DIPORT PORTD  // PD5
 // Motor  M6 -> CINTA ARRASTRE
-#define M6ENPORT PORTD
-#define M6DIPORT PORTD
+#define M6ENPORT PORTD  // PD6
+#define M6DIPORT PORTD  // PD7
 
 /* Etiquetas para los sensores opticos */
 #define SO1  (PINK & 0b00000001) // PK0 -> Sensor de entrada "abajo"
