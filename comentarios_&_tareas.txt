@@ -35,7 +35,7 @@ M6_dir  ----->  PD7
 
     DESCRIPCIÓN               SENSOR   PUERTO
 
-Entrada de vehículos        S01----->PK0 (PCINT16_no usar)
+Entrada de vehículos        S01----->PD1 (INT1)
 Cierre de barrera           S02----->PK1 (PCINT17_no usar)
 
 Lavado horizontal inicio    S03----->PK2 (PCINT18)
@@ -56,7 +56,7 @@ Abandono de estación        S12----->PB5 (PCINT5_no usar)
     DESCRIPCIÓN                INTERRUPTOR     PUERTO
 
 Contador pulsos barrera             SW1-----> PDO (INT0)
-Fin de carrera lavado horizontal    SW2-----> PD1 (INT1)
-Fin de carrera Secado               SW3-----> PD2 (INT2)
+Fin de carrera lavado horizontal    SW2-----> PK6 (PCINT22_no usar)
+Fin de carrera Secado               SW3-----> PK7 (PCINT23_no usar)
 Parada de emergencia                SW4-----> PD3 (INT3)
 

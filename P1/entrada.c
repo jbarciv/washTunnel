@@ -112,21 +112,26 @@ ISR(INTO_vect)
 {
     if(antireb_SW1 > DELAY_BOTON)
     {
-        barrierPulseCounter == 5? barrierPulseCounter = 1 : barrierPulseCounter++; //Movemos el motor siempre en el mismo sentido
+        barrierPulseCounter == 5? barrierPulseCounter = 0 : barrierPulseCounter++; //Movemos el motor siempre en el mismo sentido
         antireb_SW1 = 0;
     }
-    if (barrierPulseCounter == 3)
+    if (barrierPulseCounter == 3) //la barrera llega arriba
         barrierStop();
+        if ((PIND& (1<<PIND1) == 0))
+        {
+            tunelGotBusy();
+
+        }
+        barrierUp = 1;
 }
 
-ISR (PCINT2_vect)       // PCINT(23:16), puerto K
+ISR (INT1_vect)       // PCINT(23:16), puerto K
 {
-    if ((PINK & (1<<PINK0) == 0) && antirreb_S01 > DELAY_SENSOR)
+    if ((PIND& (1<<PIND1) == 0) && antirreb_S01 > DELAY_SENSOR)
     {
         if ( tPreviousCar > T_ENTRE_COCHES )
         {
             moveBarrier();
-            tunelGotBusy();
         }
         else 
         {
@@ -134,13 +139,15 @@ ISR (PCINT2_vect)       // PCINT(23:16), puerto K
         }
         antireb_S01 = 0;
     }
-
-    if ((PINK & (1<<PINK1) == 0) && antirreb_S02 > DELAY_SENSOR)
+    if ((PIND& (1<<PIND1) == 1) && antirreb_S01 > DELAY_SENSOR)
     {
-        barrierStop();
-        tPreviousCar = 0;
-        antireb_S02 = 0;
+        if (!barrierUp)
+        {
+            bajando=1;
+        }
+        moveBarrier();
     }
+
 }
 
 void moveBarrier()
@@ -158,5 +165,10 @@ void barrierStop()
 
 void tunelGotBusy()
 {
-    
+    car++;    
+}
+
+void isBarrierDown ()
+{
+    if (PINK & (1<<PINK1)==1)
 }
