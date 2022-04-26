@@ -1,17 +1,6 @@
-#COMENTARIOS
- - Hay que definir los pines todavía... en commonstuff he puesto simplemente lo que viene por decto según el conector del micro.
+Propuesta de disposición de motores y sensores -> habría que dejarlo TOTALMENTE claro cuanto antes!!!! (el martes 26 por tarde?).
 
-
-#TAREAS
-
- - Crear .h general para definir todos los pines, los prototipos de funciones, los define's, etc
- - Definir .c donde poner el funcionamiento de los motores, sensores, microinterruptores y leds: estilo macro o función
-
-
-
-Propuesta de disposición de motores y sensores
-
-----------------------MOTORES-------------------------
+----------------------MOTORES--------------------------------
 
 M1_en   ----->  PL0
 M1_dir  ----->  PL1
@@ -19,7 +8,7 @@ M1_dir  ----->  PL1
 M2_en   ----->  PL2
 M2_dir  ----->  PL3
 
-M3_en   ----->  PL4 (porque tiene OC3B que permite en PWM en caso de que lo necesitemos)
+M3_en   ----->  PL4 (porque tiene OC3B que permite PWM en caso de que lo necesitemos)
 M3_dir  ----->  PL5 
 
 M4_en   ----->  PL6
@@ -31,7 +20,7 @@ M5_dir  ----->  PD5
 M6_en   ----->  PD6
 M6_dir  ----->  PD7
 
-------------------------SENSORES------------------------
+------------------------SENSORES-----------------------------
 
     DESCRIPCIÓN               SENSOR   PUERTO
 
