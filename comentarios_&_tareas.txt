@@ -1,4 +1,4 @@
-Propuesta de disposición de motores y sensores -> habría que dejarlo TOTALMENTE claro cuanto antes!!!! (el martes 26 por tarde?).
+         => disposición de motores y sensores <=
 
 ----------------------MOTORES--------------------------------
 

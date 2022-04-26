@@ -1,5 +1,5 @@
 /* ----------------------------------------------------------------------------
- * aquí se definen las funciones para el control
+ * Control del Hardware: Motor
  * 
  * -------------------------------------------------------------------------- */
 
@@ -7,32 +7,63 @@
 
 void Motor(motor_t motor, motor_status_t estado, direccion_t giro)
 {
+    // creamos variables generales para el puerto del motor y su pin tanto para
+    // el enable (EN), como la direccion (DI).
+    char enPort, diPort, enPin, diPin; 
     switch (motor)
     {
-        case M1:
-            if(estado == ENCENDIDO)
-            {   
-                if (giro == DERECHA) 
-                {
-                    // establecer giro motor M1 a derechas;
-                } 
-                else
-                {
-                    // establecer giro motor M1 a izquierdas;
-                }
-                // encender motor M1 -> notar cómo primero se establece el sentido de giro deseado y luego ya se enciende;
-            } 
-            else
-            {
-                // apagar motor M1; algo estilo esto: M1ENPORT &= 0xFD;
-            }
+        case M1: 
+            enPort = M1ENPORT;
+            enPin = M1ENPIN;
+            diPort = M1DIPORT;
+            diPin = M1DIPIN;
             break;
-            
-        // ... una vez definido bien el motor M1 -> replicar para resto de motores
+        case M2: 
+            enPort = M2ENPORT;
+            enPin = M2ENPIN;
+            diPort = M2DIPORT;
+            diPin = M2DIPIN;
+            break;
+        case M3: 
+            enPort = M3ENPORT;
+            enPin = M3ENPIN;
+            diPort = M3DIPORT;
+            diPin = M3DIPIN;
+            break;
+        case M4: 
+            enPort = M4ENPORT;
+            enPin = M4ENPIN;
+            diPort = M4DIPORT;
+            diPin = M4DIPIN;
+            break;
+        case M5: 
+            enPort = M5ENPORT;
+            enPin = M5ENPIN;
+            diPort = M5DIPORT;
+            diPin = M5DIPIN;
+            break;
+        case M6: 
+            enPort = M6ENPORT;
+            enPin = M6ENPIN;
+            diPort = M6DIPORT;
+            diPin = M6DIPIN;
+            break;
+    }
 
-        default: // ¿tiene sentido poner default? ¿qué pondrías... un mensaje de error?
-        break;
+    if(estado == ENCENDIDO)
+    {   
+        if (giro == DERECHA) // primero establecemos la direccion
+        {
+            diPort |= (1 << diPin);
+        } 
+        else
+        {
+            diPort |= (0 << diPin);
+        }
+        enPort |= (1 << enPin); // despues encendemos el motor
+    } 
+    else
+    {
+        enPort |= (0 << enPin);
     }
-    }
-    
 }
