@@ -63,13 +63,13 @@ typedef enum {DERECHA, IZQUIERDA} direccion_t;
 #define boton_emergencia SW4
 
 /* Etiquetas para los LEDs */
-#define L1  (PIN & 0b00000010) // P -> LED L1: WAITING or BUSY
-#define L4  (PIN & 0b00001000) // P -> LED L4: semaforo verde
-#define L5  (PIN & 0b00100000) // P -> LED L5: semaforo rojo
+#define L1  (PIND & 0b00000010) // PD2 -> LED L1: WAITING or BUSY
+#define L4  (PINB & 0b00001000) // PB6 -> LED L4: semaforo verde
+#define L5  (PINB & 0b00100000) // PB7 -> LED L5: semaforo rojo
 // Puertos para los LEDs
-#define L1PORT PORT
-#define L4PORT PORT
-#define L5PORT PORT
+#define L1PORT PORTD
+#define L4PORT PORTB
+#define L5PORT PORTB
 
 
 /* Etiquetas para los 'estados' del tunel de lavado*/
