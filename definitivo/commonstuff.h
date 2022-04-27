@@ -27,23 +27,29 @@ typedef enum {M1, M2, M3, M4, M5, M6} motor_t;
 typedef enum {ENCENDIDO, APAGADO} motor_status_t;
 typedef enum {DERECHA, IZQUIERDA} direccion_t;
 // Motor  M1 -> DDR# y PORT#
-#define M1ENPORT PORT           //no faltan los DDR?
-#define M1DIPORT PORT
+#define M1PORT PORTL
+#define M1ENPORT PORTL0           //no faltan los DDR?
+#define M1DIPORT PORTL1
 // Motor  M2 -> DDR# y PORT#
-#define M2ENPORT PORT
-#define M2DIPORT PORT
+#define M2PORT PORTL
+#define M2ENPORT PORTL2
+#define M2DIPORT PORTL3
 // Motor  M3 -> DDR# y PORT# 
-#define M3ENPORT PORT
-#define M3DIPORT PORT
+#define M3PORT PORTL
+#define M3ENPORT PORTL4
+#define M3DIPORT PORTL5
 // Motor  M4 -> DDR# y PORT#
-#define M4ENPORT PORT
-#define M4DIPORT PORT
+#define M4PORT PORTL
+#define M4ENPORT PORTL6
+#define M4DIPORT PORTL7
 // Motor  M5 -> DDR# y PORT#
-#define M5ENPORT PORT
-#define M5DIPORT PORT
+#define M5PORT PORTD
+#define M5ENPORT PORTD4
+#define M5DIPORT PORTD5
 // Motor  M6 -> DDR# y PORT#
-#define M6ENPORT PORT
-#define M6DIPORT PORT
+#define M6PORT PORTD
+#define M6ENPORT PORTD6
+#define M6DIPORT PORTD7
 
 /* Etiquetas para los sensores opticos */
 #define SO1  (PIND & 0b00000001) // PD0 -> Sensor de entrada "abajo"
