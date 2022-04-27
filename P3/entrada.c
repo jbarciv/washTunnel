@@ -12,6 +12,7 @@ De la apertura de la barrera es encargará otra función que maneje el motor con
 */
 
 #include <commonstuff.h>
+#include <control.h>
 
 #define DELAY_BOTON 50
 #define DELAY_SENSOR 20
@@ -153,15 +154,12 @@ ISR (INT1_vect)       // PCINT(23:16), puerto K
 
 void moveBarrier()
 {
-    //establecemos motor encendido
-    PORTL |= (1<<PORTL0);
-    //establecemos dirección
-    PORTL |= (1<<PORTL1)
+    Motor(M1,ENCENDIDO,DERECHA);
 }
 
 void barrierStop()
 {
-    PORTL &= (0<<PORTL0);
+    Motor(M1,APAGADO,DERECHA);
 }
 
 void tunelGotBusy()
