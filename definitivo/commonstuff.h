@@ -12,45 +12,16 @@
 #ifndef LAVADERO_H_
 #define LAVADERO_H_
 
-// #define LIMITE_CUENTA_L3 1221 // 10 segundos
-// #define LIMITE_CUENTA_ATRACCION 10990 // 45 segundos
-// #define LIMITE_CUENTA_DOS_MINUTOS 14652
-// #define LIMITE_CUENTA_MEDIO_SEGUNDO 61
-// #define LIMITE_CUENTA_CINCO_SEGUNDOS 610
+#define DELAY_BOTON 50
+#define DELAY_SENSOR 20
+#define ANTIREB_TIME 125     // Con un preescalado de clk/64, 125 periodos es 1 ms
+#define REAL_TIME 31250      // Con un preescalado de clk/256, 31250 periodos es 1 s
+#define T_ENTRE_COCHES 5     // Dejamos 5 segundos al menos entre un coche y otro
 
 /* Etiquetas para los motores */
 typedef enum {M1, M2, M3, M4, M5, M6} motor_t;
-typedef enum {ENCENDIDO, APAGADO} motor_status_t;
+typedef enum {ON, OFF} motor_status_t;
 typedef enum {DERECHA, IZQUIERDA} direccion_t;
-
-// Lo comentado a continuación corresponde a la versión Gonzalo (ver control.c)
-
-/*
-// Motor  M1 -> DDR# y PORT#
-#define M1PORT PORTL
-#define M1ENPORT PORTL0           //no faltan los DDR?
-#define M1DIPORT PORTL1
-// Motor  M2 -> DDR# y PORT#
-#define M2PORT PORTL
-#define M2ENPORT PORTL2
-#define M2DIPORT PORTL3
-// Motor  M3 -> DDR# y PORT# 
-#define M3PORT PORTL
-#define M3ENPORT PORTL4
-#define M3DIPORT PORTL5
-// Motor  M4 -> DDR# y PORT#
-#define M4PORT PORTL
-#define M4ENPORT PORTL6
-#define M4DIPORT PORTL7
-// Motor  M5 -> DDR# y PORT#
-#define M5PORT PORTD
-#define M5ENPORT PORTD4
-#define M5DIPORT PORTD5
-// Motor  M6 -> DDR# y PORT#
-#define M6PORT PORTD
-#define M6ENPORT PORTD6
-#define M6DIPORT PORTD7
-*/
 
 // Motor  M1 -> BARRERA ENTRADA {PL0, PL1}
 #define M1ENPORT PORTL

@@ -15,10 +15,10 @@ En futuras versiones:
 
 void moveCinta()
 {
-    Motor(M6,ENCENDIDO,DERECHA);
+    Motor(M6,ON,DERECHA);
 }
 
 void stopCinta()
 {
-    Motor(M6,APAGADO,DERECHA);
+    Motor(M6,OFF,DERECHA);
 }

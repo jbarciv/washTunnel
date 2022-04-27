@@ -14,13 +14,6 @@ De la apertura de la barrera es encargará otra función que maneje el motor con
 #include <commonstuff.h>
 #include <control.h>
 
-#define DELAY_BOTON 50
-#define DELAY_SENSOR 20
-#define ANTIREB_TIME 125            // Con un preescalado de clk/64, 125 periodos es 1 ms
-#define REAL_TIME 31250             // Con un preescalado de clk/256, 31250 periodos es 1 s
-#define T_ENTRE_COCHES 5            // Dejamos 5 segundos al menos entre un coche y otro
-
-
 // Aunque en esta función solo vamos a utilizar una PCINT, en el setup hay que activarlas todas para poder usarlas en otras funciones
 
 cli();
@@ -154,12 +147,12 @@ ISR (INT1_vect)       // PCINT(23:16), puerto K
 
 void moveBarrier()
 {
-    Motor(M1,ENCENDIDO,DERECHA);
+    Motor(M1,ON,DERECHA);
 }
 
 void barrierStop()
 {
-    Motor(M1,APAGADO,DERECHA);
+    Motor(M1,OFF,DERECHA);
 }
 
 void tunelGotBusy()

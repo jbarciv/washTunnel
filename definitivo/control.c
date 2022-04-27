@@ -50,7 +50,7 @@ void Motor(motor_t motor, motor_status_t estado, direccion_t giro)
             break;
     }
 
-    if(estado == ENCENDIDO)
+    if(estado == ON)
     {   
         if (giro == DERECHA) // primero establecemos la direccion (1=drcha. 0=izqda.)
         {
