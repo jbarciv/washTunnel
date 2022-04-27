@@ -112,7 +112,7 @@ ISR(INTO_vect)
 {
     if(antireb_SW1 > DELAY_BOTON)
     {
-        barrierPulseCounter == 5? barrierPulseCounter = 0 : barrierPulseCounter++; //Movemos el motor siempre en el mismo sentido
+        barrierPulseCounter == 5 ? barrierPulseCounter = 0 : barrierPulseCounter++; //Movemos el motor siempre en el mismo sentido
         antireb_SW1 = 0;
     }
     if (barrierPulseCounter == 3) //la barrera llega arriba
@@ -123,6 +123,7 @@ ISR(INTO_vect)
 
         }
         barrierUp = 1;
+    }
 }
 
 ISR (INT1_vect)       // PCINT(23:16), puerto K
