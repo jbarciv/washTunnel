@@ -1,24 +1,26 @@
-Propuesta de disposición de motores y sensores -> habría que dejarlo TOTALMENTE claro cuanto antes!!!! (el martes 26 por tarde?).
+         => disposición de motores y sensores <=
 
 ----------------------MOTORES--------------------------------
 
-M1_en   ----->  PL0
-M1_dir  ----->  PL1
+    DESCRIPCIÓN               SENSOR    PUERTO
 
-M2_en   ----->  PL2
-M2_dir  ----->  PL3
+BARRERA ENTRADA             M1_en   ----->  PL0
+                            M1_dir  ----->  PL1
 
-M3_en   ----->  PL4 (porque tiene OC3B que permite PWM en caso de que lo necesitemos)
-M3_dir  ----->  PL5 
+LAVADO VERTICAL             M2_en   ----->  PL2
+                            M2_dir  ----->  PL3
 
-M4_en   ----->  PL6
-M4_dir  ----->  PL7
+LAVADO HORIZONTAL           M3_en   ----->  PL4
+                            M3_dir  ----->  PL5 
 
-M5_en   ----->  PD4
-M5_dir  ----->  PD5
+GIRO LAVADO HORIZONTAL      M4_en   ----->  PL6
+                            M4_dir  ----->  PL7
 
-M6_en   ----->  PD6
-M6_dir  ----->  PD7
+SECADO                      M5_en   ----->  PD4
+                            M5_dir  ----->  PD5
+
+CINTA ARRASTRE              M6_en   ----->  PD6
+                            M6_dir  ----->  PD7
 
 ------------------------SENSORES-----------------------------
 
@@ -48,4 +50,11 @@ Contador pulsos barrera             SW1-----> PDO (INT0)
 Fin de carrera lavado horizontal    SW2-----> PK6 (PCINT22_no usar)
 Fin de carrera Secado               SW3-----> PK7 (PCINT23_no usar)
 Parada de emergencia                SW4-----> PD3 (INT3)
+
+----------------------------LEDS----------------------------
+
+    DESCRIPCIÓN                INTERRUPTOR     PUERTO
+
+
+
 
