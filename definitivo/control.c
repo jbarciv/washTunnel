@@ -60,13 +60,13 @@ void Motor(motor_t motor, status_t estado, direccion_t giro)
         } 
         else
         {
-            diPort &= (0 << diPin);
+            diPort &= ~(1 << diPin);
         }
         enPort |= (1 << enPin); // despues encendemos el motor
     } 
     else
     {
-        enPort &= (0 << enPin);
+        enPort &= ~(1 << enPin);
     }
 }
 
@@ -92,11 +92,11 @@ void Semaforo(luz_t color)
     if (color == GREEN)
     {
         SEM_PORT |= (1<<GREEN_PORT);
-        SEM_PORT &= (0<<RED_PORT);
+        SEM_PORT &= ~(1<<RED_PORT);
     }
     else if (color == RED)
     {
         SEM_PORT |= (1<<RED_PORT);
-        SEM_PORT &= (0<<GREEN_PORT); 
+        SEM_PORT &= ~(1<<GREEN_PORT); 
     }
 }
