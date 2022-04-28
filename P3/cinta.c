@@ -13,17 +13,28 @@ En futuras versiones:
 #include <commonstuff.h>
 #include <control.h>
 
-void gestionCinta (status_belt_t modo)
+bool cinta = false;
+
+void gestionCinta (status_t modo)
 {
     switch (modo)
     {
-        case NORMAL_OP:
-            numberOfCars ? moveCinta() : stopCinta();
+        case BUSY:
+            numberOfCars ? moveCinta() : stopCinta(); //numberOfCars se actualiza en tunnelGotBusy()
             break;
         
-        case TEMP_SHUTDOWN:
+        case STARTING:
             stopCinta();
-
+            
+            break;
+        case WAITING:
+        case EMERGENCY:
+            stopCinta();
+            break;
+        
+        default:
+            stopCinta();
+            break;
     }
 
 }
@@ -31,9 +42,11 @@ void gestionCinta (status_belt_t modo)
 void moveCinta()
 {
     Motor(M6,ON,DERECHA);
+    cinta = true;
 }
 
 void stopCinta()
 {
     Motor(M6,OFF,DERECHA);
+    cinta = false;
 }

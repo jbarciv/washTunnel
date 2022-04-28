@@ -18,12 +18,10 @@
 #define REAL_TIME 31250      // Con un preescalado de 256 --> 31250 periodos es 1 s
 #define T_ENTRE_COCHES 5     // Dejamos 5 segundos al menos entre un coche y otro
 
-typedef int bool;
-#define true 1
-#define false 0
+typedef enum {false,true} bool;
 
-typedef enum {ON, OFF} status_t;
 /* Etiquetas para los motores */
+typedef enum {ON, OFF} status_t;
 typedef enum {M1, M2, M3, M4, M5, M6} motor_t;
 typedef enum {DERECHA, IZQUIERDA} direccion_t;
 /* Etiquetas para los sensores */
