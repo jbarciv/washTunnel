@@ -13,6 +13,21 @@ En futuras versiones:
 #include <commonstuff.h>
 #include <control.h>
 
+void gestionCinta (status_belt_t modo)
+{
+    switch (modo)
+    {
+        case NORMAL_OP:
+            numberOfCars ? moveCinta() : stopCinta();
+            break;
+        
+        case TEMP_SHUTDOWN:
+            stopCinta();
+
+    }
+
+}
+
 void moveCinta()
 {
     Motor(M6,ON,DERECHA);

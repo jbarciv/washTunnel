@@ -86,3 +86,17 @@ status_t Sensor(sensor_t sensor)
     }
     // en construcción... la intento llevar hecha para el mañana...
 }
+
+void Semaforo(luz_t color)
+{
+    if (color == GREEN)
+    {
+        SEM_PORT |= (1<<GREEN_PORT);
+        SEM_PORT &= (0<<RED_PORT);
+    }
+    else if (color == RED)
+    {
+        SEM_PORT |= (1<<RED_PORT);
+        SEM_PORT &= (0<<GREEN_PORT); 
+    }
+}

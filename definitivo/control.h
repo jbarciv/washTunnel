@@ -14,5 +14,10 @@
 
 void Motor(motor_t, status_t, direccion_t);
 status_t Sensor(sensor_t);
+void moveCinta();
+void stopCinta();
+void gestionCinta();
+void Semaforo (luz_t);
+void tunnelGotBusy();
 
 #endif /* CONTROL_H_ */

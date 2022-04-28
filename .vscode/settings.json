@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "control.h": "c",
+        "entrada.h": "c",
+        "commonstuff.h": "c"
+    }
+}

@@ -18,6 +18,10 @@
 #define REAL_TIME 31250      // Con un preescalado de 256 --> 31250 periodos es 1 s
 #define T_ENTRE_COCHES 5     // Dejamos 5 segundos al menos entre un coche y otro
 
+typedef int bool;
+#define true 1
+#define false 0
+
 typedef enum {ON, OFF} status_t;
 /* Etiquetas para los motores */
 typedef enum {M1, M2, M3, M4, M5, M6} motor_t;
@@ -26,6 +30,10 @@ typedef enum {DERECHA, IZQUIERDA} direccion_t;
 typedef enum {SO1, SO2, SO3, SO4, SO5, 
               SO6, SO7, SO8, SO9, SO10,
               SO11, SW1, SW2, SW3, SW4} sensor_t;
+/*Etiquetas para el semáforo*/
+typedef enum {RED,GREEN} luz_t;
+/*Etiquetas para la cinta*/
+typedef enum {NORMAL_OP,TEMP_SHUTDOWN} status_belt_t;
 
 // Motor  M1 -> BARRERA ENTRADA {PL0, PL1}
 #define M1ENPORT PORTL
@@ -77,12 +85,12 @@ typedef enum {SO1, SO2, SO3, SO4, SO5,
 #define SO8pin  2   
 #define SO9PIN  PINB    // PB2 -> Sensor secado drcha.
 #define SO9pin  3   
-#define SO10PIN PINB    // PB3 -> Sensor de "aviso" de salida
-#define SO10pin 4  
+#define SO10PIN PIND    // PD2 -> Sensor de "aviso" de salida
+#define SO10pin PIND2  
 #define SO11PIN PINB    // PB4 -> ¡!sin utilidad definida
-#define SO11pin 5  
+#define SO11pin PINB4  
 #define SO12PIN PINB    // PB5 -> Sensor de salida "definitiva"
-#define SO12pin 6
+#define SO12pin PINB5
 
 /* Etiquetas para los sensores mecanicos (microinterruptores) */
 #define SW1  (PIND & 0b00000001) // PD0 -> Sensor apertura-cierre de barrera
@@ -97,8 +105,9 @@ typedef enum {SO1, SO2, SO3, SO4, SO5,
 #define L5  (PINB & 0b00100000) // PB7 -> LED L5: semaforo rojo
 // Puertos para los LEDs
 #define L1PORT PORTD
-#define L4PORT PORTB
-#define L5PORT PORTB
+#define SEM_PORT PORTB
+#define GREEN_PORT PORTB6
+#define RED_PORT PORTB7
 
 
 /* Etiquetas para los 'estados' del tunel de lavado*/
