@@ -7,7 +7,7 @@ En esta funcion vamos a comprobar:
 En un futuro:
     Actualizará los datos del struct paramCar (dimensiones del coche)
 
-De la apertura de la barrera es encargará otra función que maneje el motor consultando tunelGotBusy()
+De la apertura de la barrera es encargará otra función que maneje el motor consultando tunnelGotBusy()
 
 */
 
@@ -50,29 +50,7 @@ void setup_timers()
 
 //La apertura de barrera debe ser controlada por consulta periódica porque puede que justo cuando llega el coche no pueda ser abierta porque hay otro que acaba de entrar. Al hacerlo por consulta periódica coseguimos que pueda haber un periodo de espera fuera de las interrupciones, simplificándolas. A tal efecto se ha creado la bandera carWaiting.
 
-int barrierPulseCounter = 0;
-int carWaiting = false;
 
-int tPreviousCar = 0;
-
-int antireb_S01 = 0;
-int antireb_S02 = 0;
-int antireb_S03 = 0;
-int antireb_S04 = 0;
-int antireb_S05 = 0;
-int antireb_S06 = 0;
-int antireb_S07 = 0;
-int antireb_S08 = 0;
-int antireb_S09 = 0;
-int antireb_S10 = 0;
-int antireb_S11 = 0;
-int antireb_S12 = 0;
-
-
-int antireb_SW1 = 0;
-int antireb_SW2 = 0;
-int antireb_SW3 = 0;
-int antireb_SW4 = 0;
 
 
 ISR (TIMER3_COMPA_vect)
@@ -113,7 +91,7 @@ ISR(INTO_vect)
         barrierStop();
         if ((PIND& (1<<PIND1) == 0))
         {
-            tunelGotBusy();
+            tunnelGotBusy();
 
         }
         barrierUp = 1;
@@ -155,7 +133,7 @@ void barrierStop()
     Motor(M1,OFF,DERECHA);
 }
 
-void tunelGotBusy()
+void tunnelGotBusy()
 {
     car++;    
 }
