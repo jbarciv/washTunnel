@@ -4,7 +4,7 @@
 //Motor(motor_t motor, status_t estado, direccion_t giro)
 // es posible que este motor tenga que tener PWM
 
-ISR (PCINT3_vect)       // PCINT puerto B
+ISR (PCINT0_vect)       // PCINT puerto B
 {
     if(SH==1){  //Bandera que indica si el secado esta ativo
         if((PINK&0x80)==0x80){  //Sensor de fin de carrera activo(SW3)
