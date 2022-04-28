@@ -19,15 +19,16 @@ void gestionCinta (status_t modo)
 {
     switch (modo)
     {
+        case STARTING:
+            stopCinta();
+            ready |= (1<<BELT_MOD);
+            break;
+
+        case WAITING:
         case BUSY:
             numberOfCars ? moveCinta() : stopCinta(); //numberOfCars se actualiza en tunnelGotBusy()
             break;
-        
-        case STARTING:
-            stopCinta();
-            
-            break;
-        case WAITING:
+
         case EMERGENCY:
             stopCinta();
             break;

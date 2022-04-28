@@ -13,7 +13,7 @@ salida del tunel:
 #include <control.h>
 #include <entrada.h>
 
-bool carLeaving = false
+bool carLeaving = false;
 bool flag = true;
 
 //Rutina de interrupción SO10 (activa por flanco de bajada)
@@ -29,35 +29,59 @@ ISR(INT0_vect)
 }
 
 //Consulta periódica de SO12
-void carLeavingTunnel ()
+void carLeavingTunnel (status_t mode)
 {
-    if (SO12pin) //No hay nada cortando el sensor. No está detectando nada
+    switch (mode)
     {
-        if(flag)
-        {
-            flag = true; //No detecta nada
-        }
-        else if(!flag) //Esto es un flanco de bajada. Antes detectaba y ahora no.
-        {
-            if (!SO11pin) //Se produce un flanco de bajada, pero sigue habiendo coche dentro => estan dando marcha atrás en la salida, ojo cuidao
+        case STARTING:
+            if (SO12pin && SO11pin && SO10pin)
             {
-                flag = true;
-            }
-            else if (SO11pin) //Esta es la buena, aquí el coche está saliendo de verdad
-            {
-                carLeaving = false;
                 Semaforo(RED);
-                flag = true;
+                ready |= (1 << OUT_MOD);
             }
-        }
-    }
-    else if (!SO12pin)
-    {
-        flag = false;
-    }
+            else
+            {
+                Semaforo(GREEN);
+                ready &= ~(1 << OUT_MOD);
+            }
+            break;
 
-    if (carLeaving && secado) //Si hay un coche en el secado y otro en la salida, paramos la cinta para evitar choques
-    {
-        gestionCinta(TEMP_SHUTDOWN);
+        case WAITING:
+        case BUSY:
+            if (SO12pin) // No hay nada cortando el sensor. No está detectando nada
+            {
+                if (flag)
+                {
+                    flag = true; // No detecta nada
+                }
+                else if (!flag) // Esto es un flanco de bajada. Antes detectaba y ahora no.
+                {
+                    if (!SO11pin) // Se produce un flanco de bajada, pero sigue habiendo coche dentro => estan dando marcha atrás en la salida, ojo cuidao
+                    {
+                        flag = true;
+                    }
+                    else if (SO11pin) // Esta es la buena, aquí el coche está saliendo de verdad
+                    {
+                        carLeaving = false;
+                        Semaforo(RED);
+                        flag = true;
+                    }
+                }
+            }
+            else if (!SO12pin)
+            {
+                flag = false;
+            }
+
+            if (carLeaving && secado) // Si hay un coche en el secado y otro en la salida, paramos la cinta para evitar choques
+            {
+                gestionCinta(WAITING);
+            }
+            break;
+
+        case EMERGENCY:
+            Semaforo(RED);
+            break;
     }
+    
 }

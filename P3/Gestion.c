@@ -53,19 +53,22 @@ las siguientes funciones, que gestionarán cada una un módulo concreto.
     carLeavingTunnel()  -->Bandera de funcionamiento
                                 - bool secado = (true/false)
                         -->Estados de operación
-                                - STARTING (+)
+                                - STARTING 
                                 - WAITING  (+)
-                                - BUSY    
+                                - BUSY     (+)
                                 - EMERGENCY
 
     (+) == estados idénticos, es decir, hacen lo mismo.
 
 */
 
+#include <commonstuff.h>
+#include <control.h>
+
 void gestion()
 {
 
-    if (ready != 0b1111111) //un 1 por cada modulo/función
+    if (ready != 0b01111111) //un 1 por cada modulo/función
     {
         barrierControl(STARTING);
         lavadoVertical(STARTING);

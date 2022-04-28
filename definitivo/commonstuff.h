@@ -148,4 +148,17 @@ typedef enum
 
 // status_t getCurrentStatus();
 
+#define ENTRY_MOD 0
+#define LV_MOD 1
+#define LH_MOD 2
+#define DRYER_MOD 3
+#define LIGHT_MOD 4
+#define BELT_MOD 5
+#define OUT_MOD 6
+
+/*********************Variables globales***********************************/
+
+char ready = 0b00000000; //Variable encargada de registrar el proceso de STARTING del sistema
+
+
 #endif /* LAVADERO_H_ */
