@@ -28,11 +28,11 @@ ISR (PCINT3_vect)       // PCINT puerto B
             }else{
                 Motor(M5,ON,DERECHA);   //El coche que ha ido para atras sigue bloqueando
             }
-            
+        } 
         else{
             SH=1;
         }
-        }
+        
     }
     PINB0=PINB;
 }
