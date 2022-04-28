@@ -39,8 +39,8 @@ Secado medio                S08----->PB1 (PCINT1)
 Secado final                S09----->PB2 (PCINT2)
 Abandono de cinta           S10----->PB3 (PCINT3)
 
-Paso final                  S11----->PB4 (PCINT4_no usar)
-Abandono de estación        S12----->PB5 (PCINT5_no usar)
+Paso final                  S11----->PD2 (PCINT4_no usar)
+Abandono de estación        S12----->PB4 (PCINT5_no usar)
 
 -----------------------INTERRUPTORES-------------------------
 
