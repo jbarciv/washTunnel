@@ -12,6 +12,7 @@
 #ifndef CONTROL_H_
 #define CONTROL_H_
 
-void Motor(motor_t, motor_status_t, direccion_t);
+void Motor(motor_t, status_t, direccion_t);
+status_t Sensor(sensor_t);
 
 #endif /* CONTROL_H_ */

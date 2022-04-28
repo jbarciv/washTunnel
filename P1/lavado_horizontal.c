@@ -1,7 +1,7 @@
 #include "commonstuff.h"
 #include "lavado_horizontal.h"
 //variable global LH?
-//Motor(motor_t motor, motor_status_t estado, direccion_t giro)
+//Motor(motor_t motor, status_t estado, direccion_t giro)
 //fucion que realiza el control del lavado por consulta periodica, tiene que estar en el bucle del main
 
 //variariable LH

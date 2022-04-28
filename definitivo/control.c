@@ -5,7 +5,9 @@
 
 #include "control.h"
 
-void Motor(motor_t motor, motor_status_t estado, direccion_t giro)
+// extern variable_tiempo_antirrebotes_como_se_llame;
+
+void Motor(motor_t motor, status_t estado, direccion_t giro)
 {
     // creamos variables generales para el puerto del motor y su pin tanto para
     // el enable (EN), como la direccion (DI).
@@ -14,39 +16,39 @@ void Motor(motor_t motor, motor_status_t estado, direccion_t giro)
     {
         case M1: 
             enPort = M1ENPORT;
-            enPin = M1ENPIN;
+            enPin = M1ENpin;
             diPort = M1DIPORT;
-            diPin = M1DIPIN;
+            diPin = M1DIpin;
             break;
         case M2: 
             enPort = M2ENPORT;
-            enPin = M2ENPIN;
+            enPin = M2ENpin;
             diPort = M2DIPORT;
-            diPin = M2DIPIN;
+            diPin = M2DIpin;
             break;
         case M3: 
             enPort = M3ENPORT;
-            enPin = M3ENPIN;
+            enPin = M3ENpin;
             diPort = M3DIPORT;
-            diPin = M3DIPIN;
+            diPin = M3DIpin;
             break;
         case M4: 
             enPort = M4ENPORT;
-            enPin = M4ENPIN;
+            enPin = M4ENpin;
             diPort = M4DIPORT;
-            diPin = M4DIPIN;
+            diPin = M4DIpin;
             break;
         case M5: 
             enPort = M5ENPORT;
-            enPin = M5ENPIN;
+            enPin = M5ENpin;
             diPort = M5DIPORT;
-            diPin = M5DIPIN;
+            diPin = M5DIpin;
             break;
         case M6: 
             enPort = M6ENPORT;
-            enPin = M6ENPIN;
+            enPin = M6ENpin;
             diPort = M6DIPORT;
-            diPin = M6DIPIN;
+            diPin = M6DIpin;
             break;
     }
 
@@ -66,4 +68,21 @@ void Motor(motor_t motor, motor_status_t estado, direccion_t giro)
     {
         enPort &= (0 << enPin);
     }
+}
+
+// estoy trabajando con los sensores por ahora no lo empleéis...
+// ya os indicaré (si finalmente tiene sentido) cómo funcionan.
+// algo tipo if(Sensor(SO4) == ON) ... Y Sensor() ya se encarga del antirrebotes y de devolverte ON o OFF...
+
+status_t Sensor(sensor_t sensor)
+{
+    char s_PIN, s_pin; 
+    switch (sensor)
+    {
+        case SO1: 
+            s_PIN = SO1PIN;
+            s_pin = SO1pin;
+            break;
+    }
+    // en construcción... la intento llevar hecha para el mañana...
 }

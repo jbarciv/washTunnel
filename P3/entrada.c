@@ -11,8 +11,8 @@ De la apertura de la barrera es encargará otra función que maneje el motor con
 
 */
 
-#include <commonstuff.h>
-#include <control.h>
+#include "commonstuff.h"
+#include "control.h"
 
 // Aunque en esta función solo vamos a utilizar una PCINT, en el setup hay que activarlas todas para poder usarlas en otras funciones
 
