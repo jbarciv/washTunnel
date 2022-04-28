@@ -59,30 +59,30 @@ typedef enum {SO1, SO2, SO3, SO4, SO5,
 #define M6DIpin 7
 
 /* Etiquetas para los sensores opticos */
-#define SO1PIN  PINK // PK0 -> Sensor de entrada "abajo"
+#define SO1PIN  PINK    // PK0 -> Sensor de entrada "abajo"
 #define SO1pin  1
-#define SO2PIN  PINK // PK1 -> Sensor de entrada barrera
+#define SO2PIN  PINK    // PK1 -> Sensor de entrada barrera
 #define SO2pin  2
-#define SO3PIN  PINK // PK2 -> Sensor lavado horiz. izqda.
-#define SO3pin  3
-#define SO4PIN  PINK // PK3 -> Sensor lavado horiz. centro
-#define SO4pin  4
-#define SO5PIN  PINK // PK4 -> Sensor lavado horiz. drcha.
-#define SO5pin  5
-#define SO6PIN  PINK // PK5 -> ¡!sin utilidad definida
-#define SO6pin  6
-#define SO7PIN  PINB // PB0 -> Sensor secado izqda.
-#define SO7pin  1
-#define SO8PIN  PINB // PB1 -> Sensor secado centro.
-#define SO8pin  2
-#define SO9PIN  PINB // PB2 -> Sensor secado drcha.
-#define SO9pin  3
-#define SO10PIN PINB // PB3 -> Sensor de "aviso" de salida
-#define SO10pin  4
-#define SO11PIN PINB // PB4 -> ¡!sin utilidad definida
-#define SO11pin  5
-#define SO12PIN PINB // PB5 -> Sensor de salida "definitiva"
-#define SO12pin  6
+#define SO3PIN  PINK    // PK2 -> Sensor lavado horiz. izqda.
+#define SO3pin  3   
+#define SO4PIN  PINK    // PK3 -> Sensor lavado horiz. centro
+#define SO4pin  4   
+#define SO5PIN  PINK    // PK4 -> Sensor lavado horiz. drcha.
+#define SO5pin  5   
+#define SO6PIN  PINK    // PK5 -> ¡!sin utilidad definida
+#define SO6pin  6   
+#define SO7PIN  PINB    // PB0 -> Sensor secado izqda.
+#define SO7pin  1   
+#define SO8PIN  PINB    // PB1 -> Sensor secado centro.
+#define SO8pin  2   
+#define SO9PIN  PINB    // PB2 -> Sensor secado drcha.
+#define SO9pin  3   
+#define SO10PIN PINB    // PB3 -> Sensor de "aviso" de salida
+#define SO10pin 4  
+#define SO11PIN PINB    // PB4 -> ¡!sin utilidad definida
+#define SO11pin 5  
+#define SO12PIN PINB    // PB5 -> Sensor de salida "definitiva"
+#define SO12pin 6
 
 /* Etiquetas para los sensores mecanicos (microinterruptores) */
 #define SW1  (PIND & 0b00000001) // PD0 -> Sensor apertura-cierre de barrera

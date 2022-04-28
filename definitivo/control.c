@@ -16,39 +16,39 @@ void Motor(motor_t motor, status_t estado, direccion_t giro)
     {
         case M1: 
             enPort = M1ENPORT;
-            enPin = M1ENpin;
+            enPin  = M1ENpin;
             diPort = M1DIPORT;
-            diPin = M1DIpin;
+            diPin  = M1DIpin;
             break;
         case M2: 
             enPort = M2ENPORT;
-            enPin = M2ENpin;
+            enPin  = M2ENpin;
             diPort = M2DIPORT;
-            diPin = M2DIpin;
+            diPin  = M2DIpin;
             break;
         case M3: 
             enPort = M3ENPORT;
-            enPin = M3ENpin;
+            enPin  = M3ENpin;
             diPort = M3DIPORT;
-            diPin = M3DIpin;
+            diPin  = M3DIpin;
             break;
         case M4: 
             enPort = M4ENPORT;
-            enPin = M4ENpin;
+            enPin  = M4ENpin;
             diPort = M4DIPORT;
-            diPin = M4DIpin;
+            diPin  = M4DIpin;
             break;
         case M5: 
             enPort = M5ENPORT;
-            enPin = M5ENpin;
+            enPin  = M5ENpin;
             diPort = M5DIPORT;
-            diPin = M5DIpin;
+            diPin  = M5DIpin;
             break;
         case M6: 
             enPort = M6ENPORT;
-            enPin = M6ENpin;
+            enPin  = M6ENpin;
             diPort = M6DIPORT;
-            diPin = M6DIpin;
+            diPin  = M6DIpin;
             break;
     }
 
