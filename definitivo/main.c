@@ -9,8 +9,16 @@
 #include "commonstuff.h"
 
 
+void motorSetup()
+{
+    DDRL |= 0xFF;
+    DDRD |= 0xF0;
+}
+
+
 int main(void)
 {
+    motorSetup();
     
     while(1)
     {

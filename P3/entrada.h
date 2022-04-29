@@ -3,15 +3,19 @@ Archivo provisional para comprobación del código. Seguramente puede incluirse
 dentro de commonstuff.h
 */
 
-#include <commonstuff.h>
+#include "commonstuff.h"
 
 #ifndef ENTRADA_H_
 #define ENTRADA_H_
 
 int barrierPulseCounter = 0;
-int carWaiting = false;
+bool barrierUp = FALSE;
 
+bool carWaiting = FALSE;
 int tPreviousCar = 0;
+
+int miliseconds = 0;
+int seconds = 0;
 
 int antireb_S01 = 0;
 int antireb_S02 = 0;

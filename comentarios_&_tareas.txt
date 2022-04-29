@@ -55,7 +55,7 @@ Parada de emergencia                SW4-----> PD3 (INT3)
 
     DESCRIPCIÓN                INTERRUPTOR   PUERTO
 
-Luz funcionamiento                  L1------> PD2
+Luz funcionamiento                  L1------> PB3
 Luz salida (luz verde)              L4------> PB6
 Luz salida (luz roja)               L5------> PB7
 
