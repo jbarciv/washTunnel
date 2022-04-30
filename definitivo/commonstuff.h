@@ -19,7 +19,7 @@
 #define T_ENTRE_COCHES  5     // Dejamos 5 segundos al menos entre un coche y otro
 
 
-typedef enum {false,true}               bool;
+typedef enum {false, true}               bool;
 /* Etiquetas para los motores */
 typedef enum {M1, M2, M3, M4, M5, M6}   motor_t;
 typedef enum {ON, OFF}                  status_t;
@@ -32,7 +32,7 @@ typedef enum {SO1, SO2, SO3, SO4, SO5,
 typedef enum {L1, L4, L5}               luz_t;
 typedef enum {RED,GREEN}                status_luz_t;
 /*Etiquetas para la barrera*/
-typedef enum {UP,DOWN}                  barrier_status_t;
+typedef enum {UP,DOWN, WAIT}                  barrier_status_t;
 /* Etiquetas para los 'estados' del tunel de lavado*/
 typedef enum 
 {
@@ -73,11 +73,14 @@ typedef enum
 #define M6DIPORT        PORTD
 #define M6DIpin         7
 
+
+
 /* Etiquetas para los sensores opticos */
 #define SO1PIN          PIND   // PD1 -> Sensor de entrada "abajo"
 #define SO1pin          1
-#define SO2PIN          PINK   // PK1 -> Sensor de entrada barrera
-#define SO2pin          1
+
+#define SO2_f (PINK & (1 << PINK1))
+
 #define SO3PIN          PINK   // PK2 -> Sensor lavado horiz. izqda.
 #define SO3pin          2   
 #define SO4PIN          PINK   // PK3 -> Sensor lavado horiz. centro

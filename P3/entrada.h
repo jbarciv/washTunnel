@@ -9,9 +9,10 @@ dentro de commonstuff.h
 #define ENTRADA_H_
 
 int barrierPulseCounter = 0;
-bool barrierUp = FALSE;
+bool barrierUp;
+bool barrierDown;
 
-bool carWaiting = FALSE;
+bool carWaiting = false;
 int tPreviousCar = 0;
 
 int miliseconds = 0;

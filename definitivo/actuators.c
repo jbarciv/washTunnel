@@ -102,7 +102,7 @@ void Luz(luz_t luz, status_t estado)
 }
 
 
-void Semaforo(estado_luz_t color)
+void Semaforo(status_luz_t color)
 {
     if (color == GREEN)
     {

@@ -8,6 +8,7 @@
 
 #include "commonstuff.h"
 
+bool SO1_f; // estado real(filtrado) del sensor SO1
 
 void motorSetup()
 {

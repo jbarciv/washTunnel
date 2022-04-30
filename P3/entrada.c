@@ -1,5 +1,4 @@
 /*
-
 En esta funcion vamos a comprobar:
     Si algún coche está en la entrada
     Suma 1 coche por flanco de bajada (cuando pasa la parte trasera del coche)
@@ -8,11 +7,11 @@ En un futuro:
     Actualizará los datos del struct paramCar (dimensiones del coche)
 
 De la apertura de la barrera es encargará otra función que maneje el motor consultando tunnelGotBusy()
-
 */
 
 #include "commonstuff.h"
-#include "control.h"
+#include "actuators.h"
+#include "entrada.h"
 
 // Aunque en esta función solo vamos a utilizar una PCINT, en el setup hay que activarlas todas para poder usarlas en otras funciones
 
@@ -53,77 +52,64 @@ void setup_timers()
 
 
 
-ISR (TIMER3_COMPA_vect)
+ISR (TIMER3_COMPA_vect) // Interrumpe cada 1 ms
 {
-    antireb_SW1++;
-    antireb_SW2++;
-    antireb_SW3++;
-    antireb_SW4++;
-
-    antireb_S01++;
-    antireb_S02++;
-    antireb_S03++;
-    antireb_S04++;
-    antireb_S05++;
-    antireb_S06++;
-    antireb_S07++;
-    antireb_S08++;
-    antireb_S09++;
-    antireb_S10++;
-    antireb_S11++;
-    antireb_S12++;
+    miliseconds++;
 }
 
-ISR (TIMER4_COMPA_vect)
+ISR (TIMER4_COMPA_vect) // Interrumpe cada 1 s
 {
-    tPreviousCar++;
+    seconds++;
 }
 
 
-ISR(INTO_vect)
-{
-    if(antireb_SW1 > DELAY_BOTON)
+//Activo por flanco de subida
+ISR(INTO_vect) // Microinterruptor SW1: contador pulsos barrera
+{   
+    if ((miliseconds - antireb_SW1) > BOTON_DELAY)
+    {   
+        (barrierPulseCounter == 5) ? (barrierPulseCounter = 0) : barrierPulseCounter++ ;
+        antireb_SW1 = miliseconds;
+    }
+    if (barrierPulseCounter == 3)   // Barrera levantada
+        barrierUp = true;
+    }
+    else 
     {
-        barrierPulseCounter == 5 ? barrierPulseCounter = 0 : barrierPulseCounter++; //Movemos el motor siempre en el mismo sentido
-        antireb_SW1 = 0;
+        barrierUp = false;
     }
-    if (barrierPulseCounter == 3) //la barrera llega arriba
-        barrierStop();
-        if ((PIND& (1<<PIND1) == 0))
-        {
-            tunnelGotBusy();
-
-        }
-        barrierUp = 1;
+    if (barrierPulseCounter == 5 || barrierPulseCounter == 0 || SO2_f == false)   // Barrera levantada
+        barrierDown = true;
     }
 }
 
-ISR (INT1_vect)       // PCINT(23:16), puerto K
+//Activo por flanco de subida y bajada.
+ISR (INT1_vect)
 {
-    if ((PIND& (1<<PIND1) == 0) && antirreb_S01 > DELAY_SENSOR)
+    // if ((PIND & (1<<PIND1) == 0) && antirreb_S01 > SENSOR_DELAY)
+    if (miliseconds - antireb_S01 > BOTON_DELAY)
     {
-        if ( tPreviousCar > T_ENTRE_COCHES )
-        {
-            moveBarrier();
-        }
-        else 
-        {
-            carWaiting = true;
-        }
-        antireb_S01 = 0;
+    // if (seconds - tPreviousCar > T_ENTRE_COCHES)
+    // {
+        barrierMove();
+    // }
+    // else 
+    // {
+    //     carWaiting = TRUE;
+    // }
+        antireb_S01 = miliseconds;
     }
-    if ((PIND& (1<<PIND1) == 1) && antirreb_S01 > DELAY_SENSOR)
-    {
-        if (!barrierUp)
-        {
-            bajando=1;
-        }
-        moveBarrier();
-    }
-
+    // if ((PIND& (1<<PIND1) == 1) && antirreb_S01 > DELAY_SENSOR)
+    // {
+    //     if (!barrierUp)vs control
+    //     {
+    //         bajando=1;
+    //     }
+    //     barrierMove();
+    // }
 }
 
-void moveBarrier()
+void barrierMove()
 {
     Motor(M1,ON,DERECHA);
 }
@@ -133,13 +119,54 @@ void barrierStop()
     Motor(M1,OFF,DERECHA);
 }
 
-void tunnelGotBusy()
-{
-    car++;    
-}
+// void tunnelGotBusy()
+// {
+//     car++;    
+// }
 
 
 void isBarrierDown ()
 {
     if (PINK & (1<<PINK1)==1)
+}
+
+
+void barrera(barrier_status_t estado)
+{
+    if (estado == UP)
+    {
+        barrierMove();
+        if (barrierUp)
+        {
+            barrierStop();
+        }
+    }
+
+    if (estado == DOWN)
+    {
+        barrierMove();
+        if (barrierDown)
+        {
+            barrierStop();
+        }
+    }
+
+    if (estado == WAIT)
+    {
+        barrierStop();
+    }
+    
+    if (SO2_f == true)
+    {
+        barrierDown = false;
+    }
+}
+
+void barrierControl(status_t modo)
+{
+    switch(modo)
+    {
+        case ...
+    }
+    barrera(UP);
 }

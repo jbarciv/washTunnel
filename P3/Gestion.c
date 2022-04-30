@@ -78,5 +78,9 @@ void gestion()
         gestionCinta(STARTING);
         carLeavingTunnel(STARTING);
     }
+    else if ()
+    {
+
+    }
     
 }
