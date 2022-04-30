@@ -1,16 +1,18 @@
 /* ----------------------------------------------------------------------------
- * Control del Hardware: Motor
+ * Control del Hardware: Motor, Luz
  * 
  * -------------------------------------------------------------------------- */
 
-#include "control.h"
+#include "actuators.h"
 
-// extern variable_tiempo_antirrebotes_como_se_llame;
-
+/* USO DE MOTOR()
+    motor  -> {M1, M2, M3, M4, M5, M6}
+    estado -> {ON, OFF}                 
+    giro   -> {DERECHA, IZQUIERDA}
+ej. Motor(M1, ON, DERECHA);
+*/
 void Motor(motor_t motor, status_t estado, direccion_t giro)
 {
-    // creamos variables generales para el puerto del motor y su pin tanto para
-    // el enable (EN), como la direccion (DI).
     char enPort, diPort, enPin, diPin; 
     switch (motor)
     {
@@ -54,15 +56,10 @@ void Motor(motor_t motor, status_t estado, direccion_t giro)
 
     if(estado == ON)
     {   
-        if (giro == DERECHA) // primero establecemos la direccion (1=drcha. 0=izqda.)
+        if (giro == DERECHA)    // Establecemos la direccion (1=drcha. 0=izqda.)
         {
-            diPort |= (1 << diPin);
-        } 
-        else
-        {
-            diPort &= ~(1 << diPin);
-        }
-        enPort |= (1 << enPin); // despues encendemos el motor
+            diPort |= (1 SO1
+        enPort |= (1 << enPin); // Despues encendemos el motor
     } 
     else
     {
@@ -70,33 +67,51 @@ void Motor(motor_t motor, status_t estado, direccion_t giro)
     }
 }
 
-// estoy trabajando con los sensores por ahora no lo empleéis...
-// ya os indicaré (si finalmente tiene sentido) cómo funcionan.
-// algo tipo if(Sensor(SO4) == ON) ... Y Sensor() ya se encarga del antirrebotes y de devolverte ON o OFF...
-
-status_t Sensor(sensor_t sensor)
-{
-    char s_PIN, s_pin; 
-    switch (sensor)
+/* USO DE LUZ()
+    luz    -> {L1, L4, L5}
+    estado -> {ON, OFF}                
+ej. Luz(L1, ON);
+*/
+void Luz(luz_t luz, status_t estado)
+{   
+    char lPort, lPin;
+    switch (luz)
     {
-        case SO1: 
-            s_PIN = SO1PIN;
-            s_pin = SO1pin;
-            break;
+    case L1:
+        lPort = L1PORT;
+        lPin  = L1pin;
+        break;
+    case L4:
+        lPort = L4PORT;
+        lPin  = L4pin;
+        break;
+    case L5:
+        lPort = L5PORT;
+        lPin  = L5pin;
+        break;
     }
-    // en construcción... la intento llevar hecha para el mañana...
+
+    if(estado == ON)
+    {
+        lPort |= (1 << lPin);
+    }
+    else
+    {
+        lPort &| ~(1 << lPin);
+    }
 }
 
-void Semaforo(luz_t color)
+
+void Semaforo(estado_luz_t color)
 {
     if (color == GREEN)
     {
-        SEM_PORT |= (1<<GREEN_PORT);
-        SEM_PORT &= ~(1<<RED_PORT);
+        Luz(L4,ON);
+        Luz(L5,OFF);
     }
     else if (color == RED)
     {
-        SEM_PORT |= (1<<RED_PORT);
-        SEM_PORT &= ~(1<<GREEN_PORT); 
+        Luz(L5,ON);
+        Luz(L4,OFF); 
     }
 }

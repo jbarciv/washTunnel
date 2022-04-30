@@ -30,7 +30,7 @@ typedef enum {SO1, SO2, SO3, SO4, SO5,
               SO11,SW1, SW2, SW3, SW4} sensor_t;
 /*Etiquetas para los LEDs*/
 typedef enum {L1, L4, L5}               luz_t;
-typedef enum {RED,GREEN}                estado_luz_t;
+typedef enum {RED,GREEN}                status_luz_t;
 /*Etiquetas para la barrera*/
 typedef enum {UP,DOWN}                  barrier_status_t;
 /* Etiquetas para los 'estados' del tunel de lavado*/

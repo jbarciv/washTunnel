@@ -7,17 +7,19 @@
  * -------------------------------------------------------------------------- */
 
 
-#include <commonstuff.h>
+#include "commonstuff.h"
 
-#ifndef CONTROL_H_
-#define CONTROL_H_
+#ifndef ACTUATORS_H_
+#define ACTUATORS_H_
 
 void Motor(motor_t, status_t, direccion_t);
-status_t Sensor(sensor_t);
-void moveCinta();
-void stopCinta();
-void gestionCinta();
-void Semaforo (luz_t);
-void tunnelGotBusy();
+void Luz(luz_t, status_t);
+void Semaforo (status_luz_t);
 
-#endif /* CONTROL_H_ */
+// void moveCinta();
+// void stopCinta();
+// void gestionCinta();
+
+// void tunnelGotBusy();
+
+#endif /* ACTUATORS_H_ */
