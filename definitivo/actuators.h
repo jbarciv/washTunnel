@@ -1,9 +1,10 @@
 /* ----------------------------------------------------------------------------
- * aquí se define el prototipo de las funciones para control
+CONTROL DEL HARDWARE - PROTOTIPO DE FUNCIONES
+ *  - MOTOR
+ *  - LUZ
  * 
- * 
- * 
- * 
+ * DATE: 02/05/2022
+ * AUTOR: Josep María Barberá Civera
  * -------------------------------------------------------------------------- */
 
 
@@ -12,14 +13,13 @@
 #ifndef ACTUATORS_H_
 #define ACTUATORS_H_
 
-void Motor(motor_t, status_t, direccion_t);
-void Luz(luz_t, status_t);
-void Semaforo (status_luz_t);
+void motor(motor_t, status_t, direccion_t);
+void luz(luz_t, status_t);
+void semaforo (status_luz_t);                   // CREO QUE DEBE MOVERSE A OTRO SITIO (?)
 
-// void moveCinta();
+// void moveCinta();                            // CREO QUE DEBEN MOVERSE A OTRO SITIO (?)
 // void stopCinta();
 // void gestionCinta();
-
 // void tunnelGotBusy();
 
 #endif /* ACTUATORS_H_ */

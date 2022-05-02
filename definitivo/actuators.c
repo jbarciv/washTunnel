@@ -1,17 +1,22 @@
 /* ----------------------------------------------------------------------------
- * Control del Hardware: Motor, Luz
+ * CONTROL DEL HARDWARE
+ *  - MOTOR
+ *  - LUZ
  * 
+ * DATE: 02/05/2022
+ * AUTOR: Josep María Barberá Civera
  * -------------------------------------------------------------------------- */
 
 #include "actuators.h"
 
-/* USO DE MOTOR()
+/*************************************** 
+MOTORES
     motor  -> {M1, M2, M3, M4, M5, M6}
     estado -> {ON, OFF}                 
     giro   -> {DERECHA, IZQUIERDA}
-ej. Motor(M1, ON, DERECHA);
-*/
-void Motor(motor_t motor, status_t estado, direccion_t giro)
+ej. motor(M1, ON, DERECHA);
+***************************************/
+void motor(motor_t motor, status_t estado, direccion_t giro)
 {
     char enPort, diPort, enPin, diPin; 
     switch (motor)
@@ -72,12 +77,13 @@ void Motor(motor_t motor, status_t estado, direccion_t giro)
     }
 }
 
-/* USO DE LUZ()
+/***************************************
+LUCES
     luz    -> {L1, L4, L5}
     estado -> {ON, OFF}                
 ej. Luz(L1, ON);
-*/
-void Luz(luz_t luz, status_t estado)
+***************************************/
+void luz(luz_t luz, status_t estado)
 {   
     char lPort, lPin;
     switch (luz)
@@ -107,7 +113,7 @@ void Luz(luz_t luz, status_t estado)
 }
 
 
-void Semaforo(status_luz_t color)
+void semaforo(status_luz_t color)
 {
     if (color == GREEN)
     {
