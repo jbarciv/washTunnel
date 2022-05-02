@@ -18,7 +18,15 @@
 #define REAL_TIME       31250      // Con un preescalado de 256 --> 31250 periodos es 1 s
 #define T_ENTRE_COCHES  5     // Dejamos 5 segundos al menos entre un coche y otro
 
-
+/* Etiquetas para los 'estados' del tunel de lavado*/
+typedef enum 
+{
+    STARTING,   // Inicializando el sistema
+    WAITING,    // Estado de reposo, no se hace nada
+    BUSY,       // Estado de tunel funcionando
+    EMERGENCY   // Estado de emergencia
+}                                       mode_t;
+/* Declaración del tipo boolean */
 typedef enum {false, true}              bool;
 /* Etiquetas para los motores */
 typedef enum {M1, M2, M3, M4, M5, M6}   motor_t;
@@ -33,14 +41,7 @@ typedef enum {L1, L4, L5}               luz_t;
 typedef enum {RED, GREEN}               status_luz_t;
 /*Etiquetas para la barrera*/
 typedef enum {UP, DOWN, WAIT}           barrier_status_t;
-/* Etiquetas para los 'estados' del tunel de lavado*/
-typedef enum 
-{
-    STARTING,   // Inicializando el sistema
-    WAITING,    // Estado de reposo, no se hace nada
-    BUSY,       // Estado de tunel funcionando
-    EMERGENCY   // Estado de emergencia
-}                                       mode_t;
+
 
 // Motor  M1 -> BARRERA ENTRADA {PL0, PL1}
 #define M1ENPORT  PORTL
@@ -130,11 +131,8 @@ typedef enum
 
 /********************* Variables globales ***********************************/
 // Gestión del tiempo
-#define unsigned long int miliseconds_t;
-#define unsigned int seconds_t;
-
-miliseconds_t miliseconds = 0;
-seconds_t seconds = 0;
+typedef unsigned long int   miliseconds_t;
+typedef unsigned int        seconds_t; 
 
 
 char ready = 0b00000000; //Variable encargada de registrar el proceso de STARTING del sistema
