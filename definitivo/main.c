@@ -8,7 +8,10 @@
 
 #include "commonstuff.h"
 
-bool SO1_f; // estado real(filtrado) del sensor SO1
+/********************* Variables globales ***********************************/
+miliseconds_t   miliseconds = 0;
+seconds_t       seconds = 0;
+bool            SO1_f;          // estado real(filtrado) del sensor SO1
 
 void motorSetup()
 {
@@ -20,6 +23,7 @@ void motorSetup()
 int main(void)
 {
     motorSetup();
+    
     
     while(1)
     {
