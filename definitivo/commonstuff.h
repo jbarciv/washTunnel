@@ -75,31 +75,31 @@ typedef enum {UP, DOWN, WAIT}           barrier_status_t;
 #define M6DIpin   7
 
 /* Etiquetas para los sensores opticos */
-#define SO1PIN     PIND   // PD1 -> Sensor de entrada "abajo"
-#define SO1pin     1
+#define SO1PIN    PIND   // PD1 -> Sensor de entrada "abajo"
+#define SO1pin    1
 
 #define SO2_f (PINK & (1 << PINK1))
 
-#define SO3PIN     PINK   // PK2 -> Sensor lavado horiz. izqda.
-#define SO3pin     2   
-#define SO4PIN     PINK   // PK3 -> Sensor lavado horiz. centro
-#define SO4pin     3   
-#define SO5PIN     PINK   // PK4 -> Sensor lavado horiz. drcha.
-#define SO5pin     4   
-#define SO6PIN     PINK   // PK5 -> ¡!sin utilidad definida
-#define SO6pin     5   
-#define SO7PIN     PINB   // PB0 -> Sensor secado izqda.
-#define SO7pin     0   
-#define SO8PIN     PINB   // PB1 -> Sensor secado centro.
-#define SO8pin     1   
-#define SO9PIN     PINB   // PB2 -> Sensor secado drcha.
-#define SO9pin     2   
-#define SO10PIN    PIND   // PD2 -> Sensor de "aviso" de salida
-#define SO10pin    2  
-#define SO11PIN    PINB   // PB4 -> ¡!sin utilidad definida
-#define SO11pin    4 
-#define SO12PIN    PINB   // PB5 -> Sensor de salida "definitiva"
-#define SO12pin    5
+#define SO3PIN    PINK   // PK2 -> Sensor lavado horiz. izqda.
+#define SO3pin    2   
+#define SO4PIN    PINK   // PK3 -> Sensor lavado horiz. centro
+#define SO4pin    3   
+#define SO5PIN    PINK   // PK4 -> Sensor lavado horiz. drcha.
+#define SO5pin    4   
+#define SO6PIN    PINK   // PK5 -> ¡!sin utilidad definida
+#define SO6pin    5   
+#define SO7PIN    PINB   // PB0 -> Sensor secado izqda.
+#define SO7pin    0   
+#define SO8PIN    PINB   // PB1 -> Sensor secado centro.
+#define SO8pin    1   
+#define SO9PIN    PINB   // PB2 -> Sensor secado drcha.
+#define SO9pin    2   
+#define SO10PIN   PIND   // PD2 -> Sensor de "aviso" de salida
+#define SO10pin   2  
+#define SO11PIN   PINB   // PB4 -> ¡!sin utilidad definida
+#define SO11pin   4 
+#define SO12PIN   PINB   // PB5 -> Sensor de salida "definitiva"
+#define SO12pin   5
 
 /* Etiquetas para los sensores mecanicos (microinterruptores) */
 #define SW1          PIND    // PD0 -> Sensor apertura-cierre de barrera
@@ -109,16 +109,16 @@ typedef enum {UP, DOWN, WAIT}           barrier_status_t;
 #define emergency_b  SW4
 
 /* Etiquetas para los LEDs */
-#define L1           PINB    // PB3 -> LED L1: WAITING or BUSY
-#define L4           PINB    // PB6 -> LED L4: semaforo verde
-#define L5           PINB    // PB7 -> LED L5: semaforo rojo
+#define L1        PINB    // PB3 -> LED L1: WAITING or BUSY
+#define L4        PINB    // PB6 -> LED L4: semaforo verde
+#define L5        PINB    // PB7 -> LED L5: semaforo rojo
 // Puertos para los LEDs
-#define L1PORT       PORTB
-#define L1pin        3
-#define L4PORT       PORTB
-#define L4pin        6
-#define L5PORT       PORTB
-#define L5pin        7
+#define L1PORT    PORTB
+#define L1pin     3
+#define L4PORT    PORTB
+#define L4pin     6
+#define L5PORT    PORTB
+#define L5pin     7
 
 /* Posición de cada "modo" en el byte de Modos */
 #define ENTRY_MOD   0

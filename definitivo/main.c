@@ -1,10 +1,5 @@
 /* ----------------------------------------------------------------------------
  *                                 WASHTUNNEL
- *  - MAIN
- *  - SETUP
- *      - motorSetup()
- *      - timerSetup()
- *      - entradaSetup()
  * -------------------------------------------------------------------------- */
 
 #include "commonstuff.h"
@@ -21,7 +16,7 @@ void motorSetup()
     DDRD |= 0xF0;
 }
 
-void entradaSetup()
+void entradaSetup() // TIENE QUE REVISARSE (?)
 {
     cli();                      // El SO1 es el DDRD1 y debe ir como entrada(0).
     PCICR |= (1<<PCIE1);        // Activamos las PCINT(15:8)
@@ -29,7 +24,7 @@ void entradaSetup()
     sei();                      //Habilitamos las interrupciones globales
 }
 
-void timerSetup()
+void timerSetup() // TIENE QUE REVISARSE (?)
 {
     // setup del contador 3
     cli ();
@@ -44,6 +39,7 @@ void timerSetup()
     TIMSK3 |= (1<<OCIE4A);          // Habilitamos la interrupción por compare match
     sei();
 }
+
 
 int main(void)
 {   

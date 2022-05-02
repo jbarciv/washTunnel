@@ -112,7 +112,6 @@ void luz(luz_t luz, status_t estado)
     }
 }
 
-
 void semaforo(status_luz_t color)
 {
     if (color == GREEN)
