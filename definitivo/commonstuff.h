@@ -19,7 +19,7 @@
 #define T_ENTRE_COCHES  5     // Dejamos 5 segundos al menos entre un coche y otro
 
 
-typedef enum {false, true}               bool;
+typedef enum {false, true}              bool;
 /* Etiquetas para los motores */
 typedef enum {M1, M2, M3, M4, M5, M6}   motor_t;
 typedef enum {ON, OFF}                  status_t;
@@ -27,12 +27,12 @@ typedef enum {DERECHA, IZQUIERDA}       direccion_t;
 /* Etiquetas para los sensores */
 typedef enum {SO1, SO2, SO3, SO4, SO5, 
               SO6, SO7, SO8, SO9, SO10,
-              SO11,SW1, SW2, SW3, SW4} sensor_t;
+              SO11,SW1, SW2, SW3, SW4}  sensor_t;
 /*Etiquetas para los LEDs*/
 typedef enum {L1, L4, L5}               luz_t;
-typedef enum {RED,GREEN}                status_luz_t;
+typedef enum {RED, GREEN}               status_luz_t;
 /*Etiquetas para la barrera*/
-typedef enum {UP,DOWN, WAIT}            barrier_status_t;
+typedef enum {UP, DOWN, WAIT}           barrier_status_t;
 /* Etiquetas para los 'estados' del tunel de lavado*/
 typedef enum 
 {
@@ -72,7 +72,6 @@ typedef enum
 #define M6ENpin   6
 #define M6DIPORT  PORTD
 #define M6DIpin   7
-
 
 /* Etiquetas para los sensores opticos */
 #define SO1PIN     PIND   // PD1 -> Sensor de entrada "abajo"
@@ -130,6 +129,13 @@ typedef enum
 #define OUT_MOD     6
 
 /********************* Variables globales ***********************************/
+// Gestión del tiempo
+#define unsigned long int miliseconds_t;
+#define unsigned int seconds_t;
+
+miliseconds_t miliseconds = 0;
+seconds_t seconds = 0;
+
 
 char ready = 0b00000000; //Variable encargada de registrar el proceso de STARTING del sistema
 
