@@ -58,7 +58,12 @@ void Motor(motor_t motor, status_t estado, direccion_t giro)
     {   
         if (giro == DERECHA)    // Establecemos la direccion (1=drcha. 0=izqda.)
         {
-            diPort |= (1 SO1
+            diPort |= (1 << diPin);
+        }
+        else 
+        {
+            diPort &= ~(1 << diPin);
+        }
         enPort |= (1 << enPin); // Despues encendemos el motor
     } 
     else
