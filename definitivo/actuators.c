@@ -1,10 +1,10 @@
 /* ----------------------------------------------------------------------------
- * CONTROL DEL HARDWARE
+ *               CONTROL DEL HARDWARE - DECLARACIÓN DE FUNCIONES
  *  - MOTOR
  *  - LUZ
  * 
  * DATE: 02/05/2022
- * AUTOR: Josep María Barberá Civera
+ * AUTHOR: Josep María Barberá Civera
  * -------------------------------------------------------------------------- */
 
 #include "actuators.h"
