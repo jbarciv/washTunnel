@@ -6,6 +6,10 @@ TIMERS PARA LA GESTIÓN DEL TIEMPO
 
 #include "commonstuff.h"
 
+extern miliseconds_t miliseconds;
+extern seconds_t seconds;
+
+
 /********************************************
 INTERRUPCIÓN PERIÓDICA CADA 1 MILISEGUNDO
 ********************************************/
