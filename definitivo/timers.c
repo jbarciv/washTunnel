@@ -1,8 +1,10 @@
-/*
-TIMERS PARA LA GESTIÓN DEL TIEMPO
-- "miliseconds" varible global de tipo "unsigned long int", desborda a los 50 días aproximadamente.
-- "seconds" variable global de tipo "unsigned int", desborda a las 18 horas aproximadamente.
-*/
+/* --------------------------------------------------------------------------
+ * TIMERS PARA LA GESTIÓN DEL TIEMPO
+ * - "miliseconds" varible global de tipo "unsigned long int", desborda a los
+ * 50 días aproximadamente.
+ * - "seconds" variable global de tipo "unsigned int", desborda a las 18 horas
+ * aproximadamente.
+ * -------------------------------------------------------------------------- */
 
 #include "commonstuff.h"
 

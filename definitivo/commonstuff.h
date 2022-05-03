@@ -1,8 +1,10 @@
 /* ----------------------------------------------------------------------------
- *
- * 
+ *                              COMMONSTUFF
+ * - Definición de tipos
+ * - Etiquetas
+ * - Constantes
+ * - Variables globales
  * -------------------------------------------------------------------------- */
-
 
 // #include <avr/io.h>
 // #include <avr/interrupt.h>
