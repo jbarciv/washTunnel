@@ -111,9 +111,6 @@ typedef enum {UP, DOWN, WAIT}           barrier_status_t;
 #define emergency_b  SW4
 
 /* Etiquetas para los LEDs */
-#define L1        PINB    // PB3 -> LED L1: WAITING or BUSY
-#define L4        PINB    // PB6 -> LED L4: semaforo verde
-#define L5        PINB    // PB7 -> LED L5: semaforo rojo
 // Puertos para los LEDs
 #define L1PORT    PORTB
 #define L1pin     3
