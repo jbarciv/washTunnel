@@ -29,7 +29,7 @@ typedef enum
     EMERGENCY   // Estado de emergencia
 }                                       mode_t;
 /* Declaración del tipo boolean */
-typedef enum {false, true}              bool;
+typedef enum {FALSE, TRUE}              bool;
 /* Etiquetas para los motores */
 typedef enum {M1, M2, M3, M4, M5, M6}   motor_t;
 typedef enum {ON, OFF}                  status_t;
