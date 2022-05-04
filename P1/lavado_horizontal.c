@@ -3,14 +3,14 @@
 //variable global LH
 //Motor(motor_t motor, status_t estado, direccion_t giro)
 extern int LH;
-extern int PINK0;
+extern int PINK_prev;
 
 ISR (PCINT2_vect)       // PCINT puerto k
 {
     
     if(LH==1){  //Bandera que indica si el lavado horizontal esta activo
-        if(((PINK0&0x20)==0x20)&&((PINK&0x20)==0x00)&&((PINK&0x1C)==0x1C)){ 
-            //Se comprueba si ha habido flaNco de bajada en S06 y si S03,S04 y S05 no detectan nada, el coche esta saliendo
+        if(((PINK_prev&0x20)==0x00)&&((PINK&0x20)==0x20)&&((PINK&0x1C)==0x1C)){ 
+            //Se comprueba si ha habido flaNco de subida en S06 y si S03,S04 y S05 no detectan nada, el coche esta saliendo
             LH=0;
             motor(M4,OFF,DERECHA);
         }else{
@@ -26,7 +26,7 @@ ISR (PCINT2_vect)       // PCINT puerto k
         }
     }else{
         if((PINK&0x0C)==0x0C){  //Se comprueba si S03 Y S04 estan detectando algo--> el caso raro
-            if(((PINK0&0x20)==0x20)&&((PINK&0x20)==0x00)&&((PINK&0x1C)==0x1C)){ //Se comprueba si el coche que ha ido para atras ha salido
+            if(((PINK_prev&0x20)==0x00)&&((PINK&0x20)==0x20)&&((PINK&0x1C)==0x1C)){ //Se comprueba si el coche que ha ido para atras ha salido
                 motor(M3,ON,IZQUIERDA);
             }else{
                 motor(M3,ON,DERECHA);   //El coche que ha ido para atras sigue bloqueando
@@ -35,7 +35,8 @@ ISR (PCINT2_vect)       // PCINT puerto k
         else{
             LH=1;
             motor(M4,ON,DERECHA);//EL SENTIDO HAY Q MIRARLO
+            motor(M3,ON,DERECHA);
         }
     }
-    PINK0=PINK;
+    PINK_prev=PINK;
 }
