@@ -16,15 +16,26 @@ A tal efecto se ha creado la bandera carWaiting.
 
 #include "actuators.h"
 #include "entrada.h"
+#include "commonstuff.h"
 
 extern miliseconds_t miliseconds;
+
+int barrierPulseCounter = 0;
+bool barrierUp;
+bool barrierDown;
+
+bool carWaiting = FALSE;
+seconds_t tPreviousCar = 0;
+
+miliseconds_t antireb_S01 = 0;
+miliseconds_t antireb_SW1 = 0;
 
 
 /********************************************
 MICROINTERRUPTOR SW1: contador pulsos barrera
 - Activo por flanco de subida
 ********************************************/
-ISR(INTO_vect) 
+ISR(INT0_vect) 
 {   
     if ((miliseconds - antireb_SW1) > BOTON_DELAY) // antirrebotes del microinterruptor
     {   // se lleva la cuenta de los pulsos; cuando llega a cinco se resetea
@@ -34,16 +45,16 @@ ISR(INTO_vect)
 
     if (barrierPulseCounter == 3)   // cuando esto se cumple la _barrera está levantada_
     {   // se controla el estado de la barrera con una bandera
-        barrierUp = true;
+        barrierUp = TRUE;
     }
     else 
     {
-        barrierUp = false;
+        barrierUp = FALSE;
     }
 // !!!!!!!!SE TIENE QUE COMPROBAR CON LA MAQUETA Y EL OSCILOSCÓPIO CÓMO FUNCIONAN REALMENTE ESTOS PULSOS!!!!!
-    if (barrierPulseCounter == 5 || barrierPulseCounter == 0 || SO2_f == false)
+    if (barrierPulseCounter == 5 || barrierPulseCounter == 0 || SO2_f == FALSE)
     {
-        barrierDown = true;
+        barrierDown = TRUE;
     }
 }
 
@@ -51,10 +62,11 @@ ISR(INTO_vect)
 SENSOR ÓPTICO SO1: detector llegada coche
 - Activo por flanco de subida y bajada
 ********************************************/
+
 ISR (INT1_vect)
 {
     // if ((PIND & (1<<PIND1) == 0) && antirreb_S01 > SENSOR_DELAY)
-    if (miliseconds - antireb_S01 > BOTON_DELAY)
+    if (miliseconds - antireb_S01 > SENSOR_DELAY)
     {
     // if (seconds - tPreviousCar > T_ENTRE_COCHES)
     // {
@@ -81,7 +93,7 @@ void barrera(barrier_status_t estado)
     if (estado == UP)
     {
         barrierMove();
-        if (barrierUp == true)
+        if (barrierUp == TRUE)
         {
             barrierStop();
         }
@@ -89,7 +101,7 @@ void barrera(barrier_status_t estado)
     if (estado == DOWN)
     {
         barrierMove();
-        if (barrierDown == true)
+        if (barrierDown == TRUE)
         {
             barrierStop();
         }
@@ -98,9 +110,9 @@ void barrera(barrier_status_t estado)
     {
         barrierStop();
     }
-    if (SO2_f == true)
+    if (SO2_f == TRUE)
     {
-        barrierDown = false;
+        barrierDown = FALSE;
     }
 }
 

@@ -131,7 +131,7 @@ typedef enum {UP, DOWN, WAIT}           barrier_status_t;
 /********************* Variables globales ***********************************/
 // Gestión del tiempo
 typedef unsigned long int   miliseconds_t;
-typedef unsigned int        seconds_t; 
+typedef unsigned int        seconds_t;
 
 
 char ready = 0b00000000; //Variable encargada de registrar el proceso de STARTING del sistema

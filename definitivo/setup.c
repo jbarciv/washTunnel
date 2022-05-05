@@ -15,7 +15,7 @@ void entradaSetup() // TIENE QUE REVISARSE (?)
 {
     cli();                      // El SO1 es el DDRD1 y debe ir como entrada(0).
     PCICR |= (1<<PCIE1);        // Activamos las PCINT(15:8)
-    CMSK1 |= (1<<PCINT8);       // Habilitamos la interrupcion
+    PCMSK1 |= (1<<PCINT8);       // Habilitamos la interrupcion
     sei();                      //Habilitamos las interrupciones globales
 }
 

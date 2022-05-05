@@ -13,16 +13,16 @@ salida del tunel:
 #include <control.h>
 #include <entrada.h>
 
-bool carLeaving = false;
-static bool flag = true;
+bool carLeaving = FALSE;
+static bool flag = TRUE;
 extern bool secado;
 
 //Rutina de interrupción SO10 (activa por flanco de bajada)
 ISR(INT0_vect)
 {
-    if(antireb_S10 > SENSOR_DELAY && carLeaving = false && SO11PIN == 0)
+    if(antireb_S10 > SENSOR_DELAY && carLeaving = FALSE && SO11PIN == 0)
     {
-        carLeaving = true;
+        carLeaving = TRUE;
         Semaforo(GREEN);
         leavingTunnel(); //No me gusta este nombre
         gestionCinta();
@@ -53,26 +53,26 @@ void carLeavingTunnel (mode_t mode)
             {
                 if (flag)
                 {
-                    flag = true; // No detecta nada
+                    flag = TRUE; // No detecta nada
                 }
                 else if (!flag) // Esto es un flanco de subida. Antes detectaba y ahora no.
                 {
                     if (!SO11pin) // Se produce un flanco de subida, pero sigue habiendo coche dentro => estan dando marcha atrás en la salida, ojo cuidao
                     {
-                        flag = true;
+                        flag = TRUE;
                     }
                     else if (SO11pin) // Esta es la buena, aquí el coche está saliendo de verdad
                     {
-                        carLeaving = false;
+                        carLeaving = FALSE;
                         Semaforo(RED);
                         gestionCinta(BUSY);
-                        flag = true;
+                        flag = TRUE;
                     }
                 }
             }
             else if (!SO12pin)
             {
-                flag = false; //aqui detecto
+                flag = FALSE; //aqui detecto
             }
 
             if (carLeaving && secado) // Si hay un coche en el secado y otro en la salida, paramos la cinta para evitar choques

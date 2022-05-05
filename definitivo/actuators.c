@@ -116,12 +116,12 @@ void semaforo(status_luz_t color)
 {
     if (color == GREEN)
     {
-        Luz(L4,ON);
-        Luz(L5,OFF);
+        luz(L4,ON);
+        luz(L5,OFF);
     }
     else if (color == RED)
     {
-        Luz(L5,ON);
-        Luz(L4,OFF); 
+        luz(L5,ON);
+        luz(L4,OFF); 
     }
 }

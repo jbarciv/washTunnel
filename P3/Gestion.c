@@ -11,7 +11,7 @@ las siguientes funciones, que gestionarán cada una un módulo concreto.
                                 - EMERGENCY
     
     lavadoVertical()    -->Bandera de funcionamiento
-                                - bool LV = (true/false)
+                                - bool LV = (TRUE/FALSE)
                         -->Estados de operación
                                 - STARTING
                                 - WAITING  (+) 
@@ -19,7 +19,7 @@ las siguientes funciones, que gestionarán cada una un módulo concreto.
                                 - EMERGENCY
     
     lavadoHorizontal()  -->Bandera de funcionamiento
-                                - bool LH = (true/false)
+                                - bool LH = (TRUE/FALSE)
                         -->Estados de operación
                                 - STARTING
                                 - WAITING  (+) 
@@ -27,7 +27,7 @@ las siguientes funciones, que gestionarán cada una un módulo concreto.
                                 - EMERGENCY
 
     secado()            -->Bandera de funcionamiento
-                                - bool secado = (true/false)
+                                - bool secado = (TRUE/FALSE)
                         -->Estados de operación
                                 - STARTING
                                 - WAITING  (+) 
@@ -43,7 +43,7 @@ las siguientes funciones, que gestionarán cada una un módulo concreto.
                                 - EMERGENCY
 
     gestionCinta()      -->Bandera de funcionamiento
-                                - bool cinta = (true/false)
+                                - bool cinta = (TRUE/FALSE)
                         -->Estados de operación
                                 - STARTING (+)
                                 - WAITING  (+)
@@ -51,7 +51,7 @@ las siguientes funciones, que gestionarán cada una un módulo concreto.
                                 - EMERGENCY
     
     carLeavingTunnel()  -->Bandera de funcionamiento
-                                - bool secado = (true/false)
+                                - bool secado = (TRUE/FALSE)
                         -->Estados de operación
                                 - STARTING 
                                 - WAITING  (+)
