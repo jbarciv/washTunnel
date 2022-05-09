@@ -3,9 +3,13 @@
 #include <avr/io.h>
 #include <avr/interrupt.h>
 
-//variable global SH?
-//Motor(motor_t motor, status_t estado, direccion_t giro)
-// es posible que este motor tenga que tener PWM
+/*Cosas que faltan:
+
+
+-Poner el sistema para bajar las banderas de encendido que para eso necesito contar tiempo
+-Poner un sistema para cuando el coche va para atras accidentalmente una vez fuera del lavado
+-Utilizar PWM para el motro M5 que va muy demasiado rapido
+*/
 
 extern char SH;
 extern status_t M5_state;
@@ -24,12 +28,12 @@ void setup_SH_PORTS()
 	PCICR |=0x01;
 	
 	PCMSK0=0X00;
-	PCMSK0|=(1<<SO7pin);
-	PCMSK0|=(1<<SO8pin);
-	PCMSK0|=(1<<SO9pin);
+	PCMSK0 |=(1<<SO7pin);
+	PCMSK0 |=(1<<SO8pin);
+	PCMSK0 |=(1<<SO9pin);
 	
-	DDRL|=(1<<M5ENpin);
-	DDRL|=(1<<M5DIpin);
+	DDRL |=(1<<M5ENpin);
+	DDRL |=(1<<M5DIpin);
 	
 	/*//set PWM
 	TCCR5A |=  (0 << COM5B1) | (1 << COM5B0); //tougle oc5b on compare match
@@ -44,10 +48,9 @@ void setup_SH_PORTS()
 
 void secado_horizontal_ISR()							// PCINT puerto B
 {
-	if(SH==1){											//Bandera que indica si el secado esta ativo
-		if((PINB&0x05)==0x05){							//Sensores S07 y S09 sin detectar nada
-			if((PINB&0x02)==0x02){						//Sensores S08 sin detectar nada
-				
+	if(SH==1){																					//Bandera que indica si el secado esta ativo
+		if(((SO7PIN &=(1<<SO7pin))==(1<<SO7pin))&&((SO9PIN &=(1<<SO9pin))==(1<<SO9pin))){		//((PINB&0x05)==0x05)				//Sensores S07 y S09 sin detectar nada
+			if((SO8PIN &=(1<<SO8pin))==(1<<SO8pin)){ 											//((PINB&0x02)==0x02)				//Sensor S08 sin detectar nada
 				//motor(M5,ON,IZQUIERDA);
 				M5_state=ON;
 				M5_dir=IZQUIERDA;
