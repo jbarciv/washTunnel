@@ -17,63 +17,117 @@ MOTORES
 ej. motor(M1, ON, DERECHA);
 ***************************************/
 void motor(motor_t motor, status_t estado, direccion_t giro)
-{
-    char enPort, diPort, enPin, diPin; 
+{ 
     switch (motor)
     {
         case M1: 
-            enPort = M1ENPORT;
-            enPin  = M1ENpin;
-            diPort = M1DIPORT;
-            diPin  = M1DIpin;
+            if(estado == ON)
+            {   
+                if (giro == DERECHA)        // Establecemos la direccion (1=drcha. 0=izqda.)
+                {
+                    M1DIPORT |= (1 << M1DIpin);
+                }
+                else 
+                {
+                    M1DIPORT &= ~(1 << M1DIpin);
+                }
+                M1ENPORT |= (1 << M1ENpin);  // Despues encendemos el motor
+            } 
+            else
+            {
+                M1ENPORT &= ~(1 << M1ENpin);
+            }
             break;
         case M2: 
-            enPort = M2ENPORT;
-            enPin  = M2ENpin;
-            diPort = M2DIPORT;
-            diPin  = M2DIpin;
+            if(estado == ON)
+            {   
+                if (giro == DERECHA)        
+                {
+                    M2DIPORT |= (1 << M2DIpin);
+                }
+                else 
+                {
+                    M2DIPORT &= ~(1 << M2DIpin);
+                }
+                M2ENPORT |= (1 << M2ENpin);  
+            } 
+            else
+            {
+                M2ENPORT &= ~(1 << M2ENpin);
+            }
             break;
         case M3: 
-            enPort = M3ENPORT;
-            enPin  = M3ENpin;
-            diPort = M3DIPORT;
-            diPin  = M3DIpin;
+            if(estado == ON)
+            {   
+                if (giro == DERECHA)        
+                {
+                    M3DIPORT |= (1 << M3DIpin);
+                }
+                else 
+                {
+                    M3DIPORT &= ~(1 << M3DIpin);
+                }
+                M3ENPORT |= (1 << M3ENpin);  
+            } 
+            else
+            {
+                M3ENPORT &= ~(1 << M3ENpin);
+            }
             break;
         case M4: 
-            enPort = M4ENPORT;
-            enPin  = M4ENpin;
-            diPort = M4DIPORT;
-            diPin  = M4DIpin;
+            if(estado == ON)
+            {   
+                if (giro == DERECHA)        
+                {
+                    M4DIPORT |= (1 << M4DIpin);
+                }
+                else 
+                {
+                    M4DIPORT &= ~(1 << M4DIpin);
+                }
+                M4ENPORT |= (1 << M4ENpin);  
+            } 
+            else
+            {
+                M4ENPORT &= ~(1 << M4ENpin);
+            }
             break;
         case M5: 
-            enPort = M5ENPORT;
-            enPin  = M5ENpin;
-            diPort = M5DIPORT;
-            diPin  = M5DIpin;
+            if(estado == ON)
+            {   
+                if (giro == DERECHA)        
+                {
+                    M5DIPORT |= (1 << M5DIpin);
+                }
+                else 
+                {
+                    M5DIPORT &= ~(1 << M5DIpin);
+                }
+                M5ENPORT |= (1 << M5ENpin);  
+            } 
+            else
+            {
+                M5ENPORT &= ~(1 << M5ENpin);
+            }
             break;
         case M6: 
-            enPort = M6ENPORT;
-            enPin  = M6ENpin;
-            diPort = M6DIPORT;
-            diPin  = M6DIpin;
+            if(estado == ON)
+            {   
+                if (giro == DERECHA)        
+                {
+                    M6DIPORT |= (1 << M6DIpin);
+                }
+                else 
+                {
+                    M6DIPORT &= ~(1 << M6DIpin);
+                }
+                M6ENPORT |= (1 << M6ENpin);  
+            } 
+            else
+            {
+                M6ENPORT &= ~(1 << M6ENpin);
+            }
             break;
-    }
-
-    if(estado == ON)
-    {   
-        if (giro == DERECHA)    // Establecemos la direccion (1=drcha. 0=izqda.)
-        {
-            diPort |= (1 << diPin);
-        }
-        else 
-        {
-            diPort &= ~(1 << diPin);
-        }
-        enPort |= (1 << enPin); // Despues encendemos el motor
-    } 
-    else
-    {
-        enPort &= ~(1 << enPin);
     }
 }
 
@@ -89,26 +143,35 @@ void luz(luz_t luz, status_t estado)
     switch (luz)
     {
     case L1:
-        lPort = L1PORT;
-        lPin  = L1pin;
+        if(estado == ON)
+        {
+            L1PORT |= (1 << L1pin);
+        }
+        else
+        {
+            L1PORT &| ~(1 << L1pin);
+        }
         break;
     case L4:
-        lPort = L4PORT;
-        lPin  = L4pin;
+        if(estado == ON)
+        {
+            L4PORT |= (1 << L4pin);
+        }
+        else
+        {
+            L4PORT &| ~(1 << L4pin);
+        }
         break;
     case L5:
-        lPort = L5PORT;
-        lPin  = L5pin;
+        if(estado == ON)
+        {
+            L5PORT |= (1 << L5pin);
+        }
+        else
+        {
+            L5PORT &| ~(1 << L5pin);
+        }
         break;
-    }
-
-    if(estado == ON)
-    {
-        lPort |= (1 << lPin);
-    }
-    else
-    {
-        lPort &| ~(1 << lPin);
     }
 }
 
