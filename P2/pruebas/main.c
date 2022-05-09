@@ -1,7 +1,5 @@
 /* FUNCIONAMIENTO BARRERA DE ENTRADA */ 
 
-#include <avr/io.h>
-#include <avr/interrupt.h>
 #include "commonstuff.h"
 
 void setup()
