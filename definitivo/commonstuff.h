@@ -6,8 +6,8 @@
  * - Variables globales
  * -------------------------------------------------------------------------- */
 
-// #include <avr/io.h>
-// #include <avr/interrupt.h>
+#include <avr/io.h>
+#include <avr/interrupt.h>
 
 
 #ifndef LAVADERO_H_
@@ -55,20 +55,22 @@ typedef enum {UP, DOWN, WAIT}           barrier_status_t;
 #define M2ENpin   2
 #define M2DIPORT  PORTL
 #define M2DIpin   3
-// Motor  M3 -> LAVADO HORIZONTAL {PL4, PL5}
-#define M3ENPORT  PORTL
+// Motor  M3 -> LAVADO HORIZONTAL {PD4, PD5}
+#define M3ENPORT  PORTD
 #define M3ENpin   4
-#define M3DIPORT  PORTL
+#define M3DIPORT  PORTD
 #define M3DIpin   5
 // Motor  M4 -> GIRO LAVADO HORIZONTAL {PL6, PL7}
 #define M4ENPORT  PORTL
 #define M4ENpin   6
 #define M4DIPORT  PORTL
 #define M4DIpin   7
-// Motor  M5 -> SECADO {PD4, PD5}  
-#define M5ENPORT  PORTD
+// Motor  M5 -> SECADO {PL4, PL5} 
+//#define M5PWMPORT TCCR1B
+//#define M5PWMpin  CS50 
+#define M5ENPORT  PORTL
 #define M5ENpin   4
-#define M5DIPORT  PORTD
+#define M5DIPORT  PORTL
 #define M5DIpin   5
 // Motor  M6 -> CINTA ARRASTRE {PD6, PD7}
 #define M6ENPORT  PORTD
@@ -134,7 +136,7 @@ typedef unsigned long int   miliseconds_t;
 typedef unsigned int        seconds_t;
 
 
-char ready = 0b00000000; //Variable encargada de registrar el proceso de STARTING del sistema
+//char ready = 0b00000000; //Variable encargada de registrar el proceso de STARTING del sistema
 
 
 #endif /* LAVADERO_H_ */

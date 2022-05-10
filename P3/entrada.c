@@ -65,17 +65,14 @@ SENSOR ÓPTICO SO1: detector llegada coche
 
 ISR (INT1_vect)
 {
-    // if ((PIND & (1<<PIND1) == 0) && antirreb_S01 > SENSOR_DELAY)
+    // Antirebotes
     if (miliseconds - antireb_S01 > SENSOR_DELAY)
     {
-    // if (seconds - tPreviousCar > T_ENTRE_COCHES)
-    // {
-        barrierMove();
-    // }
-    // else 
-    // {
-    //     carWaiting = TRUE;
-    // }
+        if (PIND1 == 1)
+        {
+            
+        }
+        carWaiting = TRUE;
         antireb_S01 = miliseconds;
     }
     // if ((PIND& (1<<PIND1) == 1) && antirreb_S01 > DELAY_SENSOR)

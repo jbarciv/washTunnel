@@ -63,7 +63,7 @@ las siguientes funciones, que gestionarán cada una un módulo concreto.
 */
 
 #include <commonstuff.h>
-#include <control.h>
+#include <actuators.h>
 
 void gestion()
 {
@@ -78,9 +78,14 @@ void gestion()
         gestionCinta(STARTING);
         carLeavingTunnel(STARTING);
     }
-    else if ()
+    else if (ready == 0b01111111)
     {
-
+        barrierControl(BUSY);
+        lavadoVertical(BUSY);
+        lavadoHorzontal(BUSY);
+        secado(BUSY);
+        lightControl(BUSY);
+        gestionCinta(BUSY);
+        carLeavingTunnel(BUSY);
     }
-    
 }

@@ -1,38 +1,77 @@
 #include "commonstuff.h"
 #include "secado_horizontal.h"
-//variable global SH?
-//Motor(motor_t motor, status_t estado, direccion_t giro)
-// es posible que este motor tenga que tener PWM
+#include <avr/io.h>
+#include <avr/interrupt.h>
 
-ISR (PCINT0_vect)       // PCINT puerto B
+/*Cosas que faltan:
+
+
+-Poner el sistema para bajar las banderas de encendido que para eso necesito contar tiempo
+-Poner un sistema para cuando el coche va para atras accidentalmente una vez fuera del lavado
+-Utilizar PWM para el motro M5 que va muy demasiado rapido
+*/
+
+extern char SH;
+extern status_t M5_state;
+extern direccion_t M5_dir;
+
+
+
+void setup_SH_PORTS()
 {
-    if(SH==1){  //Bandera que indica si el secado esta ativo
-        if((PINK&0x80)==0x80){  //Sensor de fin de carrera activo(SW3)
-            SH=0;
-            Motor(M5,OFF,DERECHA);
-        }else{
-            if((PINB&0x05)==0x05){ //Sensores S07 y S09 sin detectar nada
-                if((PINB&0x02)==0x02){ //Sensores S08 sin detectar nada
-                    Motor(M5,ON,IZQUIERDA);
-                }else{
-                    Motor(M5,OFF,IZQUIERDA);
-                }
-            }else{
-                Motor(M5,ON,DERECHA);
-            }
-        }
-    }else{
-        if((PINB&0x03)){    //Se comprueba si S07 y S08 estan activos--> caso raro
-            if((PINK&0x80)==0x80){ //Se comprueba si el secado ha subido hasta arriba
-                Motor(M5,ON,IZQUIERDA);
-            }else{
-                Motor(M5,ON,DERECHA);   //El coche que ha ido para atras sigue bloqueando
-            }
-        } 
-        else{
-            SH=1;
-        }
-        
-    }
-    PINB0=PINB;
+	cli();
+	
+	DDRB |= (0 << SO7pin);
+	DDRB |= (0 << SO8pin);
+	DDRB |= (0 << SO9pin);
+	
+	PCICR |=0x01;
+	
+	PCMSK0=0X00;
+	PCMSK0 |=(1<<SO7pin);
+	PCMSK0 |=(1<<SO8pin);
+	PCMSK0 |=(1<<SO9pin);
+	
+	DDRL |=(1<<M5ENpin);
+	DDRL |=(1<<M5DIpin);
+	
+	/*//set PWM
+	TCCR5A |=  (0 << COM5B1) | (1 << COM5B0); //tougle oc5b on compare match
+	TCCR5A |=  (0 << WGM50) | (0 << WGM51);   //normal mode 
+	TCCR5B |=  (0 << WGM52) | (0 << WGM53);
+	TCCR1B |=  (0 << CS52) | (0 << CS51) | ( 0 << CS50 ); 
+	OCR5B=32768; //hay que verlo bien
+	*/
+	sei();
+	
+}
+
+void secado_horizontal_ISR()							// PCINT puerto B
+{
+	if(SH==1){																					//Bandera que indica si el secado esta ativo
+		if(((SO7PIN &=(1<<SO7pin))==(1<<SO7pin))&&((SO9PIN &=(1<<SO9pin))==(1<<SO9pin))){		//((PINB&0x05)==0x05)				//Sensores S07 y S09 sin detectar nada
+			if((SO8PIN &=(1<<SO8pin))==(1<<SO8pin)){ 											//((PINB&0x02)==0x02)				//Sensor S08 sin detectar nada
+				//motor(M5,ON,IZQUIERDA);
+				M5_state=ON;
+				M5_dir=IZQUIERDA;
+			}else{
+				//motor(M5,OFF,IZQUIERDA)
+				M5_state=OFF;
+			}
+		}else{
+			//motor(M5,ON,DERECHA);
+			M5_state=ON;
+			M5_dir=DERECHA;
+		}	
+	}else{
+		SH=1;
+		M5_state=ON;
+		M5_dir=DERECHA;
+	}	
+
+}
+
+void secado_horizontal_CP()
+{
+	motor(M5,M5_state,M5_dir);
 }
