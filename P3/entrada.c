@@ -13,12 +13,12 @@ hay otro que acaba de entrar. Al hacerlo por consulta periódica coseguimos
 que pueda haber un periodo de espera fuera de las interrupciones, simplificándolas. 
 A tal efecto se ha creado la bandera carWaiting.
 */
-
-#include "actuators.h"
-#include "entrada.h"
 #include "commonstuff.h"
+#include "entrada.h"
+#include "actuators.h"
 
 extern miliseconds_t miliseconds;
+extern char ready;
 
 int barrierPulseCounter = 0;
 bool barrierUp;
@@ -51,10 +51,10 @@ ISR(INT0_vect)
     {
         barrierUp = FALSE;
     }
-// !!!!!!!!SE TIENE QUE COMPROBAR CON LA MAQUETA Y EL OSCILOSCÓPIO CÓMO FUNCIONAN REALMENTE ESTOS PULSOS!!!!!
-    if (barrierPulseCounter == 5 || barrierPulseCounter == 0 || SO2_f == FALSE)
+    if (SO2_f == FALSE)
     {
         barrierDown = TRUE;
+		barrierPulseCounter = 0;
     }
 }
 
@@ -65,81 +65,94 @@ SENSOR ÓPTICO SO1: detector llegada coche
 
 ISR (INT1_vect)
 {
-    // Antirebotes
-    if (miliseconds - antireb_S01 > SENSOR_DELAY)
-    {
-        if (PIND1 == 1)
-        {
-            
-        }
-        carWaiting = TRUE;
-        antireb_S01 = miliseconds;
-    }
-    // if ((PIND& (1<<PIND1) == 1) && antirreb_S01 > DELAY_SENSOR)
-    // {
-    //     if (!barrierUp)vs control
-    //     {
-    //         bajando=1;
-    //     }
-    //     barrierMove();
-    // }
+	// Antirebotes
+	if (miliseconds - antireb_S01 > SENSOR_DELAY)
+	{
+		/*
+		La siguiente lógica supone que no nos vacilan,
+		si quieres entrar en el túnel no debes dar marcha atrás
+		en frente de la barrera...
+		*/
+		if (SO1_f) // Acaba de dejar de detectar (flanco de subida)
+		{
+			carWaiting = FALSE;
+		}
+		else if(!SO1_f) // Empieza a detectar (flanco de bajada)
+		{
+			carWaiting = TRUE;
+		}
+		antireb_S01 = miliseconds;
+	}
 }
 
 void barrera(barrier_status_t estado)
 {
     if (estado == UP)
     {
-        barrierMove();
-        if (barrierUp == TRUE)
-        {
-            barrierStop();
-        }
+        barrierUp? barrierStop():barrierMove();
     }
     if (estado == DOWN)
     {
-        barrierMove();
-        if (barrierDown == TRUE)
-        {
-            barrierStop();
-        }
+        barrierDown? barrierStop():barrierMove();
     }
     if (estado == WAIT)
     {
         barrierStop();
     }
-    if (SO2_f == TRUE)
-    {
-        barrierDown = FALSE;
-    }
+    if(SO2_f)
+	{
+		barrierDown = FALSE;
+	}
+	else
+	{
+		barrierDown = TRUE;
+		barrierPulseCounter = 0;
+	}
 }
 
 void barrierMove()
 {
-    motor(M1,ON,DERECHA);
+    motor(M1,ON,IZQUIERDA);
 }
 
 void barrierStop()
 {
-    motor(M1,OFF,DERECHA);
+    motor(M1,OFF,IZQUIERDA);
 }
 
-// void tunnelGotBusy()
-// {
-//     car++;    
-// }
-
-
-// void isBarrierDown ()
-// {
-//     if (PINK & (1<<PINK1)==1)
-// }
-
-
-// void barrierControl(status_t modo)
-// {
-//     switch(modo)
-//     {
-//         case ...
-//     }
-//     barrera(UP);
-// }
+void barrierControl(mode_t modo)
+{
+    switch (modo)
+	{
+		case STARTING:
+			if (carWaiting == FALSE && SO2_f == 1)
+			{
+				barrera(DOWN);
+			}
+			
+			if (SO2_f == 0 || barrierDown == TRUE)
+			{
+				barrera(WAIT);
+				ready |= (1<<ENTRY_MOD);
+			}
+			break;
+		
+		case EMERGENCY:
+			barrera(WAIT);
+			break;
+		
+		case BUSY:
+			if (carWaiting == TRUE /*&& LV == FALSE*/)
+			{
+				barrera(UP);	
+			}
+			else 
+			{
+				barrera(DOWN);
+			}
+			break;
+		default:
+			barrera(WAIT);
+			break;			
+	}
+}
