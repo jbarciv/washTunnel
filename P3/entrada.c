@@ -1,18 +1,16 @@
-/*
-BARRERA ENTRADA AL TUNEL DE LAVADO
-En esta funcion vamos a comprobar:
-    Si algún coche está en la entrada
-    Suma 1 coche por flanco de bajada (cuando pasa la parte trasera del coche)
-En un futuro:
-    Actualizará los datos del struct paramCar (dimensiones del coche)
-De la apertura de la barrera es encargará otra función que maneje el motor consultando tunnelGotBusy()
+/* ----------------------------------------------------------------------------
+ *               CONTROL DE LA ENTRADA AL TUNEL DE LAVADO
 
-La apertura de barrera debe ser controlada por consulta periódica 
-porque puede que justo cuando llega el coche no pueda ser abierta porque 
-hay otro que acaba de entrar. Al hacerlo por consulta periódica coseguimos 
-que pueda haber un periodo de espera fuera de las interrupciones, simplificándolas. 
-A tal efecto se ha creado la bandera carWaiting.
-*/
+ *  - INTERRUPCION  -> MICROINTERRUPTOR SW1 :    ISR(INT0_vect)
+ *  - INTERRUPCION  -> SENSOR OPTICO SO1    :    ISR (INT1_vect)
+ *  - FUNCION       -> barrera(barrier_status_t estado),
+ *                  -> barrierControl(mode_t modo) 
+ * 
+ * DATE:    11/05/2022
+ * AUTHOR:  Gonzalo Quiros Torres
+ *          Josep Maria Barbera Civera
+ * -------------------------------------------------------------------------- */
+
 #include "commonstuff.h"
 #include "entrada.h"
 #include "actuators.h"
@@ -51,6 +49,7 @@ ISR(INT0_vect)
     {
         barrierUp = FALSE;
     }
+
     if (SO2_f == FALSE)
     {
         barrierDown = TRUE;
@@ -62,7 +61,6 @@ ISR(INT0_vect)
 SENSOR ÓPTICO SO1: detector llegada coche
 - Activo por flanco de subida y bajada
 ********************************************/
-
 ISR (INT1_vect)
 {
 	// Antirebotes
@@ -89,11 +87,11 @@ void barrera(barrier_status_t estado)
 {
     if (estado == UP)
     {
-        barrierUp? barrierStop():barrierMove();
+        barrierUp ? barrierStop() : barrierMove();
     }
     if (estado == DOWN)
     {
-        barrierDown? barrierStop():barrierMove();
+        barrierDown ? barrierStop() : barrierMove();
     }
     if (estado == WAIT)
     {
@@ -133,7 +131,7 @@ void barrierControl(mode_t modo)
 			if (SO2_f == 0 || barrierDown == TRUE)
 			{
 				barrera(WAIT);
-				ready |= (1<<ENTRY_MOD);
+				ready |= (1 << ENTRY_MOD);
 			}
 			break;
 		
