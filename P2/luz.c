@@ -4,18 +4,18 @@
 #include "luz.h"
 #include <control.h>
 
-int halfsec = 0;
-int modo = 0;		// modo de funcionamiento (SEGUN EL STATUS_T)
+int halfsec = 0;	
 extern bool LH;
 extern bool LV;
 extern bool SECADO;
-int coche;
+//extern bool BARRERA; -> falta algo que indique que la barrera se esta abriendo
+int coche;              // me gustaria hacer una variable global que sea 1 en on y 0 en off
 int ms_sin_coche=0;
 
 
-bool coche =  LV || LH || SECADO;
+bool coche =  1;
 
-ISR(TIMER3_COMPA_vect) 
+ISR(TIMER4_COMPA_vect) 
 {
     halfsec++;
 
@@ -26,6 +26,7 @@ void parpadeo(int ms, bool coche)
 {
 	if (coche)				//hay coche
 	{
+        ms_sin_coche = 0; //resetea el timer del modo off
 		if(ms%2) 
         {
             luz(L1, ON);

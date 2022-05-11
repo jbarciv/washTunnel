@@ -17,7 +17,7 @@
 #define BOTON_DELAY     50
 #define SENSOR_DELAY    20
 #define ANTIREB_TIME    125     // Con un preescalado de 64 --> 125 periodos es 1 ms
-#define REAL_TIME       31250      // Con un preescalado de 256 --> 31250 periodos es 1 s
+#define REAL_TIME       15625      // Con un preescalado de 256 --> 31250 periodos es 1 s
 #define T_ENTRE_COCHES  5     // Dejamos 5 segundos al menos entre un coche y otro
 
 /* Etiquetas para los 'estados' del tunel de lavado*/
