@@ -79,10 +79,8 @@ typedef enum {UP, DOWN, WAIT}           barrier_status_t;
 #define M6DIpin   7
 
 /* Etiquetas para los sensores opticos */
-#define SO1PIN    PIND   // PD1 -> Sensor de entrada "abajo"
-#define SO1pin    1
-
-#define SO2_f (PINK & (1 << PINK1))
+#define SO1_f ((PIND & (1 << PIND1)) == (1<<PIND1))
+#define SO2_f ((PINK & (1 << PINK1)) == (1<<PINK1))
 
 #define SO3PIN    PINK   // PK2 -> Sensor lavado horiz. izqda.
 #define SO3pin    2   
