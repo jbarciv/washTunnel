@@ -16,7 +16,7 @@ void entradaSetup()
 	DDRD &= ~(1<<DDD1);         // El SO1 asignado al puerto PD1 es una entrada
 	DDRL |= (3<<DDL0);			// Activamos como salida M1en y M1dir
 	DDRK &= ~(1<<DDK1);			// El SO2 asignado al puerto PK1 es una entrada
-	DDRD |= (1<<DDD0);			// El SW1 asignado al puerto PD0 es una salida
+	DDRD &= ~(1<<DDD0);			// El SW1 asignado al puerto PD0 es una entrada
 
 	EIMSK |= (1<<INT1);			// Habilitamos la INT1
 	EICRA |= (1<<ISC10);		// Configuración de la INT1 por flanco de subida y bajada
