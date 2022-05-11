@@ -10,10 +10,11 @@ En futuras versiones:
 
 */
 
-#include <commonstuff.h>
-#include <control.h>
+#include "commonstuff.h"
+#include "control.h"
 
 bool cinta = false;
+// extern char ready;
 
 void gestionCinta (status_t modo)
 {
