@@ -2,41 +2,45 @@
 
 #include "commonstuff.h"
 #include "luz.h"
+#include <control.h>
 
-int i = 0;
-int modo = 0;		// modo de funcionamiento (SEGUN EL STATUS_T)
+int halfsec = 0;	
+extern bool LH;
+extern bool LV;
+extern bool SECADO;
+//extern bool BARRERA; -> falta algo que indique que la barrera se esta abriendo
+int coche;              // me gustaria hacer una variable global que sea 1 en on y 0 en off
+int ms_sin_coche=0;
 
 
+bool coche =  1;
 
-ISR(TIMER1_COMPA_vect) 
+ISR(TIMER4_COMPA_vect) 
 {
-	switch modo
-	{
-		case WAITING:
-		{
-			L1PORT = 0;			// un poco ñapa, para que no se quede el port a 1 si cambia el estado cuando esté a 1
-			i++;				//cada 10s parpadea
-			parpadeo(i);
-			break;
-		}
-		case BUSY:
-		{
-			L1PORT = !L1PORT; 	//conmuta cada 0.5s
-			break;	
-		}
-		default: break;
-	}
+    halfsec++;
+
+    parpadeo(halfsec, coche);
 }
 
-void parpadeo(int ms)
+void parpadeo(int ms, bool coche)
 {
-	if (ms%20 == 0)				//han pasado 10s (revisar, solo cuenta cuando está en waiting)
+	if (coche)				//hay coche
 	{
-		L1PORT = 1;
+        ms_sin_coche = 0; //resetea el timer del modo off
+		if(ms%2) 
+        {
+            luz(L1, ON);
+        }
+        else luz(L1, OFF);
 	}
-	if ((ms-1)%20 == 0)
+	else 
 	{
-		L1PORT = 0;
+        LUZ(L1, OFF);
+		ms_sin_coche++;
+        if (ms_sin_coche%20)
+        {
+            LUZ(L1, ON);
+        }
 	}
 }
 

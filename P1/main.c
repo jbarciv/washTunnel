@@ -4,8 +4,6 @@
  * Created: 04/05/2022 19:22:04
  * Author : Mario
  */ 
- 
-//El main que hemos usado para hacer pruebas
 
 #include <avr/io.h>
 #include <avr/interrupt.h>
@@ -14,22 +12,33 @@
 #include "secado_horizontal.h"
 #include "actuators.h"
 
- int LH=0;
+
+ bool LH=0;
  char PINK_prev=0xFF;
  status_t M4_state=OFF;
  status_t M3_state=OFF;
  direccion_t M3_dir;
  
- char SH=0;
+ bool SH=0;
  status_t M5_state=OFF;
  direccion_t M5_dir;
+ //seconds_t  seconds = 0;
+ //miliseconds_t  miliseconds = 0;
+ //seconds_t  secondsBack = 0;
+ //seconds_t  secondsFinal = 0;
+ //miliseconds_t  milisecondsFinal_LH = 0;
+// miliseconds_t  milisecondsFinal_SH = 0;
+ 
+// seconds_t  secondsFinal_LH = 0;
 
+ 
 
 
 int main(void)
 {   
     setup_LH_PORTS();
 	setup_SH_PORTS();
+	//timerSetup();
 	
     while(1)
     {
