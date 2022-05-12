@@ -17,6 +17,7 @@ salida del tunel:
 bool carLeaving = FALSE;
 static bool prevState = TRUE;
 extern bool secado;
+extern seconds_t seconds;
 
 //Rutina de interrupción SO10 (activa por flanco de bajada)
 ISR(INT2_vect)
@@ -24,10 +25,10 @@ ISR(INT2_vect)
     if(antireb_S10 > SENSOR_DELAY && carLeaving = FALSE && SO11PIN == 0)
     {
         carLeaving = TRUE;
-        Semaforo(GREEN);
-        leavingTunnel(); //No me gusta este nombre
-        gestionCinta();
+        semaforo(GREEN);
+        gestionCinta(BUSY);
     }
+    antireb_S10 = seconds;
 }
 
 //Consulta periódica de SO12
