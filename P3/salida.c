@@ -19,7 +19,7 @@ static bool prevState = TRUE;
 extern bool secado;
 
 //Rutina de interrupción SO10 (activa por flanco de bajada)
-ISR(INT0_vect)
+ISR(INT2_vect)
 {
     if(antireb_S10 > SENSOR_DELAY && carLeaving = FALSE && SO11PIN == 0)
     {

@@ -30,6 +30,9 @@ void salidaSetup()
 	DDRD &= ~(1<<DDD2);         // El SO10 asignado al puerto PD2 es una entrada
     DDRB &= ~(3<<DDB4);         // SO11 y SO12 asignados a PB4 y PB5 son entradas
     DDRB |= (3<<DDB6);          // L4 y L5 son salidas
+
+    EIMSK |= (1<<INT2);
+    EICRA &= ~(3<<ISC20);
 }
 
 void timerSetup()   // TIENE QUE REVISARSE (?)

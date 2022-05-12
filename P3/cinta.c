@@ -43,12 +43,12 @@ void gestionCinta (status_t modo)
 
 void moveCinta()
 {
-    Motor(M6,ON,DERECHA);
-    cinta = true;
+    motor(M6,ON,DERECHA);
+    cinta = TRUE;
 }
 
 void stopCinta()
 {
-    Motor(M6,OFF,DERECHA);
-    cinta = false;
+    motor(M6,OFF,DERECHA);
+    cinta = FALSE;
 }
