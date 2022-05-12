@@ -8,9 +8,10 @@
 
 #include "commonstuff.h"
 
+
 extern miliseconds_t miliseconds;
 extern seconds_t seconds;
-
+extern bool coche;
 
 /********************************************
 INTERRUPCIÓN PERIÓDICA CADA 1 MILISEGUNDO
@@ -21,9 +22,13 @@ ISR (TIMER3_COMPA_vect)
 }
 
 /********************************************
-INTERRUPCIÓN PERIÓDICA CADA 1 SEGUNDO
+INTERRUPCIÓN PERIÓDICA CADA 0.5 SEGUNDOs
 ********************************************/
 ISR (TIMER4_COMPA_vect)
 {
     seconds++;
+
+    parpadeo(seconds, coche);
+
+
 }
