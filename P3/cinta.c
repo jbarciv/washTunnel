@@ -13,7 +13,7 @@ En futuras versiones:
 #include "commonstuff.h"
 #include "control.h"
 
-bool cinta = false;
+extern bool cinta;
 // extern char ready;
 
 void gestionCinta (status_t modo)
@@ -27,7 +27,7 @@ void gestionCinta (status_t modo)
 
         case WAITING:
         case BUSY:
-            numberOfCars ? moveCinta() : stopCinta(); //numberOfCars se actualiza en tunnelGotBusy()
+            cinta ? moveCinta() : stopCinta(); //numberOfCars se actualiza en tunnelGotBusy()
             break;
 
         case EMERGENCY:

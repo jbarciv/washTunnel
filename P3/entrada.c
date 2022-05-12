@@ -17,12 +17,15 @@
 
 extern miliseconds_t miliseconds;
 extern char ready;
+extern bool LV
+extern bool barrier; //Indica si la barrera está (1) o no está activa (0)
 
 int barrierPulseCounter = 0;
 bool barrierUp;
-bool barrierDown;
+static bool barrierDown;
+seconds_t secondsLV = 0;
 
-bool carWaiting = FALSE;
+static bool carWaiting = FALSE;
 seconds_t tPreviousCar = 0;
 
 miliseconds_t antireb_S01 = 0;
@@ -78,6 +81,8 @@ ISR (INT1_vect)
 		else if(!SO1_f) // Empieza a detectar (flanco de bajada)
 		{
 			carWaiting = TRUE;
+			barrier = TRUE;
+			secondsLV = seconds;
 		}
 		antireb_S01 = miliseconds;
 	}
@@ -88,14 +93,18 @@ void barrera(barrier_status_t estado)
     if (estado == UP)
     {
         barrierUp ? barrierStop() : barrierMove();
+		barrier = TRUE;
+
     }
     if (estado == DOWN)
     {
         barrierDown ? barrierStop() : barrierMove();
+		barrier = TRUE;
     }
     if (estado == WAIT)
     {
         barrierStop();
+		barrier = FALSE;
     }
     if(SO2_f)
 	{
@@ -140,7 +149,7 @@ void gestionBarrera(mode_t modo)
 			break;
 		
 		case BUSY:
-			if (carWaiting == TRUE /*&& LV == FALSE*/)
+			if (carWaiting == TRUE LV == FALSE)
 			{
 				barrera(UP);	
 			}

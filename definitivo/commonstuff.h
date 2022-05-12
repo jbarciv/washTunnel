@@ -82,6 +82,7 @@ typedef enum {UP, DOWN, WAIT}           barrier_status_t;
 /* Etiquetas para los sensores opticos */
 #define SO1_f ((PIND & (1 << PIND1)) == (1<<PIND1))
 #define SO2_f ((PINK & (1 << PINK1)) == (1<<PINK1))
+#define SO10_f ((PIND & (1 << PIND2)) == (1<<PIND2))
 #define SO11_f ((PINB & (1 << PINB4)) == (1<<PINB4))
 #define SO12_f ((PINB & (1 << PINB5)) == (1<<PINB5))
 

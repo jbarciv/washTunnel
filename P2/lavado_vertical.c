@@ -1,7 +1,7 @@
 #include "lavado_vertical.h"
 
 extern bool LV;
-extern int secondsLV;
+extern seconds_t secondsLV;
 extern bool barrierUp;
 extern char ready;
 extern seconds_t seconds;
@@ -31,7 +31,7 @@ void gestionLV(mode_t mode){
 			break;
 		
 		case BUSY:
-			if (barrierUp && SO1_f == 0 && secondsLV > (seconds + T_LV)){
+			if (barrierUp && SO1_f == FALSE && (secondsLV > (seconds + T_LV))){
 				LV = 1;
 			}
 			break;
