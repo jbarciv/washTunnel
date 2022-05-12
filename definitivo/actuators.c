@@ -149,7 +149,7 @@ void luz(luz_t luz, status_t estado)
         }
         else
         {
-            L1PORT &| ~(1 << L1pin);
+            L1PORT &= ~(1 << L1pin);
         }
         break;
     case L4:
@@ -159,7 +159,7 @@ void luz(luz_t luz, status_t estado)
         }
         else
         {
-            L4PORT &| ~(1 << L4pin);
+            L4PORT &= ~(1 << L4pin);
         }
         break;
     case L5:
@@ -169,7 +169,7 @@ void luz(luz_t luz, status_t estado)
         }
         else
         {
-            L5PORT &| ~(1 << L5pin);
+            L5PORT &= ~(1 << L5pin);
         }
         break;
     }

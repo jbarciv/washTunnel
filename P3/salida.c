@@ -9,15 +9,17 @@ salida del tunel:
 
 */
 
-#include <commonstuff.h>
-#include <control.h>
-#include <entrada.h>
-#include <salida.h>
+#include "commonstuff.h"
+#include "actuators.h"
+#include "entrada.h"
+#include "salida.h"
 
 bool carLeaving = FALSE;
 static bool prevState = TRUE;
 extern bool secado;
 extern seconds_t seconds;
+
+miliseconds_t antireb_S10;
 
 //Rutina de interrupción SO10 (activa por flanco de bajada)
 ISR(INT2_vect)
@@ -84,7 +86,7 @@ void carLeavingTunnel (mode_t mode)
             break;
 
         case EMERGENCY:
-            Semaforo(RED);
+            semaforo(RED);
             break;
     }
     
