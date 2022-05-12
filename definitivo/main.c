@@ -23,11 +23,11 @@ int main(void)
     {
         if (ready != 0b00000001)
 		{
-			barrierControl(STARTING);
+			gestionBarrera(STARTING);
 		}
 		else if (ready == 0b00000001)
 		{
-			barrierControl(BUSY);
+			gestionBarrera(BUSY);
 		}
     }
 }

@@ -118,7 +118,7 @@ void barrierStop()
     motor(M1,OFF,IZQUIERDA);
 }
 
-void barrierControl(mode_t modo)
+void gestionBarrera(mode_t modo)
 {
     switch (modo)
 	{

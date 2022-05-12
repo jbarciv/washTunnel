@@ -49,7 +49,7 @@ void carLeavingTunnel (mode_t mode)
 
         case WAITING:
         case BUSY:
-            if (SO12PIN) // No hay nada cortando el sensor. No está detectando nada
+            if (SO12_f) // No hay nada cortando el sensor. No está detectando nada
             {
                 if (flag)
                 {
@@ -57,7 +57,7 @@ void carLeavingTunnel (mode_t mode)
                 }
                 else if (!flag) // Esto es un flanco de subida. Antes detectaba y ahora no.
                 {
-                    if (!SO11pin) // Se produce un flanco de subida, pero sigue habiendo coche dentro => estan dando marcha atrás en la salida, ojo cuidao
+                    if (!SO11_f) // Se produce un flanco de subida, pero sigue habiendo coche dentro => estan dando marcha atrás en la salida, ojo cuidao
                     {
                         flag = TRUE;
                     }
@@ -70,7 +70,7 @@ void carLeavingTunnel (mode_t mode)
                     }
                 }
             }
-            else if (!SO12pin)
+            else if (!SO12_f)
             {
                 flag = FALSE; //aqui detecto
             }
