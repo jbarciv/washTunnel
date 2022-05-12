@@ -21,13 +21,15 @@ int main(void)
     
     while(1)
     {
-        if (ready != 0b00000001)
+        if (ready != 0b00000011)
 		{
 			gestionBarrera(STARTING);
+			gestionLV(STARTING);
 		}
-		else if (ready == 0b00000001)
+		else if (ready == 0b00000011)
 		{
 			gestionBarrera(BUSY);
+			gestionLV(BUSY);
 		}
     }
 }

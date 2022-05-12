@@ -14,7 +14,6 @@
 
 
  bool LH=0;
- char PINK_prev=0xFF;
  status_t M4_state=OFF;
  status_t M3_state=OFF;
  direccion_t M3_dir;

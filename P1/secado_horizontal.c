@@ -24,9 +24,9 @@ void setup_SH_PORTS()
 {
 	cli();
 	
-	DDRB |= (0 << SO7pin);
-	DDRB |= (0 << SO8pin);
-	DDRB |= (0 << SO9pin);
+	DDRB &= ~(1 << S07pin);
+	DDRB &= ~(1 << S08pin);
+	DDRB &= ~(1 << S09pin);
 	
 	PCICR |=0x01;
 	
@@ -78,7 +78,6 @@ void secado_horizontal_ISR()							// PCINT puerto B
 		M5_state=ON;
 		M5_dir=DERECHA;
 	}	
-
 }
 
 void secado_horizontal_CP()
@@ -93,6 +92,47 @@ void secado_horizontal_CP()
 		M5_dir=IZQUIERDA;
 		secondsFinal=seconds;
 	}*/
-	motor(M5,M5_state,M5_dir);
+		motor(M5,M5_state,M5_dir);
 	
+}
+
+extern bool SH_ready;
+extern bool SH_up_final;
+extern miliseconds_t milisecondsFinal_SH;
+
+void gestionSH(mode_t modo)
+{
+    switch (modo)
+	{
+		case STARTING:
+			if(SH_ready==0){
+				if(up_final==0){
+					if((PINK&=(1<<7))==(1<<7)){
+						motor(M5,ON,IZQUIERDA);
+					}else{
+						up_final=1;
+						milisecondsFinal_SH=miliseconds;
+						motor(M5,ON,DERECHA);
+					}
+				}else{
+					if(milisecondsFinal_SH+2500<miliseconds){
+						SH_up_final=0;
+						SH_ready=1;
+						motor(M5,OFF,DERECHA);
+					}
+				}
+			}
+			break;
+		
+		case EMERGENCY:
+			motor(M5,OFF,DERECHA);
+			break;
+		
+		case BUSY:
+			secado_horizontal_CP();
+			break;
+		default:
+			
+			break;			
+	}
 }
