@@ -2,32 +2,21 @@
 
 #include "commonstuff.h"
 #include "luz.h"
-#include <control.h>
+#include "actuators.h"
 
-int halfsec = 0;	
+extern seconds_t seconds;
 extern bool LH;
 extern bool LV;
 extern bool SECADO;
-//extern bool BARRERA; -> falta algo que indique que la barrera se esta abriendo
-int coche;              // me gustaria hacer una variable global que sea 1 en on y 0 en off
+extern bool coche = (!SO1_f || LV || LH || SECADO || !SO10_f || !SO11_f || SO12_f); // para este podriamos hacer una macro como coche = LV || LH || SECADO
 int ms_sin_coche=0;
 
 
-bool coche =  1;
-
-ISR(TIMER4_COMPA_vect) 
-{
-    halfsec++;
-
-    parpadeo(halfsec, coche);
-}
-
-void parpadeo(int ms, bool coche)
+void parpadeo(seconds_t ms, bool coche)
 {
 	if (coche)				//hay coche
 	{
-        ms_sin_coche = 0; //resetea el timer del modo off
-		if(ms%2) 
+		if(ms%2)			// en los medios segundos "pares" está encendida
         {
             luz(L1, ON);
         }
@@ -35,12 +24,13 @@ void parpadeo(int ms, bool coche)
 	}
 	else 
 	{
-        LUZ(L1, OFF);
+        luz(L1, OFF);
 		ms_sin_coche++;
-        if (ms_sin_coche%20)
+        if (!(ms_sin_coche%20)) // si han pasado 20 medios segunds (10s), se enciende medio segundo
         {
-            LUZ(L1, ON);
+            luz(L1, ON);
         }
 	}
 }
+
 
