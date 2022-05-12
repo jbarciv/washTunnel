@@ -84,3 +84,46 @@ void lavado_horizontal_CP()
 	motor(M4,M4_state,DERECHA);
 	motor(M3,M3_state,M3_dir);
 }
+
+extern bool LH_ready;
+extern bool LH_up_final;
+extern miliseconds_t milisecondsFinal_LH;
+
+void gestionLH(mode_t modo)
+{
+    switch (modo)
+	{
+		case STARTING:
+			motor(M4,OFF,DERECHA);
+			if(LH_ready==0){
+				if(LH_up_final==0){
+					if((PINK&=(1<<7))==(1<<7)){
+						motor(M3,ON,IZQUIERDA);
+					}else{
+						LH_up_final=1;
+						milisecondsFinal_LH=miliseconds;
+						motor(M3,ON,DERECHA);
+					}
+				}else{
+					if(milisecondsFinal_LH+2500<miliseconds){
+						LH_up_final=0;
+						LH_ready=1;
+						motor(M3,OFF,DERECHA);
+					}
+				}
+			}
+			break;
+		
+		case EMERGENCY:
+			motor(M3,OFF,DERECHA);
+			motor(M4,OFF,DERECHA);
+			break;
+		
+		case BUSY:
+			lavado_horizontal_CP();
+			break;
+		default:
+			
+			break;			
+	}
+}
