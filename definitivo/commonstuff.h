@@ -8,16 +8,7 @@
 
 #include <avr/io.h>
 #include <avr/interrupt.h>
-#include "setup.h"
-#include "control.h"
-#include "actuators.h"
-#include "lavado_horizontal.h"
-#include "lavado_vertical.h"
-#include "secado_horizontal.h"
-#include "luz.h"
-#include "entrada.h"
-#include "salida.h"
-#include "cinta.h"
+
 
 
 #ifndef LAVADERO_H_
