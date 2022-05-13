@@ -23,8 +23,9 @@ extern bool barrier; //Indica si la barrera está (1) o no está activa (0)
 
 int barrierPulseCounter = 0;
 bool barrierUp;
-static bool barrierDown;
+bool barrierDown;
 seconds_t secondsLV = 0;
+seconds_t secondsLVOff;
 
 static bool carWaiting = FALSE;
 seconds_t tPreviousCar = 0;
@@ -48,6 +49,7 @@ ISR(INT0_vect)
     if (barrierPulseCounter == 3)   // cuando esto se cumple la _barrera está levantada_
     {   // se controla el estado de la barrera con una bandera
         barrierUp = TRUE;
+		secondsLV = seconds;
     }
     else 
     {
@@ -57,6 +59,7 @@ ISR(INT0_vect)
     if (SO2_f == FALSE)
     {
         barrierDown = TRUE;
+		secondsLVOff = seconds;
 		barrierPulseCounter = 0;
     }
 }
@@ -114,6 +117,7 @@ void barrera(barrier_status_t estado)
 	else
 	{
 		barrierDown = TRUE;
+		secondsLVOff = seconds;
 		barrierPulseCounter = 0;
 	}
 }

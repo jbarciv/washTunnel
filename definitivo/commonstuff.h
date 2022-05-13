@@ -30,6 +30,7 @@
 #define REAL_TIME       15625   // Con un preescalado de 256 --> 31250 periodos es 1 s
 #define T_ENTRE_COCHES  5       // Dejamos 5 segundos al menos entre un coche y otro
 #define T_LV            10      // 10 medios segundos son 5 segundos
+#define TLV_Off         15      // 15 medios segundos son 7.5 segundos
 
 /* Etiquetas para los 'estados' del tunel de lavado*/
 typedef enum 

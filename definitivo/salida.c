@@ -14,20 +14,24 @@ salida del tunel:
 #include "salida.h"
 #include "cinta.h"
 
+extern char ready;
+extern bool secado;
+extern seconds_t seconds;
+extern miliseconds_t miliseconds;
+
 bool carLeaving = FALSE;
 static bool prevState = TRUE;
-extern bool secado;
-extern miliseconds_t miliseconds;
-extern seconds_t seconds;
+
+
+
 miliseconds_t antireb_S10 = 0;
-extern char ready;
+
 
 //Rutina de interrupción SO10 (activa por flanco de bajada)
 ISR(INT2_vect)
 {
-    if((miliseconds-antireb_S10) > SENSOR_DELAY && carLeaving == FALSE && SO11_f == 0)
+    if((miliseconds-antireb_S10) > SENSOR_DELAY && carLeaving == FALSE && SO11_f == 1)
     {
-        carLeaving = TRUE;
         semaforo(GREEN);
         gestionCinta(BUSY);
     }
@@ -66,7 +70,7 @@ void carLeavingTunnel (mode_t mode)
                     {
                         prevState = TRUE;
                     }
-                    else if (SO11pin) // Esta es la buena, aquí el coche está saliendo de verdad
+                    else if (SO11_f) // Esta es la buena, aquí el coche está saliendo de verdad
                     {
                         carLeaving = FALSE;
                         semaforo(RED);
@@ -80,10 +84,16 @@ void carLeavingTunnel (mode_t mode)
                 prevState = FALSE; //aqui detecto
             }
 
+            if (!SO10_f && !SO11_f && !SO12_f)
+            {
+                carLeaving = TRUE;
+            }
+            
             if (carLeaving && secado) // Si hay un coche en el secado y otro en la salida, paramos la cinta para evitar choques
             {
                 gestionCinta(WAITING);
             }
+            
             break;
 
         case EMERGENCY:

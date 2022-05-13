@@ -6,6 +6,7 @@
 void barrera(barrier_status_t);
 void barrierMove(void);
 void barrierStop(void);
-void barrierControl(mode_t);
+void gestionBarrera(mode_t);
+
 
 #endif /* ENTRADA_H_ */
