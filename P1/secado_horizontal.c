@@ -1,138 +1,133 @@
 #include "commonstuff.h"
-#include "secado_horizontal.h"
+#include "lavado_horizontal.h"
 #include <avr/io.h>
 #include <avr/interrupt.h>
 
-/*Cosas que faltan:
 
-
--Poner el sistema para bajar las banderas de encendido que para eso necesito contar tiempo
--Poner un sistema para cuando el coche va para atras accidentalmente una vez fuera del lavado
--Utilizar PWM para el motro M5 que va muy demasiado rapido
-*/
-
-extern bool SH;
-extern status_t M5_state;
-extern direccion_t M5_dir;
+extern bool LH;
+extern char PINK_prev;
+extern status_t M4_state;
+extern status_t M3_state;
+extern direccion_t M3_dir;
+extern miliseconds_t miliseconds;
+extern miliseconds_t milisecondsFinal_LH;
 //extern seconds_t seconds;
-//extern seconds_t secondsFinal;
-//extern miliseconds_t miliseconds;
-//extern miliseconds_t milisecondsFinal_SH;
+//extern seconds_t secondsFinal_LH;
 //extern seconds_t secondsBack;
 
-void setup_SH_PORTS()
+void setup_LH_PORTS()
 {
 	cli();
 	
-	DDRB &= ~(1 << S07pin);
-	DDRB &= ~(1 << S08pin);
-	DDRB &= ~(1 << S09pin);
+	DDRK&= ~(1 << SO3pin);
+	DDRK&= ~(1 << SO4pin);
+	DDRK&= ~(1 << SO5pin);
+	//DDRK&= ~(1 << SO6pin);
 	
-	PCICR |=0x01;
-	
-	PCMSK0=0X00;
-	PCMSK0 |=(1<<SO7pin);
-	PCMSK0 |=(1<<SO8pin);
-	PCMSK0 |=(1<<SO9pin);
-	
-	DDRL |=(1<<M5ENpin);
-	DDRL |=(1<<M5DIpin);
-	
-	//set PWM
-	
+	PCICR |=0x04;
 
-	//TCCR5A=0b00100011;
-	//TCCR5B=0b00011001;
+	//PCMSK2=0X3C;
+	PCMSK2=0x1C;
+	//PCMSK2 |=(1<<SO3pin);
+	//PCMSK2 |=(1<<SO4pin);
+	//PCMSK2 |=(1<<SO5pin);
+	//PCMSK2 |=(1<<SO6pin);
 	
-	TCCR5A=0x23;
-	TCCR5B=0x19;
-	
-	OCR5A=4000;
-	OCR5B=0;
-
+	//DDRL=0xFF;
+	DDRD|=(1<<M3ENpin);
+	DDRD|=(1<<M3DIpin);
+	DDRL|=(1<<M4ENpin);
+	PINK_prev=PINK;
 	sei();
 	
 }
 
-void secado_horizontal_ISR()							// PCINT puerto B
+void lavado_horizontal_ISR()
 {
-	if(SH==1){																					//Bandera que indica si el secado esta ativo
-		if(((PINB&0x05)==0x05)){		//				//Sensores S07 y S09 sin detectar nada
-			if(((PINB&0x02)==0x02)	){ 											//			//Sensor S08 sin detectar nada
-				//motor(M5,ON,IZQUIERDA);
-				M5_state=ON;
-				M5_dir=IZQUIERDA;
-				//secondsFinal=seconds;
-				//milisecondsFinal_SH=miliseconds;
-			}else{
-				//motor(M5,OFF,IZQUIERDA)
-				M5_state=OFF;
+	if((PINK_prev&0X1C)!=(PINK&0X1C)){
+		if(LH==1){																			//Bandera que indica si el lavado horizontal esta activo
+			if((PINK&0X14)==0X14){														//Se comprueba si S03 y S05 estan detectando algo
+				if((PINK&0X08)==0X08){													//Se comprueba si S04 sin detectando algo
+					//motor(M3,ON,IZQUIERDA);
+					M3_state=ON;
+					M3_dir=IZQUIERDA;
+					milisecondsFinal_LH=miliseconds;
+					//secondsFinal_LH=seconds;
+					
+					}else{
+					//motor(M3,OFF,IZQUIERDA);
+					M3_state=OFF;
+				}
+				}else{
+				//motor(M3,ON,DERECHA);
+				M3_state=ON;
+				M3_dir=DERECHA;
 			}
-		}else{
-			//motor(M5,ON,DERECHA);
-			M5_state=ON;
-			M5_dir=DERECHA;
+			}else{
+			LH=1;
+			//motor(M4,ON,IZQUIERDA);														//EL SENTIDO HAY Q MIRARLO
+			M4_state=ON;
+			//motor(M3,ON,DERECHA);
+			M3_state=ON;
+			M3_dir=DERECHA;
 		}	
-	}else{
-		SH=1;
-		M5_state=ON;
-		M5_dir=DERECHA;
-	}	
-}
-
-void secado_horizontal_CP()
-{
-	/*
-	if((M5_state==ON&&M5_dir==IZQUIERDA)&&(milisecondsFinal_SH+2500<miliseconds)){
-		M5_state=OFF;
-		SH=0;
 	}
-	/*if((SH==0)&&(M5_state==ON&&M5_dir==DERECHA)&&(secondsBack!=seconds)){
-		M5_state=ON;
-		M5_dir=IZQUIERDA;
-		secondsFinal=seconds;
-	}*/
-		motor(M5,M5_state,M5_dir);
-	
+	PINK_prev=PINK;
 }
 
-extern bool SH_ready;
-extern bool SH_up_final;
-extern miliseconds_t milisecondsFinal_SH;
+void lavado_horizontal_CP()
+{
+	
+	if((M4_state==ON&&M3_state==ON&&M3_dir==IZQUIERDA)&&(milisecondsFinal_LH+2300<miliseconds)){
+		M4_state=OFF;
+		M3_state=OFF;
+		LH=0;
+		
+	}
+	
+	motor(M4,M4_state,DERECHA);
+	motor(M3,M3_state,M3_dir);
+}
+/*
+extern bool LH_ready;
+extern bool LH_up_final;
+extern miliseconds_t milisecondsFinal_LH;
 
-void gestionSH(mode_t modo)
+void gestionLH(mode_t modo)
 {
     switch (modo)
 	{
 		case STARTING:
-			if(SH_ready==0){
-				if(up_final==0){
+			motor(M4,OFF,DERECHA);
+			if(LH_ready==0){
+				if(LH_up_final==0){
 					if((PINK&=(1<<7))==(1<<7)){
-						motor(M5,ON,IZQUIERDA);
+						motor(M3,ON,IZQUIERDA);
 					}else{
-						up_final=1;
-						milisecondsFinal_SH=miliseconds;
-						motor(M5,ON,DERECHA);
+						LH_up_final=1;
+						milisecondsFinal_LH=miliseconds;
+						motor(M3,ON,DERECHA);
 					}
 				}else{
-					if(milisecondsFinal_SH+2500<miliseconds){
-						SH_up_final=0;
-						SH_ready=1;
-						motor(M5,OFF,DERECHA);
+					if(milisecondsFinal_LH+2500<miliseconds){
+						LH_up_final=0;
+						LH_ready=1;
+						motor(M3,OFF,DERECHA);
 					}
 				}
 			}
 			break;
 		
 		case EMERGENCY:
-			motor(M5,OFF,DERECHA);
+			motor(M3,OFF,DERECHA);
+			motor(M4,OFF,DERECHA);
 			break;
 		
 		case BUSY:
-			secado_horizontal_CP();
+			lavado_horizontal_CP();
 			break;
 		default:
 			
 			break;			
 	}
-}
+}*/
