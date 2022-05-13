@@ -13,13 +13,14 @@
 
 #include "entrada.h"
 #include "actuators.h"
-
+#include "cinta.h"
 
 extern miliseconds_t miliseconds;
 extern seconds_t seconds;
 extern char ready;
 extern bool LV;
 extern bool barrier; //Indica si la barrera está (1) o no está activa (0)
+extern bool cinta;
 
 int barrierPulseCounter = 0;
 bool barrierUp;
@@ -55,6 +56,10 @@ ISR(INT0_vect)
     {
         barrierUp = FALSE;
     }
+	if (barrierPulseCounter == 5)
+	{
+		secondsLVOff = seconds;
+	}
 
     if (SO2_f == FALSE)
     {
@@ -87,6 +92,10 @@ ISR (INT1_vect)
 			carWaiting = TRUE;
 			barrier = TRUE;
 			secondsLV = seconds;
+			if (barrierPulseCounter > 3)
+			{
+				barrierStop();
+			}
 		}
 		antireb_S01 = miliseconds;
 	}
@@ -102,7 +111,14 @@ void barrera(barrier_status_t estado)
     }
     if (estado == DOWN)
     {
-        barrierDown ? barrierStop() : barrierMove();
+		if ( !barrierDown && SO1_f )
+		{
+			barrierMove();
+		}
+		else 
+		{
+			barrierStop();
+		}
 		barrier = TRUE;
     }
     if (estado == WAIT)
@@ -117,7 +133,6 @@ void barrera(barrier_status_t estado)
 	else
 	{
 		barrierDown = TRUE;
-		secondsLVOff = seconds;
 		barrierPulseCounter = 0;
 	}
 }
@@ -156,15 +171,17 @@ void gestionBarrera(mode_t modo)
 		case BUSY:
 			if (carWaiting == TRUE && LV == FALSE)
 			{
-				barrera(UP);	
+				barrera(UP);
 			}
 			else 
 			{
 				barrera(DOWN);
 			}
+			gestionCinta(BUSY);
 			break;
 		default:
 			barrera(WAIT);
 			break;			
 	}
+	
 }

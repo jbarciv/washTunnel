@@ -15,6 +15,8 @@ extern seconds_t seconds;
 extern bool LV;
 extern bool LH;
 extern bool secado;
+extern bool cinta;
+extern bool barrier;
 
 bool coche = FALSE;
 
@@ -31,7 +33,8 @@ INTERRUPCIÓN PERIÓDICA CADA 0.5 SEGUNDOs
 ********************************************/
 ISR (TIMER4_COMPA_vect)
 {	
-	coche = (!SO1_f || LV || LH || secado || !SO10_f || !SO11_f || !SO12_f);
+	coche = (barrier || LV || LH || secado || !SO10_f || !SO11_f || !SO12_f);
     seconds++;
+	coche ? (cinta=TRUE) : (cinta=FALSE);
     parpadeo(seconds, coche);
 }
