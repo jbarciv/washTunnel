@@ -5,7 +5,6 @@
 #include "commonstuff.h"
 #include "setup.h"
 #include "entrada.h"
-#include "actuators.h"
 #include "salida.h"
 
 /********************* Variables globales ***********************************/

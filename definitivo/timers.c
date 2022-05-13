@@ -7,11 +7,16 @@
  * -------------------------------------------------------------------------- */
 
 #include "commonstuff.h"
+#include "luz.h"
 
 
 extern miliseconds_t miliseconds;
 extern seconds_t seconds;
-extern bool coche;
+extern bool LV;
+extern bool LH;
+extern bool secado;
+
+bool coche = FALSE;
 
 /********************************************
 INTERRUPCIÓN PERIÓDICA CADA 1 MILISEGUNDO
@@ -25,10 +30,8 @@ ISR (TIMER3_COMPA_vect)
 INTERRUPCIÓN PERIÓDICA CADA 0.5 SEGUNDOs
 ********************************************/
 ISR (TIMER4_COMPA_vect)
-{
+{	
+	coche = (!SO1_f || LV || LH || secado || !SO10_f || !SO11_f || !SO12_f);
     seconds++;
-
     parpadeo(seconds, coche);
-
-
 }

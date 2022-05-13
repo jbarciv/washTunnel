@@ -139,7 +139,6 @@ ej. Luz(L1, ON);
 ***************************************/
 void luz(luz_t luz, status_t estado)
 {   
-    char lPort, lPin;
     switch (luz)
     {
     case L1:

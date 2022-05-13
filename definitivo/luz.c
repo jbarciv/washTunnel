@@ -1,6 +1,5 @@
 /* FUNCION PARA LUZ INDICADORA DE ESTADO */ 
 
-#include "commonstuff.h"
 #include "luz.h"
 #include "actuators.h"
 

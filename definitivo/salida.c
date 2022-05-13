@@ -25,7 +25,7 @@ extern char ready;
 //Rutina de interrupción SO10 (activa por flanco de bajada)
 ISR(INT2_vect)
 {
-    if((miliseconds - antireb_S10) > SENSOR_DELAY && carLeaving == FALSE && SO11_f == 0)
+    if((miliseconds-antireb_S10) > SENSOR_DELAY && carLeaving == FALSE && SO11_f == 0)
     {
         carLeaving = TRUE;
         semaforo(GREEN);

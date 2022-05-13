@@ -7,3 +7,4 @@
 void motorSetup(void);
 void entradaSetup(void);
 void timerSetup(void);
+void salidaSetup(void);
