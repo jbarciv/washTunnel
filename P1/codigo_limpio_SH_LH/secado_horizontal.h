@@ -6,5 +6,5 @@
 void secado_horizontal_ISR();
 void secado_horizontal_CP();
 void setup_SH_PORTS();
-
+void gestionSH(mode_t modo);
 #endif
