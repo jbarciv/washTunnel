@@ -38,14 +38,15 @@ int main(void)
 	
     while(1)
     {
-		if (ready == 0x0C)
-		{
-			gestionSH(BUSY);
-			gestionLH(BUSY);
-		}else
+		if (!ready == 0x0C)
 		{
 			gestionSH(STARTING);
 			gestionLH(STARTING);
+			
+		}else
+		{
+			gestionSH(BUSY);
+			gestionLH(BUSY);
 		}
     }
 }
