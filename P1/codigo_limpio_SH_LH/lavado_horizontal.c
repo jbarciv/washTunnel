@@ -8,10 +8,12 @@ Esta version aun no esta probada puede dar fallos
 #include <avr/io.h>
 #include <avr/interrupt.h>
 
+extern char PINK_prev;
+extern char ready;
 
 extern bool LH;
-extern char PINK_prev;
 extern bool LH_up_final;
+
 extern status_t M4_state;
 extern status_t M3_state;
 extern direccion_t M3_dir;
@@ -19,8 +21,10 @@ extern direccion_t M3_dir;
 extern miliseconds_t miliseconds;
 extern miliseconds_t milisecondsFinal_LH;
 
-extern char ready;
-
+ISR (PCINT2_vect)       // PCINT puerto k
+{
+	lavado_horizontal_ISR();
+}
 
 void setup_LH_PORTS()
 {
@@ -41,7 +45,6 @@ void setup_LH_PORTS()
     /*Variable auxiliar*/
 	PINK_prev = PINK;
 	sei();
-	
 }
 
 void lavado_horizontal_ISR()
@@ -126,6 +129,7 @@ void lavado_horizontal_CP()
 		if(milisecondsFinal_LH + 2500 < miliseconds)
         {
 			LH_up_final = 0;
+			LH = 0;
 			motor(M3,OFF,DERECHA);
 		}
 	}

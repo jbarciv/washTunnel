@@ -8,16 +8,21 @@ Esta version aun no esta probada puede dar fallos
 #include <avr/io.h>
 #include <avr/interrupt.h>
 
+extern char ready;
 
 extern bool SH;
+extern bool SH_up_final;
+
 extern status_t M5_state;
 extern direccion_t M5_dir;
-extern char ready;
 
 extern miliseconds_t miliseconds;
 extern miliseconds_t milisecondsFinal_SH;
 
-extern bool SH_up_final;
+ISR (PCINT0_vect)       // PCINT puerto b
+{
+	secado_horizontal_ISR();
+}
 
 void setup_SH_PORTS()
 {
@@ -39,15 +44,14 @@ void setup_SH_PORTS()
 	OCR5A = 4000;
 	OCR5B = 0;
 	sei();
-	
 }
 
 void secado_horizontal_ISR()							// PCINT puerto B
 {
-	if(SH == 1)
-    {											//Bandera que indica si el secado esta ativo
-		if(SO7_f && SO9_f)
-        {					                    //Sensores S07 y S09 sin detectar nada
+	if(SH == 1)									//Bandera que indica si el secado esta ativo
+    {											
+		if(SO7_f && SO9_f)						//Sensores S07 y S09 sin detectar nada
+        {					                    
 			if(SO8_f)                           //Sensor S08 sin detectar nada
             { 					
 				M5_state = ON;
@@ -102,10 +106,10 @@ void secado_horizontal_CP()
 		if(milisecondsFinal_SH + 2500 < miliseconds)
         {
 			SH_up_final = 0;
+			SH = 0;
 			motor(M5,OFF,DERECHA);
 		}
-	}
-	motor(M5,M5_state,M5_dir);	
+	}	
 }
 
 
@@ -119,7 +123,7 @@ void gestionSH(mode_t modo)
             Este modo hace que el motor baje hasta abajo y cuando toque el sensor SW3 
             suba durante 2500 ms y despues se para para quedarse en la posicion adecuada.
             */
-			if((ready & (1 << LH_MOD))==(1 << LH_MOD))              //Hay que poner en la variable ready un SHmod(pongo en este if LHmod pero deberia ser SHmod,Se comprueba si SH esta ready
+			if((ready & (1 << DRYER_MOD))==(1 << DRYER_MOD))              //Se comprueba si SH esta ready
             {
 				if(SH_up_final == 0)                                //Bandera de que se esta subiendo a la posicion final
                 {
@@ -137,7 +141,7 @@ void gestionSH(mode_t modo)
 					if(milisecondsFinal_SH+2500<miliseconds)
                     {
 						SH_up_final = 0;
-						ready |= (1 << LH_MOD);							//pongo LHmod pero deberia ser SHmod
+						ready |= (1 << DRYER_MOD);							
 						motor(M5,OFF,DERECHA);
 					}
 				}
@@ -152,7 +156,6 @@ void gestionSH(mode_t modo)
 			secado_horizontal_CP();
 			break;
 		default:
-			
 			break;			
 	}
 }

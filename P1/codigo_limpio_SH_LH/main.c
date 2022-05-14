@@ -14,6 +14,7 @@
 #include "setup.h"
 
 miliseconds_t  miliseconds = 0;
+char ready=0x00;
 
 char PINK_prev;
 bool LH = 0;
@@ -23,14 +24,11 @@ status_t M3_state=OFF;
 direccion_t M3_dir;
 miliseconds_t  milisecondsFinal_LH = 0;
 
-bool SH=  0;
+bool SH = 0;
 bool SH_up_final = 0;
 status_t M5_state = OFF;
 direccion_t M5_dir;
 miliseconds_t  milisecondsFinal_SH = 0;
-
- 
-
 
 int main(void)
 {   
@@ -40,20 +38,16 @@ int main(void)
 	
     while(1)
     {
-        //gestionSH(STARTING);
-        //gestionLH(STARTING);
-		lavado_horizontal_CP();
-		secado_horizontal_CP();
+		if (ready == 0x0C)
+		{
+			gestionSH(BUSY);
+			gestionLH(BUSY);
+		}else
+		{
+			gestionSH(STARTING);
+			gestionLH(STARTING);
+		}
     }
 }
 
-ISR (PCINT2_vect)       // PCINT puerto k
-{	
-	lavado_horizontal_ISR();	
-}
-
-ISR (PCINT0_vect)       // PCINT puerto b
-{	
-	secado_horizontal_ISR();	
-}
 
