@@ -24,7 +24,7 @@ direccion_t M3_dir;
 miliseconds_t  milisecondsFinal_LH = 0;
 
 bool SH=  0;
-bool LH_up_final = 0;
+bool SH_up_final = 0;
 status_t M5_state = OFF;
 direccion_t M5_dir;
 miliseconds_t  milisecondsFinal_SH = 0;
@@ -56,3 +56,4 @@ ISR (PCINT0_vect)       // PCINT puerto b
 {	
 	secado_horizontal_ISR();	
 }
+

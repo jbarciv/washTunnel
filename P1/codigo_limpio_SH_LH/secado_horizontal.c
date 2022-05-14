@@ -30,7 +30,7 @@ void setup_SH_PORTS()
 	PCMSK0 = 0X00;
 	PCMSK0 |= (1<<SO7pin);
 	PCMSK0 |= (1<<SO8pin);
-	PCMSK0 |= (1<<SO9pin);*/
+	PCMSK0 |= (1<<SO9pin);
 	 /*Setup de los pines de los motores y PWM  */
 	DDRL |= (1<<M5ENpin);
 	DDRL |= (1<<M5DIpin);
@@ -46,7 +46,7 @@ void secado_horizontal_ISR()							// PCINT puerto B
 {
 	if(SH == 1)
     {											//Bandera que indica si el secado esta ativo
-		if(SO7_f && S09_f)
+		if(SO7_f && SO9_f)
         {					                    //Sensores S07 y S09 sin detectar nada
 			if(SO8_f)                           //Sensor S08 sin detectar nada
             { 					
@@ -119,7 +119,7 @@ void gestionSH(mode_t modo)
             Este modo hace que el motor baje hasta abajo y cuando toque el sensor SW3 
             suba durante 2500 ms y despues se para para quedarse en la posicion adecuada.
             */
-			if((ready & (1 << SH_MOD))==(1 << SH_MOD))              //Se comprueba si SH esta ready
+			if((ready & (1 << LH_MOD))==(1 << LH_MOD))              //Hay que poner en la variable ready un SHmod(pongo en este if LHmod pero deberia ser SHmod,Se comprueba si SH esta ready
             {
 				if(SH_up_final == 0)                                //Bandera de que se esta subiendo a la posicion final
                 {
@@ -137,7 +137,7 @@ void gestionSH(mode_t modo)
 					if(milisecondsFinal_SH+2500<miliseconds)
                     {
 						SH_up_final = 0;
-						ready |= (1 << SH_MOD);
+						ready |= (1 << LH_MOD);							//pongo LHmod pero deberia ser SHmod
 						motor(M5,OFF,DERECHA);
 					}
 				}

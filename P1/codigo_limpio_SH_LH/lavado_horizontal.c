@@ -55,9 +55,9 @@ void lavado_horizontal_ISR()
     {
 		if(LH == 1)
         {													//Bandera que indica si el lavado horizontal esta activo
-			if(SO3_f && S05_f)
+			if(SO3_f && SO5_f)
             {										        //Se comprueba si S03 y S05 estan detectando algo
-				if(S04_f)
+				if(SO4_f)
                 {											//Se comprueba si S04 sin detectando algo
 					M3_state = ON;
 					M3_dir = IZQUIERDA;
@@ -77,7 +77,7 @@ void lavado_horizontal_ISR()
             {
                 LH = 1;
 			    M3_state = ON;
-			    M3_dir = DERECHA
+			    M3_dir = DERECHA;
             }else                                           //LLega un coche nuevo
             {
                 LH = 1;
