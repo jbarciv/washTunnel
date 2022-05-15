@@ -114,7 +114,7 @@ void lavado_horizontal_CP()
     */
     if(LH_up_final == 0)                                                    //Bandera de que se esta subiendo a la posicion final
     {
-		if(!((PINK &= (1 << 7)) == (1 << 7)))                               //Esto no funciona porque creemos que el SW2 no funciona
+		if(((PINK &= (1 << 7)) == (1 << 7)))                               //Esto no funciona porque creemos que el SW2 no funciona
         {
             /*Mientras no se detecte nada en SW2 se hace caso a las banderas de la ISR*/
             motor(M4,M4_state,DERECHA);

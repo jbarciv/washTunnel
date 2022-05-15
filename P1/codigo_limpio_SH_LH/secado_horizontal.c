@@ -91,7 +91,7 @@ void secado_horizontal_CP()
     */
     if(SH_up_final == 0)                                                    //Bandera de que se esta subiendo a la posicion final
     {
-		if(!((PINK &= (1 << 6)) == (1 << 6)))                               
+		if(((PINK &= (1 << 6)) == (1 << 6)))                               
         {
             /*Mientras no se detecte nada en SW3 se hace caso a las banderas de la ISR*/
 	        motor(M5,M5_state,M5_dir);
@@ -127,7 +127,7 @@ void gestionSH(mode_t modo)
             {
 				if(SH_up_final == 0)                                //Bandera de que se esta subiendo a la posicion final
                 {
-					if(!(PINK &= (1 << 6)) == (1 << 6))
+					if((PINK &= (1 << 6)) == (1 << 6))
                     {
 						motor(M5,ON,IZQUIERDA);
 					}else
