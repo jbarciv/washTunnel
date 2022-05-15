@@ -3,19 +3,15 @@
 #include "luz.h"
 #include "actuators.h"
 
-extern seconds_t seconds;
-extern bool LH;
-extern bool LV;
-extern bool SECADO;
-extern bool coche; // para este podriamos hacer una macro como coche = LV || LH || SECADO
-int ms_sin_coche=0;
+extern bool coche;
+seconds_t s_sin_coche = 0;
 
 
 void parpadeo(seconds_t ms, bool coche)
 {
-	if (coche)				//hay coche
+	if (coche)
 	{
-		if(ms%2)			// en los medios segundos "pares" está encendida
+		if(ms % 2)			        // en los medios segundos "pares" está encendida
         {
             luz(L1, ON);
         }
@@ -24,8 +20,8 @@ void parpadeo(seconds_t ms, bool coche)
 	else 
 	{
         luz(L1, OFF);
-		ms_sin_coche++;
-        if (!(ms_sin_coche%20)) // si han pasado 20 medios segunds (10s), se enciende medio segundo
+		s_sin_coche++;
+        if ((s_sin_coche % 20) == 0) // si han pasado 20 medios de segundo (10s), se enciende
         {
             luz(L1, ON);
         }

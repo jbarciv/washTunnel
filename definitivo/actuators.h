@@ -15,12 +15,6 @@
 
 void motor(motor_t, status_t, direccion_t);
 void luz(luz_t, status_t);
-void semaforo (status_luz_t); // CREO QUE DEBE MOVERSE A OTRO SITIO (?)                  
-
-// CREO QUE DEBEN MOVERSE A OTRO SITIO (?)
-// void moveCinta();                            
-// void stopCinta();
-// void gestionCinta();
-// void tunnelGotBusy();
+void semaforo (status_luz_t);               
 
 #endif /* ACTUATORS_H_ */
