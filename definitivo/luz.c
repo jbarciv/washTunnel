@@ -15,6 +15,7 @@ void parpadeo(seconds_t ms, bool coche)
 {
 	if (coche)				//hay coche
 	{
+        ms_sin_coche = 0;   // se resetea la variable para que una vez deje de haber coche cuente 10s
 		if(ms%2)			// en los medios segundos "pares" está encendida
         {
             luz(L1, ON);
@@ -24,7 +25,7 @@ void parpadeo(seconds_t ms, bool coche)
 	else 
 	{
         luz(L1, OFF);
-		ms_sin_coche++;
+		ms_sin_coche++;         //los medios segundos que pasan en modo standby
         if (!(ms_sin_coche%20)) // si han pasado 20 medios segunds (10s), se enciende medio segundo
         {
             luz(L1, ON);
