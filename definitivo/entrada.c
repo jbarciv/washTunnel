@@ -22,17 +22,17 @@ extern bool LV;
 extern bool barrier; //Indica si la barrera está (1) o no está activa (0)
 extern bool cinta;
 
-int barrierPulseCounter = 0;
+static bool carWaiting = FALSE;
+
 bool barrierUp;
 bool barrierDown;
+int barrierPulseCounter = 0;
 seconds_t secondsLV = 0;
 seconds_t secondsLVOff;
 
-static bool carWaiting = FALSE;
-seconds_t tPreviousCar = 0;
-
 miliseconds_t antireb_S01 = 0;
 miliseconds_t antireb_SW1 = 0;
+
 
 
 /********************************************
@@ -41,27 +41,28 @@ MICROINTERRUPTOR SW1: contador pulsos barrera
 ********************************************/
 ISR(INT0_vect) 
 {   
-    if ((miliseconds - antireb_SW1) > BOTON_DELAY) // antirrebotes del microinterruptor
+    if ((miliseconds - antireb_SW1) > BOTON_DELAY) // antirebotes del microinterruptor
     {   // se lleva la cuenta de los pulsos; cuando llega a cinco se resetea
         (barrierPulseCounter == 5) ? (barrierPulseCounter = 0) : barrierPulseCounter++ ;
-        antireb_SW1 = miliseconds;  // se captura el tiempo  para el antirrebotes
+        antireb_SW1 = miliseconds;  // se captura el tiempo  para el antirebotes
     }
 
-    if (barrierPulseCounter == 3)   // cuando esto se cumple la _barrera está levantada_
-    {   // se controla el estado de la barrera con una bandera
+    if (barrierPulseCounter == 3)   // barrera está levantada
+    {   
         barrierUp = TRUE;
-		secondsLV = seconds;
+		secondsLV = seconds; 		// para inicio del lavado vertical
     }
     else 
     {
         barrierUp = FALSE;
     }
+
 	if (barrierPulseCounter == 5)
 	{
-		secondsLVOff = seconds;
+		secondsLVOff = seconds;		// para apagado del lavado vertical
 	}
 
-    if (SO2_f == FALSE)
+    if (!SO2_f)
     {
         barrierDown = TRUE;
 		secondsLVOff = seconds;
@@ -75,14 +76,8 @@ SENSOR ÓPTICO SO1: detector llegada coche
 ********************************************/
 ISR (INT1_vect)
 {
-	// Antirebotes
-	if (miliseconds - antireb_S01 > SENSOR_DELAY)
+	if (miliseconds - antireb_S01 > SENSOR_DELAY) // antirebotes del sensor optico
 	{
-		/*
-		La siguiente lógica supone que no nos vacilan,
-		si quieres entrar en el túnel no debes dar marcha atrás
-		en frente de la barrera...
-		*/
 		if (SO1_f) // Acaba de dejar de detectar (flanco de subida)
 		{
 			carWaiting = FALSE;
