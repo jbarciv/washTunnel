@@ -76,17 +76,18 @@ void lavado_horizontal_ISR()
 			}
 		}else
         {
-            if(SO6_f)                                       //El coche que ha salido ha ido un poco para atras
+            if(SO6_f)                                  		//LLega un coche nuevo     
+            {
+				LH = 1;
+		    	M4_state = ON;
+		    	M3_state = ON;
+		    	M3_dir = DERECHA;
+                
+            }else                                           //El coche que ha salido ha ido un poco para atras
             {
                 LH = 1;
 			    M3_state = ON;
 			    M3_dir = DERECHA;
-            }else                                           //LLega un coche nuevo
-            {
-                LH = 1;
-		    	M4_state = ON;
-		    	M3_state = ON;
-		    	M3_dir = DERECHA;
             }
 			
 		}	
