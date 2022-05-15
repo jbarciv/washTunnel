@@ -80,11 +80,11 @@ void motor(motor_t motor, status_t estado, direccion_t giro)
             {
 	            if (giro == DERECHA)    // Establecemos la direccion (1=drcha. 0=izqda.)
 	            {
-		            M4DIPORT |= (1 << M5DIpin);
+		            M4DIPORT |= (1 << M4DIpin);
 	            }
 	            else
 	            {
-		            M4DIPORT &= ~(1 << M5DIpin);
+		            M4DIPORT &= ~(1 << M4DIpin);
 	            }
 	            M4ENPORT |= (1 << M4ENpin); // Despues encendemos el motor
             }

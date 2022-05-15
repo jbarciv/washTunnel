@@ -68,8 +68,6 @@ typedef enum {UP, DOWN, WAIT}           barrier_status_t;
 #define M4DIPORT  PORTL
 #define M4DIpin   7
 // Motor  M5 -> SECADO {PL4, PL5} 
-//#define M5PWMPORT TCCR1B
-//#define M5PWMpin  CS50 
 #define M5ENPORT  PORTL
 #define M5ENpin   4
 #define M5DIPORT  PORTL
@@ -83,6 +81,13 @@ typedef enum {UP, DOWN, WAIT}           barrier_status_t;
 /* Etiquetas para los sensores opticos */
 #define SO1_f ((PIND & (1 << PIND1)) == (1<<PIND1))
 #define SO2_f ((PINK & (1 << PINK1)) == (1<<PINK1))
+#define SO3_f ((SO3PIN & (1 << SO3pin)) == (1<<SO3pin))
+#define SO4_f ((SO4PIN & (1 << SO4pin)) == (1<<SO4pin))
+#define SO5_f ((SO5PIN & (1 << SO5pin)) == (1<<SO5pin))
+#define SO6_f ((SO6PIN & (1 << SO6pin)) == (1<<SO6pin))
+#define SO7_f ((SO7PIN & (1 << SO7pin)) == (1<<SO7pin))
+#define SO8_f ((SO8PIN & (1 << SO8pin)) == (1<<SO8pin))
+#define SO9_f ((SO9PIN & (1 << SO9pin)) == (1<<SO9pin))
 #define SO10_f ((PIND & (1 << PIND2)) == (1<<PIND2))
 #define SO11_f ((PINB & (1 << PINB4)) == (1<<PINB4))
 #define SO12_f ((PINB & (1 << PINB5)) == (1<<PINB5))

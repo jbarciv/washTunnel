@@ -16,24 +16,25 @@ extern status_t M5_state;
 extern direccion_t M5_dir;
 //extern seconds_t seconds;
 //extern seconds_t secondsFinal;
-//extern miliseconds_t miliseconds;
-//extern miliseconds_t milisecondsFinal_SH;
+extern miliseconds_t miliseconds;
+extern miliseconds_t milisecondsFinal_SH;
 //extern seconds_t secondsBack;
 
 void setup_SH_PORTS()
 {
 	cli();
 	
-	DDRB &= ~(1 << S07pin);
-	DDRB &= ~(1 << S08pin);
-	DDRB &= ~(1 << S09pin);
+	DDRB &= ~(1 << SO7pin);
+	DDRB &= ~(1 << SO8pin);
+	DDRB &= ~(1 << SO9pin);
 	
 	PCICR |=0x01;
 	
-	PCMSK0=0X00;
-	PCMSK0 |=(1<<SO7pin);
+	//PCMSK0=0X00;
+	PCMSK0=0x07;
+	/*PCMSK0 |=(1<<SO7pin);
 	PCMSK0 |=(1<<SO8pin);
-	PCMSK0 |=(1<<SO9pin);
+	PCMSK0 |=(1<<SO9pin);*/
 	
 	DDRL |=(1<<M5ENpin);
 	DDRL |=(1<<M5DIpin);
@@ -63,7 +64,7 @@ void secado_horizontal_ISR()							// PCINT puerto B
 				M5_state=ON;
 				M5_dir=IZQUIERDA;
 				//secondsFinal=seconds;
-				//milisecondsFinal_SH=miliseconds;
+				milisecondsFinal_SH=miliseconds;
 			}else{
 				//motor(M5,OFF,IZQUIERDA)
 				M5_state=OFF;
@@ -82,24 +83,19 @@ void secado_horizontal_ISR()							// PCINT puerto B
 
 void secado_horizontal_CP()
 {
-	/*
-	if((M5_state==ON&&M5_dir==IZQUIERDA)&&(milisecondsFinal_SH+2500<miliseconds)){
+	
+	if((M5_state==ON&&M5_dir==IZQUIERDA)&&(milisecondsFinal_SH+2000<miliseconds)){
 		M5_state=OFF;
 		SH=0;
 	}
-	/*if((SH==0)&&(M5_state==ON&&M5_dir==DERECHA)&&(secondsBack!=seconds)){
-		M5_state=ON;
-		M5_dir=IZQUIERDA;
-		secondsFinal=seconds;
-	}*/
-		motor(M5,M5_state,M5_dir);
+	motor(M5,M5_state,M5_dir);
 	
 }
-
+/*
 extern bool SH_ready;
 extern bool SH_up_final;
 extern miliseconds_t milisecondsFinal_SH;
-
+/*
 void gestionSH(mode_t modo)
 {
     switch (modo)
@@ -135,4 +131,4 @@ void gestionSH(mode_t modo)
 			
 			break;			
 	}
-}
+}*/
