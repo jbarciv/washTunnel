@@ -24,6 +24,7 @@ void parpadeo(seconds_t ms, bool coche)
         if ((s_sin_coche % 20) == 0) // si han pasado 20 medios de segundo (10s), se enciende
         {
             luz(L1, ON);
+            s_sin_coche = 0;
         }
 	}
 }
