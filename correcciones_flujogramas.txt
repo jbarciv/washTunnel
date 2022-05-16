@@ -1,5 +1,5 @@
 Cuando hayáis corregido una cosa, cambiad (-) por (+).
-Cuando sea definitivo de acuerdo a lo que aquí pone, se guarda en .jpg y se sube a la carpeta "diagramas de github.
+Cuando sea definitivo de acuerdo a lo que aquí pone, se guarda en .jpg y se sube a la carpeta "diagramas" de github.
 
 Correcciones flujogramas:
 
