@@ -76,18 +76,17 @@ void lavado_horizontal_ISR()
 			}
 		}else
         {
-            if(SO5_f)                                  		//LLega un coche nuevo     
-            {
-				LH = 1;
-		    	M4_state = ON;
-		    	M3_state = ON;
-		    	M3_dir = DERECHA;
-                
-            }else                                           //El coche que ha salido ha ido un poco para atras
+            if(SO6_f)                                       //El coche que ha salido ha ido un poco para atras
             {
                 LH = 1;
 			    M3_state = ON;
 			    M3_dir = DERECHA;
+            }else                                           //LLega un coche nuevo
+            {
+                LH = 1;
+		    	M4_state = ON;
+		    	M3_state = ON;
+		    	M3_dir = DERECHA;
             }
 			
 		}	
@@ -114,7 +113,7 @@ void lavado_horizontal_CP()
     */
     if(LH_up_final == 0)                                                    //Bandera de que se esta subiendo a la posicion final
     {
-		if(((PINK &= (1 << 7)) == (1 << 7)))                               //Esto no funciona porque creemos que el SW2 no funciona
+		if(!((PINK &= (1 << 7)) == (1 << 7)))                               //Esto no funciona porque creemos que el SW2 no funciona
         {
             /*Mientras no se detecte nada en SW2 se hace caso a las banderas de la ISR*/
             motor(M4,M4_state,DERECHA);
@@ -148,7 +147,7 @@ void gestionLH(mode_t modo)
             De momento no funciona. Creemos que no funciona el SW2 hay q comprobarlo.
             */
 			motor(M4,OFF,DERECHA);
-			if((ready & (1 << LH_MOD))==(1 << LH_MOD))                  //Se comprueba si LH esta ready
+			if(!(ready & (1 << LH_MOD))==(1 << LH_MOD))                  //Se comprueba si LH esta ready
             {
 				if(LH_up_final == 0)                                    //Bandera de que se esta subiendo a la posicion final
                 {

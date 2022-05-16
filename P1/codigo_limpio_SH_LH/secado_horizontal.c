@@ -48,10 +48,10 @@ void setup_SH_PORTS()
 
 void secado_horizontal_ISR()							// PCINT puerto B
 {
-	if(SH == 1)									//Bandera que indica si el secado esta ativo
-    {											
-		if(SO7_f && SO9_f)						//Sensores S07 y S09 sin detectar nada
-        {					                    
+	if(SH == 1)
+    {											//Bandera que indica si el secado esta ativo
+		if(SO7_f && SO9_f)
+        {					                    //Sensores S07 y S09 sin detectar nada
 			if(SO8_f)                           //Sensor S08 sin detectar nada
             { 					
 				M5_state = ON;
@@ -91,7 +91,7 @@ void secado_horizontal_CP()
     */
     if(SH_up_final == 0)                                                    //Bandera de que se esta subiendo a la posicion final
     {
-		if(((PINK &= (1 << 6)) == (1 << 6)))                               
+		if(!((PINK &= (1 << 6)) == (1 << 6)))                               
         {
             /*Mientras no se detecte nada en SW3 se hace caso a las banderas de la ISR*/
 	        motor(M5,M5_state,M5_dir);
@@ -123,11 +123,11 @@ void gestionSH(mode_t modo)
             Este modo hace que el motor baje hasta abajo y cuando toque el sensor SW3 
             suba durante 2500 ms y despues se para para quedarse en la posicion adecuada.
             */
-			if((ready & (1 << DRYER_MOD))==(1 << DRYER_MOD))              //Se comprueba si SH esta ready
+			if(!(ready & (1 << DRYER_MOD))==(1 << DRYER_MOD))              //Se comprueba si SH esta ready
             {
 				if(SH_up_final == 0)                                //Bandera de que se esta subiendo a la posicion final
                 {
-					if((PINK &= (1 << 6)) == (1 << 6))
+					if(!(PINK &= (1 << 6)) == (1 << 6))
                     {
 						motor(M5,ON,IZQUIERDA);
 					}else
@@ -156,6 +156,7 @@ void gestionSH(mode_t modo)
 			secado_horizontal_CP();
 			break;
 		default:
+			
 			break;			
 	}
 }
