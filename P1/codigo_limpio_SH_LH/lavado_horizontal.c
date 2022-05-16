@@ -76,7 +76,7 @@ void lavado_horizontal_ISR()
 			}
 		}else
         {
-            if(SO6_f)                                  		//LLega un coche nuevo     
+            if(SO5_f)                                  		//LLega un coche nuevo     
             {
 				LH = 1;
 		    	M4_state = ON;
