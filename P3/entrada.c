@@ -25,6 +25,7 @@ int barrierPulseCounter = 0;
 bool barrierUp;
 static bool barrierDown;
 seconds_t secondsLV = 0;
+static bool antiCollision = FALSE;
 
 static bool carWaiting = FALSE;
 seconds_t tPreviousCar = 0;
@@ -84,6 +85,11 @@ ISR (INT1_vect)
 			carWaiting = TRUE;
 			barrier = TRUE;
 			secondsLV = half_second;
+			if (barrierPulseCounter > 3)
+			{
+				barrierStop();
+				antiCollision = TRUE;
+			}
 		}
 		antireb_S01 = miliseconds;
 	}
@@ -91,31 +97,52 @@ ISR (INT1_vect)
 
 void barrera(barrier_status_t estado)
 {
-    if (estado == UP)
-    {
-        barrierUp ? barrierStop() : barrierMove();
-		barrier = TRUE;
+	if (antiCollision == FALSE) //todo normal
+	{
+		if (estado == UP)
+		{
+			barrierUp ? barrierStop() : barrierMove();
+			barrier = TRUE;
+		}
+		if (estado == DOWN)
+		{
+			if (barrierDown)
+			{
+				barrierStop();
+				barrier = FALSE;
+			}
+			else
+			{
+				barrierMove();
+				barrier = TRUE;
+			}
+		}
+		if (estado == WAIT)
+		{
+			barrierStop();
+			barrier = FALSE;
+		}
+		if (SO2_f)
+		{
+			barrierDown = FALSE;
+		}
+		else
+		{
+			barrierDown = TRUE;
+			barrierPulseCounter = 0;
+		}
+	}
 
-    }
-    if (estado == DOWN)
-    {
-        barrierDown ? barrierStop() : barrierMove();
-		barrier = TRUE;
-    }
-    if (estado == WAIT)
-    {
-        barrierStop();
-		barrier = FALSE;
-    }
-    if(SO2_f)
+	else // estoy bajando y me encuentro un coche
 	{
-		barrierDown = FALSE;
+		barrierStop();
+		if (SO1_f) // el coche que molestaba se va
+		{
+			antiCollision = FALSE;
+		}
 	}
-	else
-	{
-		barrierDown = TRUE;
-		barrierPulseCounter = 0;
-	}
+	
+
 }
 
 void barrierMove()
