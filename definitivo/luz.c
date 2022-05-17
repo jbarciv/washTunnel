@@ -1,11 +1,16 @@
-/* FUNCION PARA LUZ INDICADORA DE ESTADO */ 
+/* ----------------------------------------------------------------------------
+ *                   LUZ INDICADORA DE ESTADO
+ * 
+ * DATE:    13/05/2022
+ * AUTHOR:  Celia Ramos Ramírez
+ *          María del Mar Martín Diaz        
+ * -------------------------------------------------------------------------- */
 
 #include "luz.h"
 #include "actuators.h"
 
 extern bool coche;
 seconds_t s_sin_coche = 0;
-
 
 void parpadeo(seconds_t ms, bool coche)
 {

@@ -104,12 +104,12 @@ void motor(motor_t motor, status_t estado, direccion_t giro)
                     M5DIPORT &= ~(1 << M5DIpin);
                 }
                 //M5ENPORT |= (1 << M5ENpin); 
-                OCR5B=2000; 
+                OCR5B = 2000; 
             } 
             else
             {
                 //M5ENPORT &= ~(1 << M5ENpin);
-                OCR5B=0;
+                OCR5B = 0;
             }
             break;
         case M6: 

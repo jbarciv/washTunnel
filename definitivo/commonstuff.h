@@ -19,8 +19,8 @@
 #define ANTIREB_TIME    125     // Con un preescalado de 64 --> 125 periodos es 1 ms
 #define REAL_TIME       15625   // Con un preescalado de 256 --> 31250 periodos es 1 s
 #define T_ENTRE_COCHES  5       // Dejamos 5 segundos al menos entre un coche y otro
-#define T_LV            6      // 10 medios segundos son 5 segundos
-#define TLV_Off         15      // 15 medios segundos son 7.5 segundos
+#define T_LV            32      // 32 medios segundos son 16 segundos
+#define TLV_Off         52      // 52 medios segundos son 26 segundos
 
 /* Etiquetas para los 'estados' del tunel de lavado*/
 typedef enum 
@@ -118,7 +118,6 @@ typedef enum {UP, DOWN, WAIT}           barrier_status_t;
 #define SW2          PINK    // PK6 -> Sensor finales de carrera lavado horiz.
 #define SW3          PINK    // PK7 -> Sensor finales de carrera secado
 #define SW4          PIND    // PD3 -> Sensor/botón para de emergencia
-#define emergency_b  SW4
 
 /* Etiquetas para los LEDs */
 // Puertos para los LEDs
@@ -142,9 +141,6 @@ typedef enum {UP, DOWN, WAIT}           barrier_status_t;
 // Gestión del tiempo
 typedef unsigned long int   miliseconds_t;
 typedef unsigned int        seconds_t;
-
-
-//char ready = 0b00000000; //Variable encargada de registrar el proceso de STARTING del sistema
 
 
 #endif /* LAVADERO_H_ */
