@@ -113,18 +113,29 @@ void gestionLH(mode_t modo)
 	{
 		case STARTING:
 			motor(M4,OFF,DERECHA);
-			if(!(ready & (1 << LH_MOD) == (1 << LH_MOD))){
-				if(LH_up_final == 0){
-					if((PINK & (1 << 6)) == (1 << 6)){
-						motor(M3,ON,IZQUIERDA);
-					}else{
+			if(LH_ready == 0)
+			{
+				if(LH_up_final == 0)                                                    //Bandera de que se esta subiendo a la posicion final
+				{
+					if((PINK & (1 << 6)) == (1 << 6))                               //Esto no funciona porque creemos que el SW2 no funciona
+					{
+						motor(M4,OFF,DERECHA);
+						motor(M3,ON,M3,IZQUIERDA);
+					}else
+					{
+						M3_state = OFF;
+						M4_state = OFF;
 						LH_up_final = 1;
 						milisecondsFinal_LH = miliseconds;
+						motor(M4,OFF,DERECHA);
 						motor(M3,ON,DERECHA);
-					}
-				}else{
-					if(milisecondsFinal_LH + 2500 < miliseconds){
+				}
+				}else
+				{
+					if(milisecondsFinal_LH + 2500 < miliseconds)
+					{
 						LH_up_final = 0;
+						LH_ready = 1;
 						ready |= (1 << LH_MOD);
 						motor(M3,OFF,DERECHA);
 					}
