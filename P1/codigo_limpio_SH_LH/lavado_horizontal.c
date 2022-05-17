@@ -130,8 +130,27 @@ void gestionLH(mode_t modo)
 					}
 				}
 			}
+		/*
+		case STARTING:
+			motor(M4, OFF, DERECHA);
+			if (!LH_up_final)
+			{
+				if (!((PINK & (1 << PINK6)) == (1 << PINK6)))
+				{
+					M3_dir = DERECHA;
+					milisecondsFinal_LH = miliseconds;
+				}
+				if (milisecondsFinal_LH + 2500 < miliseconds)
+				{
+					LH_up_final = 1;
+					ready |= (1 << LH_MOD);
+					motor(M3, OFF, DERECHA);
+				}
+			}
+			motor(M3, ON, M3_dir);
 			break;
-		
+		*/
+
 		case EMERGENCY:
 			motor(M3,OFF,DERECHA);
 			motor(M4,OFF,DERECHA);
