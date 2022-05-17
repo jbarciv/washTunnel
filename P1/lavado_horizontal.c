@@ -11,7 +11,7 @@ extern status_t M3_state;
 extern direccion_t M3_dir;
 extern miliseconds_t miliseconds;
 extern miliseconds_t milisecondsFinal_LH;
-//extern seconds_t seconds;
+//extern seconds_t half_second;
 //extern seconds_t secondsFinal_LH;
 //extern seconds_t secondsBack;
 
@@ -52,7 +52,7 @@ void lavado_horizontal_ISR()
 					M3_state=ON;
 					M3_dir=IZQUIERDA;
 					milisecondsFinal_LH=miliseconds;
-					//secondsFinal_LH=seconds;
+					//secondsFinal_LH=half_second;
 					
 					}else{
 					//motor(M3,OFF,IZQUIERDA);

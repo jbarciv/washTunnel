@@ -2,7 +2,7 @@
  * TIMERS PARA LA GESTIÓN DEL TIEMPO
  * - "miliseconds" varible global de tipo "unsigned long int", desborda a los
  * 50 días aproximadamente.
- * - "seconds" variable global de tipo "unsigned int", desborda a las 18 horas
+ * - "half_second" variable global de tipo "unsigned int", desborda a las 18 horas
  * aproximadamente.
  * -------------------------------------------------------------------------- */
 
@@ -11,7 +11,7 @@
 
 
 extern miliseconds_t miliseconds;
-extern seconds_t seconds;
+extern seconds_t half_second;
 extern bool LV;
 extern bool LH;
 extern bool secado;
@@ -34,7 +34,7 @@ INTERRUPCIÓN PERIÓDICA CADA 0.5 SEGUNDOs
 ISR (TIMER4_COMPA_vect)
 {	
 	coche = (barrier || LV || LH || secado || !SO10_f || !SO11_f || !SO12_f);
-    seconds++;
+    half_second++;
 	coche ? (cinta=TRUE) : (cinta=FALSE);
-    parpadeo(seconds, coche);
+    parpadeo(half_second, coche);
 }

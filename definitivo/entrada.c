@@ -16,7 +16,7 @@
 #include "cinta.h"
 
 extern miliseconds_t miliseconds;
-extern seconds_t seconds;
+extern seconds_t half_second;
 extern char ready;
 extern bool LV;
 extern bool barrier; //Indica si la barrera está (1) o no está activa (0)
@@ -50,7 +50,7 @@ ISR(INT0_vect)
     if (barrierPulseCounter == 3)   // barrera está levantada
     {   
         barrierUp = TRUE;
-		secondsLV = seconds; 		// para inicio del lavado vertical
+		secondsLV = half_second; 		// para inicio del lavado vertical
     }
     else 
     {
@@ -59,13 +59,13 @@ ISR(INT0_vect)
 
 	if (barrierPulseCounter == 5)
 	{
-		secondsLVOff = seconds;		// para apagado del lavado vertical
+		secondsLVOff = half_second;		// para apagado del lavado vertical
 	}
 
     if (!SO2_f)
     {
         barrierDown = TRUE;
-		secondsLVOff = seconds;
+		secondsLVOff = half_second;
 		barrierPulseCounter = 0;
     }
 }
@@ -86,7 +86,7 @@ ISR (INT1_vect)
 		{
 			carWaiting = TRUE;
 			barrier = TRUE;
-			secondsLV = seconds;
+			secondsLV = half_second;
 			if (barrierPulseCounter > 3)
 			{
 				barrierStop();

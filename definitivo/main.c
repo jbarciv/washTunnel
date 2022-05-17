@@ -11,7 +11,7 @@
 
 /********************* Variables globales ***********************************/
 miliseconds_t   miliseconds = 0;
-seconds_t       seconds = 0;
+seconds_t       half_second = 0;
 
 bool LV;
 bool LH;

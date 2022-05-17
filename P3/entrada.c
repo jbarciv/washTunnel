@@ -16,7 +16,7 @@
 
 
 extern miliseconds_t miliseconds;
-extern seconds_t seconds;
+extern seconds_t half_second;
 extern char ready;
 extern bool LV;
 extern bool barrier; //Indica si la barrera está (1) o no está activa (0)
@@ -83,7 +83,7 @@ ISR (INT1_vect)
 		{
 			carWaiting = TRUE;
 			barrier = TRUE;
-			secondsLV = seconds;
+			secondsLV = half_second;
 		}
 		antireb_S01 = miliseconds;
 	}

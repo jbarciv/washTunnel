@@ -16,7 +16,7 @@ salida del tunel:
 
 extern char ready;
 extern bool secado;
-extern seconds_t seconds;
+extern seconds_t half_second;
 extern miliseconds_t miliseconds;
 
 bool carLeaving = FALSE;

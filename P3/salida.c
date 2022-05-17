@@ -18,7 +18,7 @@ bool carLeaving = FALSE;
 static bool prevState = TRUE;
 extern bool secado;
 extern miliseconds_t miliseconds;
-extern seconds_t seconds;
+extern seconds_t half_second;
 miliseconds_t antireb_S10 = 0;
 extern char ready;
 

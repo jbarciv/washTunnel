@@ -4,7 +4,7 @@
 #include "luz.h"
 #include "actuators.h"
 
-extern seconds_t seconds;
+extern seconds_t half_second;
 extern bool LH;
 extern bool LV;
 extern bool SECADO;
