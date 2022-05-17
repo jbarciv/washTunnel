@@ -32,7 +32,9 @@ Correcciones flujogramas:
     Sin comentarios
 
 --------> luz_diagrama() y move_stop_Cinta
-    Son tan cortos que no merecen la pena. Se tarda menos en leer el código que en comprender el flujograma, por lo que creo que no deberíamos entregarlos. La razón de ser de un flujograma es ayudar en la comprensió y estructuración global de cierto código, no de la funcionalidad de cada función, por lo que aquí no tienen sentido.
+    Son tan cortos que no merecen la pena. Se tarda menos en leer el código que en comprender el flujograma, por lo que creo que no deberíamos entregarlos. 
+    La razón de ser de un flujograma es ayudar en la comprensió y estructuración global de cierto código, 
+    no de la funcionalidad de cada función, por lo que aquí no tienen sentido.
 
 --------> gestionSalida()
 (-) 1.- Falta hacerlo :)
