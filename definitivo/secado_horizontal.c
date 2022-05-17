@@ -1,5 +1,5 @@
 /* ----------------------------------------------------------------------------
- *                       CONTROL DEL LAVADO HORIZONTAL
+ *                       CONTROL DEL SECADO HORIZONTAL
  * 
  * DATE:    12/05/2022
  * AUTHOR:  Mario Gómez Pozo
@@ -20,6 +20,11 @@ extern bool SH_up_final;
 extern miliseconds_t antireb_SH;
 extern char ready;
 
+
+ISR (PCINT0_vect)       // PCINT puerto b
+{
+	secado_horizontal_ISR();
+}
 
 void secado_horizontal_ISR()			// PCINT puerto B
 {
