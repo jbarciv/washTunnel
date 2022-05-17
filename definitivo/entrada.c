@@ -13,26 +13,25 @@
 
 #include "entrada.h"
 #include "actuators.h"
-#include "cinta.h"
+
 
 extern miliseconds_t miliseconds;
 extern seconds_t half_second;
 extern char ready;
 extern bool LV;
 extern bool barrier; //Indica si la barrera está (1) o no está activa (0)
-extern bool cinta;
+
+int barrierPulseCounter = 0;
+bool barrierUp;
+static bool barrierDown;
+seconds_t secondsLV = 0;
+static bool antiCollision = FALSE;
 
 static bool carWaiting = FALSE;
-
-bool barrierUp;
-bool barrierDown;
-int barrierPulseCounter = 0;
-seconds_t secondsLV = 0;
-seconds_t secondsLVOff;
+seconds_t tPreviousCar = 0;
 
 miliseconds_t antireb_S01 = 0;
 miliseconds_t antireb_SW1 = 0;
-
 
 
 /********************************************
@@ -41,31 +40,24 @@ MICROINTERRUPTOR SW1: contador pulsos barrera
 ********************************************/
 ISR(INT0_vect) 
 {   
-    if ((miliseconds - antireb_SW1) > BOTON_DELAY) // antirebotes del microinterruptor
+    if ((miliseconds - antireb_SW1) > BOTON_DELAY) // antirrebotes del microinterruptor
     {   // se lleva la cuenta de los pulsos; cuando llega a cinco se resetea
         (barrierPulseCounter == 5) ? (barrierPulseCounter = 0) : barrierPulseCounter++ ;
-        antireb_SW1 = miliseconds;  // se captura el tiempo  para el antirebotes
+        antireb_SW1 = miliseconds;  // se captura el tiempo  para el antirrebotes
     }
 
-    if (barrierPulseCounter == 3)   // barrera está levantada
-    {   
+    if (barrierPulseCounter == 3)   // cuando esto se cumple la _barrera está levantada_
+    {   // se controla el estado de la barrera con una bandera
         barrierUp = TRUE;
-		secondsLV = half_second; 		// para inicio del lavado vertical
     }
     else 
     {
         barrierUp = FALSE;
     }
 
-	if (barrierPulseCounter == 5)
-	{
-		secondsLVOff = half_second;		// para apagado del lavado vertical
-	}
-
-    if (!SO2_f)
+    if (SO2_f == FALSE)
     {
         barrierDown = TRUE;
-		secondsLVOff = half_second;
 		barrierPulseCounter = 0;
     }
 }
@@ -76,8 +68,14 @@ SENSOR ÓPTICO SO1: detector llegada coche
 ********************************************/
 ISR (INT1_vect)
 {
-	if (miliseconds - antireb_S01 > SENSOR_DELAY) // antirebotes del sensor optico
+	// Antirebotes
+	if (miliseconds - antireb_S01 > SENSOR_DELAY)
 	{
+		/*
+		La siguiente lógica supone que no nos vacilan,
+		si quieres entrar en el túnel no debes dar marcha atrás
+		en frente de la barrera...
+		*/
 		if (SO1_f) // Acaba de dejar de detectar (flanco de subida)
 		{
 			carWaiting = FALSE;
@@ -90,6 +88,7 @@ ISR (INT1_vect)
 			if (barrierPulseCounter > 3)
 			{
 				barrierStop();
+				antiCollision = TRUE;
 			}
 		}
 		antireb_S01 = miliseconds;
@@ -98,38 +97,52 @@ ISR (INT1_vect)
 
 void barrera(barrier_status_t estado)
 {
-    if (estado == UP)
-    {
-        barrierUp ? barrierStop() : barrierMove();
-		barrier = TRUE;
-
-    }
-    if (estado == DOWN)
-    {
-		if ( !barrierDown && SO1_f )
+	if (antiCollision == FALSE) //todo normal
+	{
+		if (estado == UP)
 		{
-			barrierMove();
+			barrierUp ? barrierStop() : barrierMove();
+			barrier = TRUE;
 		}
-		else 
+		if (estado == DOWN)
+		{
+			if (barrierDown)
+			{
+				barrierStop();
+				barrier = FALSE;
+			}
+			else
+			{
+				barrierMove();
+				barrier = TRUE;
+			}
+		}
+		if (estado == WAIT)
 		{
 			barrierStop();
+			barrier = FALSE;
 		}
-		barrier = TRUE;
-    }
-    if (estado == WAIT)
-    {
-        barrierStop();
-		barrier = FALSE;
-    }
-    if(SO2_f)
-	{
-		barrierDown = FALSE;
+		if (SO2_f)
+		{
+			barrierDown = FALSE;
+		}
+		else
+		{
+			barrierDown = TRUE;
+			barrierPulseCounter = 0;
+		}
 	}
-	else
+
+	else // estoy bajando y me encuentro un coche
 	{
-		barrierDown = TRUE;
-		barrierPulseCounter = 0;
+		barrierStop();
+		if (SO1_f) // el coche que molestaba se va
+		{
+			antiCollision = FALSE;
+		}
 	}
+	
+
 }
 
 void barrierMove()
@@ -166,17 +179,15 @@ void gestionBarrera(mode_t modo)
 		case BUSY:
 			if (carWaiting == TRUE && LV == FALSE)
 			{
-				barrera(UP);
+				barrera(UP);	
 			}
 			else 
 			{
 				barrera(DOWN);
 			}
-			gestionCinta(BUSY);
 			break;
 		default:
 			barrera(WAIT);
 			break;			
 	}
-	
 }
