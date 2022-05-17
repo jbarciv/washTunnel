@@ -146,8 +146,14 @@ void gestionLH(mode_t modo)
 					ready |= (1 << LH_MOD);
 					motor(M3, OFF, DERECHA);
 				}
+				motor(M3, ON, M3_dir);
 			}
-			motor(M3, ON, M3_dir);
+			else
+			{
+				motor(M3, OFF, DERECHA);
+			}
+
+			
 			break;
 		*/
 
