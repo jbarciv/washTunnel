@@ -1,5 +1,5 @@
 /* ----------------------------------------------------------------------------
- *                       CONTROL DEL LAVADO HORIZONTAL
+ *                       CONTROL DEL SECADO HORIZONTAL
  * 
  * DATE:    12/05/2022
  * AUTHOR:  Mario Gómez Pozo
