@@ -148,7 +148,7 @@ void gestionSH(mode_t modo)
 					{
 						SH_up_final = 0;
 						SH_ready = 1;
-						ready |= (1 << LH_MOD);
+						ready |= (1 << DRYER_MOD);
 						motor(M5,OFF,DERECHA);
 					}
 				}
