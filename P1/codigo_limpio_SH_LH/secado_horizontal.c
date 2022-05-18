@@ -45,16 +45,22 @@ void setup_SH_PORTS()
 	
 	//set PWM
 	
-
-	//TCCR5A=0b00100011;
-	//TCCR5B=0b00011001;
+	/*
+	TCCR5A=0b00100011;
+	TCCR5B=0b00011001;
+	/*
+	TCCR5A &= ~(1 << WGM51);
+	TCCR5A &= ~(1 << WGM50);
+	TCCR5B |= (1 << WGM52);
+	TCCR5B &= ~(1 << WGM53);
 	
-	TCCR5A = 0x23;
-	TCCR5B = 0x19;
+	TCCR5A |= (1 << COM5A0);
+	TCCR5A &= ~(1 << COM5A1);
 	
-	OCR5A = 4000;
+	
+	OCR5A = 60000;
 	OCR5B = 0;
-
+	*/
 	sei();
 	
 }
@@ -105,7 +111,7 @@ void secado_horizontal_CP()
 		}
 	}else
 	{
-		if(milisecondsFinal_SH + 2500 < miliseconds)
+		if(milisecondsFinal_SH + 1250 < miliseconds)
 		{
 			M5_state = OFF;
 			SH_up_final = 0;
@@ -138,7 +144,7 @@ void gestionSH(mode_t modo)
 				}
 				}else
 				{
-					if(milisecondsFinal_SH + 2500 < miliseconds)
+					if(milisecondsFinal_SH + 1250 < miliseconds)
 					{
 						SH_up_final = 0;
 						SH_ready = 1;
