@@ -98,7 +98,6 @@ void gestionSH(mode_t modo)
 						motor(M5,ON,IZQUIERDA);
 					}else
 					{
-						M5_state = OFF;
 						SH_up_final = 1;
 						milisecondsFinal_SH = miliseconds;
 						motor(M5,ON,DERECHA);
