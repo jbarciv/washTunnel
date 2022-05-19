@@ -38,7 +38,6 @@ bool cinta;
 bool barrier;
 
 char ready = 0b00000000; //Variable encargada de registrar el proceso de STARTING del sistema
-char PINK_prev;
 
 int main(void)
 {   
