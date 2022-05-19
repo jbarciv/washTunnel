@@ -24,6 +24,8 @@ void gestionCinta (mode_t modo)
             break;
 
         case WAITING:
+			stopCinta();
+			break;
         case BUSY:
             cinta ? moveCinta() : stopCinta();
             break;

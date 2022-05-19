@@ -28,32 +28,28 @@ ISR (PCINT2_vect)       // PCINT puerto k
 
 void lavado_horizontal_ISR()
 {
-		if((PINK_prev & 0X1C) != (PINK & 0X1C))
-		{
-			if(LH == 1)
-			{															//Bandera que indica si el lavado horizontal esta activo
-				if(SO3_f && SO5_f)
-				{														//Se comprueba si S03 y S05 estan detectando algo
-					if(SO4_f)											//Se comprueba si S04 sin detectando algo
-					{													
-						M3_state = ON;
-						M3_dir = IZQUIERDA;
-					}else
-					{
-						M3_state = OFF;
-					}
-				}else{
-					M3_state = ON;
-					M3_dir = DERECHA;
-				}
-			}else{
-				LH=1;
-				M4_state = ON;
+	if(LH == 1)
+	{															//Bandera que indica si el lavado horizontal esta activo
+		if(SO3_f && SO5_f)
+		{														//Se comprueba si S03 y S05 estan detectando algo
+			if(SO4_f)											//Se comprueba si S04 sin detectando algo
+			{													
 				M3_state = ON;
-				M3_dir = DERECHA;
+				M3_dir = IZQUIERDA;
+			}else
+			{
+				M3_state = OFF;
 			}
+		}else{
+			M3_state = ON;
+			M3_dir = DERECHA;
 		}
-	PINK_prev = PINK;
+	}else{
+		LH=1;
+		M4_state = ON;
+		M3_state = ON;
+		M3_dir = DERECHA;
+	}
 }
 
 void lavado_horizontal_CP()

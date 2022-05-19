@@ -29,7 +29,6 @@ ISR(INT2_vect)
 {
     if((miliseconds-antireb_S10) > SENSOR_DELAY && carLeaving == FALSE && SO11_f == 1)
     {
-        semaforo(GREEN);
         gestionCinta(BUSY);
     }
     antireb_S10 = miliseconds;
@@ -80,6 +79,11 @@ void carLeavingTunnel (mode_t mode)
             {
                 prevState = FALSE;      //aqui detecto
             }
+			
+			if (!SO11_f && !SO10_f )
+			{
+				semaforo(GREEN);
+			}
 
             if (!SO10_f && !SO11_f && !SO12_f)
             {

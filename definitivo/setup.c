@@ -32,7 +32,7 @@ void salidaSetup()
     DDRB |= (3<<DDB6);          // L4 y L5 son salidas
 
     EIMSK |= (1<<INT2);
-    EICRA &= ~(3<<ISC20);
+    EICRA |= (3<<ISC20);
 }
 
 void timerSetup()
@@ -105,7 +105,7 @@ void SHSetup()
 	/*
 	TCCR5A=0b00100011;
 	TCCR5B=0b00011001;
-	/*
+
 	TCCR5A &= ~(1 << WGM51);
 	TCCR5A &= ~(1 << WGM50);
 	TCCR5B |= (1 << WGM52);
