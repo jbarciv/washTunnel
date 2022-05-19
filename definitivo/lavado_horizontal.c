@@ -7,6 +7,7 @@
  * -------------------------------------------------------------------------- */
 
 #include "lavado_horizontal.h"
+#include "actuators.h"
 
 extern bool LH;
 extern bool LH_ready;
@@ -97,7 +98,7 @@ void gestionLH(mode_t modo)
 					if((PINK & (1 << 6)) == (1 << 6))                               //Esto no funciona porque creemos que el SW2 no funciona
 					{
 						motor(M4,OFF,DERECHA);
-						motor(M3,ON,M3,IZQUIERDA);
+						motor(M3,ON,IZQUIERDA);
 					}else
 					{
 						M3_state = OFF;
