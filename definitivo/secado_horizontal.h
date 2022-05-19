@@ -11,8 +11,7 @@
 #ifndef SECADO_HORIZONTAL_H_
 #define SECADO_HORIZONTAL_H_
 
-void secado_horizontal_ISR();
-void secado_horizontal_CP();
+void secado_horizontal();
 void gestionSH(mode_t modo);
 
 #endif

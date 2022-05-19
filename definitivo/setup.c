@@ -61,21 +61,15 @@ void emergenciaSetup()
 void LHSetup()
 {
 	
-	DDRK &= ~(1 << SO3pin);
-	DDRK &= ~(1 << SO4pin);
-	DDRK &= ~(1 << SO5pin);
+	DDRK&= ~(1 << SO3pin);
+	DDRK&= ~(1 << SO4pin);
+	DDRK&= ~(1 << SO5pin);
+	
 	DDRK &= ~(1 << 6);
 	
-	PCICR |= 0x04;
-
-	PCMSK2 = 0x00;
-	PCMSK2 |= (1 << SO3pin);
-	PCMSK2 |= (1 << SO4pin);
-	PCMSK2 |= (1 << SO5pin);
-	
-	DDRD|=(1 << M3ENpin);
-	DDRD|=(1 << M3DIpin);
-	DDRL|=(1 << M4ENpin);
+	DDRD|=(1<<M3ENpin);
+	DDRD|=(1<<M3DIpin);
+	DDRL|=(1<<M4ENpin);
 	
 }
 

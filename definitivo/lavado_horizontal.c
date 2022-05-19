@@ -12,86 +12,55 @@ extern bool LH;
 extern bool LH_ready;
 extern bool LH_up_final;
 
-extern char PINK_prev;
-extern status_t M4_state;
-extern status_t M3_state;
-extern direccion_t M3_dir;
-
 extern miliseconds_t miliseconds;
 extern miliseconds_t milisecondsFinal_LH;
-extern miliseconds_t antireb_LH;
 
 extern char ready;
 
-
-ISR (PCINT2_vect)       // PCINT puerto K
+void lavado_horizontal()
 {
-	lavado_horizontal_ISR();
-}
+	/*Gestion de subida de bandera y perfilado dle coche*/
 
-
-void lavado_horizontal_ISR()
-{
-	//if(miliseconds-antireb_LH>SENSOR_DELAY)
-	//{
-	if((PINK_prev & 0X1C) != (PINK & 0X1C))
-	{
-		if(LH == 1)
-		{																			//Bandera que indica si el lavado horizontal esta activo
-			if(SO3_f && SO5_f)
-			{														//Se comprueba si S03 y S05 estan detectando algo
-				if(SO4_f)											//Se comprueba si S04 sin detectando algo
-				{
-					M3_state = ON;
-					M3_dir = IZQUIERDA;
-				}else
-				{
-					M3_state = OFF;
-				}
+	if(LH == 1)
+	{															//Bandera que indica si el lavado horizontal esta activo
+		if(SO3_f && SO5_f)
+		{														//Se comprueba si S03 y S05 estan detectando algo
+			if(SO4_f)											//Se comprueba si S04 esta detectando algo
+			{													
+				motor(M3,ON,IZQUIERDA);
+			}else
+			{
+				motor(M3,OFF,IZQUIERDA);
 			}
-            else
-            {
-				M3_state = ON;
-				M3_dir = DERECHA;
-			}
+		}else{
+			motor(M3,ON,DERECHA);
 		}
-        else
-        {
-		LH=1;
-		M4_state = ON;
-		M3_state = ON;
-		M3_dir = DERECHA;
+	}else{
+		if(!SO3_f && (LH_up_final == 0))						//Se activa la bandera de LH si SO3_f esta a cero y no estamos en la subida a posicion de reposo(LH_up_final)	
+		{
+			LH = 1;
+			motor(M3,ON,DERECHA);
+			motor(M4,ON,DERECHA);
 		}
 	}
-	//}
-	PINK_prev = PINK;
-	antireb_LH = miliseconds;
-}
 
-void lavado_horizontal_CP()
-{
-	if(LH_up_final == 0)                                                    //Bandera de que se esta subiendo a la posicion final
+	/*Gestion de bajada de bandera*/
+
+	if(LH_up_final == 0)                                         //Bandera de que se esta subiendo a la posicion final
 	{
-		if((PINK & (1 << 6)) == (1 << 6))                               //Esto no funciona porque creemos que el SW2 no funciona
+		if(!(PINK & (1 << 6)) == (1 << 6))					//En cuanto se activa SW2 se baja la bandera LH y comienza la subida a posicion de reposo(LH_up_final)						
 		{
-			motor(M4,M4_state,DERECHA);
-			motor(M3,M3_state,M3_dir);
-		}else
-		{
-			M3_state = OFF;
-			M4_state = OFF;
+			LH = 0;
 			LH_up_final = 1;
 			milisecondsFinal_LH = miliseconds;
 			motor(M4,OFF,DERECHA);
 			motor(M3,ON,DERECHA);
 		}
-	}
-    else
+	}else
 	{
 		if(milisecondsFinal_LH + 2500 < miliseconds)
 		{
 			LH_up_final = 0;
-			LH = 0;
 			motor(M3,OFF,DERECHA);
 		}
 	}
@@ -100,50 +69,47 @@ void lavado_horizontal_CP()
 
 void gestionLH(mode_t modo)
 {
-	switch (modo)
+    switch (modo)
 	{
 		case STARTING:
-		    motor(M4,OFF,DERECHA);
-		    if(LH_ready == 0)
-		    {
-		    	if(LH_up_final == 0)                    // Bandera de que se esta subiendo a la posicion final
-		    	{
-		    		if((PINK & (1 << 6)) == (1 << 6))   // Esto no funciona porque creemos que el SW2 no funciona
-		    		{
-		    			motor(M4,OFF,DERECHA);
-		    			motor(M3,ON,M3,IZQUIERDA);
-		    		}else
-		    		{
-		    			M3_state = OFF;
-		    			M4_state = OFF;
-		    			LH_up_final = 1;
-		    			milisecondsFinal_LH = miliseconds;
-		    			motor(M4,OFF,DERECHA);
-		    			motor(M3,ON,DERECHA);
-		    		}
-		    	}else
-		    	{
-		    		if(milisecondsFinal_LH + 2500 < miliseconds)
-		    		{
-		    			LH_up_final = 0;
-		    			LH_ready = 1;
-		    			ready |= (1 << LH_MOD);
-		    			motor(M3,OFF,DERECHA);
-		    		}
-		    	}
-		    }
-		    break;
+			motor(M4,OFF,DERECHA);
+			if(LH_ready == 0)
+			{
+				if(LH_up_final == 0)                                                    //Bandera de que se esta subiendo a la posicion final
+				{
+					if((PINK & (1 << 6)) == (1 << 6))                               //Esto no funciona porque creemos que el SW2 no funciona
+					{
+						motor(M4,OFF,DERECHA);
+						motor(M3,ON,IZQUIERDA);
+					}else
+					{
+						LH_up_final = 1;
+						milisecondsFinal_LH = miliseconds;
+						motor(M3,ON,DERECHA);
+				}
+				}else
+				{
+					if(milisecondsFinal_LH + 2500 < miliseconds)
+					{
+						LH_up_final = 0;
+						LH_ready = 1;
+						ready |= (1 << LH_MOD);
+						motor(M3,OFF,DERECHA);
+					}
+				}
+			}
+			break;
 		
 		case EMERGENCY:
-		    motor(M3,OFF,DERECHA);
-		    motor(M4,OFF,DERECHA);
-		break;
+			motor(M3,OFF,DERECHA);
+			motor(M4,OFF,DERECHA);
+			break;
 		
 		case BUSY:
-		    lavado_horizontal_CP();
-		    break;
-
+			lavado_horizontal()
+			break;
 		default:
-		break;
+			
+			break;			
 	}
 }
