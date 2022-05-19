@@ -6,4 +6,10 @@ Gestión de la maqueta del tunel de lavado
 
     El funcionamiento del módulo de entrada se gestiona en el documento entrada.c, y tiene relacion con otros módulos y funciones:
 
-        Hace que se active la 
+    Indirectamente:
+        gestionCinta();     [cinta.c]
+        parpadeo();         [luz.c]
+    
+    Directamente:
+        gestionLV();        [lavado_vertical.c]
+    
