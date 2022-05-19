@@ -15,8 +15,6 @@
 miliseconds_t   miliseconds = 0;
 seconds_t       half_second = 0;
 
-miliseconds_t antireb_SH = 0;
-miliseconds_t antireb_LH = 0;
 miliseconds_t  milisecondsFinal_LH = 0;
 miliseconds_t  milisecondsFinal_SH = 0;
 seconds_t seconds;
@@ -52,7 +50,6 @@ int main(void)
 	emergenciaSetup();
 	LHSetup();
 	SHSetup();
-	PINK_prev = PINK;
 	sei();
     
     while(1)

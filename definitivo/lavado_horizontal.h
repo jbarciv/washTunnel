@@ -11,7 +11,8 @@
 #ifndef LAVADO_HORIZONTAL_H_
 #define LAVADO_HORIZONTAL_H_
 
-void lavado_horizontal();
+void lavado_horizontal_ISR();
+void lavado_horizontal_CP();
 void gestionLH(mode_t modo);
 
 #endif

@@ -67,6 +67,14 @@ void LHSetup()
 	
 	DDRK &= ~(1 << 6);
 	
+	PCICR |=0x04;
+
+	PCMSK2=0x00;
+	PCMSK2 |=(1<<SO3pin);
+	PCMSK2 |=(1<<SO4pin);
+	PCMSK2 |=(1<<SO5pin);
+	
+	
 	DDRD|=(1<<M3ENpin);
 	DDRD|=(1<<M3DIpin);
 	DDRL|=(1<<M4ENpin);
@@ -93,13 +101,21 @@ void SHSetup()
 	DDRL |= (1 << M5DIpin);
 	
 	//set PWM
-
-	//TCCR5A=0b00100011;
-	//TCCR5B=0b00011001;
 	
-	TCCR5A = 0x23;
-	TCCR5B = 0x19;
+	/*
+	TCCR5A=0b00100011;
+	TCCR5B=0b00011001;
+	/*
+	TCCR5A &= ~(1 << WGM51);
+	TCCR5A &= ~(1 << WGM50);
+	TCCR5B |= (1 << WGM52);
+	TCCR5B &= ~(1 << WGM53);
 	
-	OCR5A = 4000;
+	TCCR5A |= (1 << COM5A0);
+	TCCR5A &= ~(1 << COM5A1);
+	
+	
+	OCR5A = 60000;
 	OCR5B = 0;
+	*/
 }
