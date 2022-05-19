@@ -17,22 +17,23 @@
 
 extern miliseconds_t miliseconds;
 extern seconds_t half_second;
-extern char ready;
 extern bool LV;
-extern bool barrier; //Indica si la barrera está (1) o no está activa (0)
+extern bool barrier;
 extern bool cinta;
+extern char ready;
 
+static bool antiCollision = FALSE;
 static bool carWaiting = FALSE;
-
 bool barrierUp;
 bool barrierDown;
-int barrierPulseCounter = 0;
-seconds_t secondsLV = 0;
-seconds_t secondsLVOff;
 
 miliseconds_t antireb_S01 = 0;
 miliseconds_t antireb_SW1 = 0;
+seconds_t secondsLV = 0;
+seconds_t secondsLVOff;
+seconds_t tPreviousCar = 0;
 
+char barrierPulseCounter = 0;
 
 
 /********************************************
@@ -41,28 +42,32 @@ MICROINTERRUPTOR SW1: contador pulsos barrera
 ********************************************/
 ISR(INT0_vect) 
 {   
-    if ((miliseconds - antireb_SW1) > BOTON_DELAY) // antirebotes del microinterruptor
-    {   // se lleva la cuenta de los pulsos; cuando llega a cinco se resetea
-        (barrierPulseCounter == 5) ? (barrierPulseCounter = 0) : barrierPulseCounter++ ;
-        antireb_SW1 = miliseconds;  // se captura el tiempo  para el antirebotes
+    if ((miliseconds - antireb_SW1) > BOTON_DELAY) // antirrebotes del microinterruptor
+    {   
+		// se lleva la cuenta de los pulsos de SW1
+        barrierPulseCounter++ ;
+        antireb_SW1 = miliseconds;  // se captura el tiempo  para el antirrebotes
     }
 
-    if (barrierPulseCounter == 3)   // barrera está levantada
+    if (barrierPulseCounter == 4)   // cuando esto se cumple la barrera está levantada
     {   
+		// se controla el estado de la barrera con una bandera
         barrierUp = TRUE;
-		secondsLV = half_second; 		// para inicio del lavado vertical
+		// capturamos el tiempo para el inicio del Lavado Vertical
+		secondsLV = half_second; 
     }
     else 
     {
         barrierUp = FALSE;
     }
-
+	
 	if (barrierPulseCounter == 5)
 	{
-		secondsLVOff = half_second;		// para apagado del lavado vertical
+		// capturamos el tiempo para apagar el Lavado Vertical
+		secondsLVOff = half_second;
 	}
 
-    if (!SO2_f)
+    if (SO2_f == FALSE)
     {
         barrierDown = TRUE;
 		secondsLVOff = half_second;
@@ -70,57 +75,86 @@ ISR(INT0_vect)
     }
 }
 
+
 /********************************************
 SENSOR ÓPTICO SO1: detector llegada coche
 - Activo por flanco de subida y bajada
 ********************************************/
 ISR (INT1_vect)
 {
-	if (miliseconds - antireb_S01 > SENSOR_DELAY) // antirebotes del sensor optico
+	if (miliseconds - antireb_S01 > SENSOR_DELAY) // antirrebotes del sensor optico
 	{
 		if (SO1_f) // Acaba de dejar de detectar (flanco de subida)
 		{
 			carWaiting = FALSE;
+			antiCollision = FALSE;
 		}
 		else if(!SO1_f) // Empieza a detectar (flanco de bajada)
 		{
 			carWaiting = TRUE;
 			barrier = TRUE;
-			secondsLV = half_second;
-			if (barrierPulseCounter > 3)
+			if (barrierPulseCounter > 3) // si la barrera esta bajando
 			{
+				// y el coche intenta entrar de nuevo la barrera se para
 				barrierStop();
+				antiCollision = TRUE;
 			}
 		}
-		antireb_S01 = miliseconds;
+		antireb_S01 = miliseconds; // se captura el tiempo  para el antirrebotes
 	}
 }
 
+
+/********************************************
+Funcion "barrera()". Se encarga de subir y 
+bajar la barrera bajo ciertas condiciones
+internamente implementadas.
+********************************************/
 void barrera(barrier_status_t estado)
 {
-    if (estado == UP)
-    {
-        barrierUp ? barrierStop() : barrierMove();
-		barrier = TRUE;
+	switch (estado)
+	{
+		case UP:
+			if (barrierPulseCounter < 4)
+        	{
+				barrierMove();
+        	}
+			else
+			{
+				barrierStop();
+			}
+			barrier = TRUE;
+			break;
 
-    }
-    if (estado == DOWN)
-    {
-		if ( !barrierDown && SO1_f )
-		{
-			barrierMove();
-		}
-		else 
-		{
+		case DOWN:
+			if (barrierDown)
+			{
+				barrierStop();
+				barrier = FALSE;
+			}
+			else
+			{
+				if (antiCollision == FALSE)
+				{
+					barrierMove();
+					barrier = TRUE;
+				}
+				else
+				{
+					barrierStop();
+				}
+			}
+			break;
+
+		case WAIT:
 			barrierStop();
-		}
-		barrier = TRUE;
-    }
-    if (estado == WAIT)
-    {
-        barrierStop();
-		barrier = FALSE;
-    }
+			barrier = FALSE;
+			break;
+
+		default:
+			break;
+	}
+    
     if(SO2_f)
 	{
 		barrierDown = FALSE;
@@ -128,6 +162,7 @@ void barrera(barrier_status_t estado)
 	else
 	{
 		barrierDown = TRUE;
+		barrier = FALSE;
 		barrierPulseCounter = 0;
 	}
 }
@@ -142,6 +177,11 @@ void barrierStop()
     motor(M1,OFF,IZQUIERDA);
 }
 
+
+/********************************************
+Funcion "gestionBarrera()". Se gestiona 
+cuando la barrera debe subir o bajar.
+********************************************/
 void gestionBarrera(mode_t modo)
 {
     switch (modo)
@@ -170,10 +210,11 @@ void gestionBarrera(mode_t modo)
 			}
 			else 
 			{
-				barrera(DOWN);
+				SO1_f ? barrera(DOWN) : barrera(WAIT);
 			}
 			gestionCinta(BUSY);
 			break;
+
 		default:
 			barrera(WAIT);
 			break;			

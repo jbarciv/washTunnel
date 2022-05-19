@@ -1,13 +1,11 @@
-/*
+/* ----------------------------------------------------------------------------
+ *               SALIDA DEL TUNEL DE LAVADO - DECLARACION DE FUNCIONES
+ *  - carLeavingTunnel
 
-En este archivo se van a gestionar las acciones a llevar a cabo a la
-salida del tunel:
-
-    Paro de la cinta si es necesario
-    Consulta de SO10 (INT) y SO12 (consulta periódica)
-    Actualización del número de vehículos en el tunel
-
-*/
+ * DATE: 08/05/2022
+ * AUTHOR:  Gonzalo Quiros Torres
+ *          Josep Maria Barbera
+ * -------------------------------------------------------------------------- */
 
 #include "actuators.h"
 #include "entrada.h"
@@ -15,16 +13,15 @@ salida del tunel:
 #include "cinta.h"
 
 extern char ready;
-extern bool secado;
+extern bool SH;
 extern seconds_t half_second;
 extern miliseconds_t miliseconds;
+miliseconds_t antireb_S10 = 0;
 
 bool carLeaving = FALSE;
 static bool prevState = TRUE;
 
 
-
-miliseconds_t antireb_S10 = 0;
 
 
 //Rutina de interrupción SO10 (activa por flanco de bajada)
@@ -58,19 +55,19 @@ void carLeavingTunnel (mode_t mode)
 
         case WAITING:
         case BUSY:
-            if (SO12_f) // No hay nada cortando el sensor. No está detectando nada
+            if (SO12_f)                 // No hay nada cortando el sensor. No está detectando nada
             {
                 if (prevState)
                 {
-                    prevState = TRUE; // No detecta nada
+                    prevState = TRUE;   // No detecta nada
                 }
-                else if (!prevState) // Esto es un flanco de subida. Antes detectaba y ahora no.
+                else if (!prevState)    // Esto es un flanco de subida. Antes detectaba y ahora no.
                 {
-                    if (!SO11_f) // Se produce un flanco de subida, pero sigue habiendo coche dentro => estan dando marcha atrás en la salida, ojo cuidao
-                    {
+                    if (!SO11_f)        // Se produce un flanco de subida, pero sigue habiendo coche dentro => 
+                    {                   // => estan dando marcha atrás en la salida, ojo cuidao
                         prevState = TRUE;
                     }
-                    else if (SO11_f) // Esta es la buena, aquí el coche está saliendo de verdad
+                    else if (SO11_f)    // Esta es la buena, aquí el coche está saliendo de verdad
                     {
                         carLeaving = FALSE;
                         semaforo(RED);
@@ -81,7 +78,7 @@ void carLeavingTunnel (mode_t mode)
             }
             else if (!SO12_f)
             {
-                prevState = FALSE; //aqui detecto
+                prevState = FALSE;      //aqui detecto
             }
 
             if (!SO10_f && !SO11_f && !SO12_f)
@@ -89,7 +86,8 @@ void carLeavingTunnel (mode_t mode)
                 carLeaving = TRUE;
             }
             
-            if (carLeaving && secado) // Si hay un coche en el secado y otro en la salida, paramos la cinta para evitar choques
+            // Si hay un coche en el secado y otro en la salida, paramos la cinta para evitar choques
+            if (carLeaving && SH) 
             {
                 gestionCinta(WAITING);
             }

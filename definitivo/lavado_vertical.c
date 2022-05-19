@@ -1,3 +1,13 @@
+/* ----------------------------------------------------------------------------
+ *                       CONTROL DEL LAVADO VERTICAL
+ * 
+ * DATE:    13/05/2022
+ * AUTHOR:  Gonzalo Quiros Torres
+ * 			María del Mar Martín Diaz
+ *          Celia Ramos Ramírez
+ * 			Josep María Barberá Civera
+ * -------------------------------------------------------------------------- */
+
 #include "lavado_vertical.h"
 #include "actuators.h"
 
@@ -21,7 +31,7 @@ void lavado_vertical()
 		motor(M2,ON,IZQUIERDA);
 		
 	} 
-	else if(LV == 0){ //LV se pone a 0 cuando secado se enciende
+	else if(LV == 0){ //LV se pone a 0 cuando pasa un tiempo de que la barrera se apaga
 		
 		motor(M2,OFF,DERECHA);
 		
@@ -42,20 +52,13 @@ void gestionLV(mode_t mode)
 			if (barrierUp && !SO1_f && ((secondsLV + T_LV) < half_second))
 			{
 				LV = 1;
-				
 			}
 			if (!cinta)
 			{
 				timeOff = timeOff-(half_second - secondsLVOff);
 				secondsLVOff = half_second;
 			}
-
-			if (barrierDown && ((secondsLVOff + timeOff) < half_second) && LH)
-			{
-				LV = 0;
-				timeOff = TLV_Off;
-			}
-			else if (barrierDown && ((secondsLVOff + timeOff) < half_second) && !LH)
+			if (barrierDown && ((secondsLVOff + timeOff) < half_second))
 			{
 				LV = 0;
 				timeOff = TLV_Off;

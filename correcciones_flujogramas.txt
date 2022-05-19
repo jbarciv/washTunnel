@@ -4,18 +4,18 @@ Cuando sea definitivo de acuerdo a lo que aquí pone, se guarda en .jpg y se sub
 Correcciones flujogramas:
 
 --------> lavado_horizontal_CP()
-(-) 1.- 2500 segundos -> 2500 milisegundos?
-(-) 2.- milisecondsFinal_SH -> milisecondsFinal_LH ? o si no qué es SH?
-(-) 3.- Explicar qué indica LH_up_final.
+(+) 1.- 2500 segundos -> 2500 milisegundos?
+(+) 2.- milisecondsFinal_SH -> milisecondsFinal_LH ? o si no qué es SH?
+(+) 3.- Explicar qué indica LH_up_final.
 
 --------> lavado_horizontal_ISR
-(-) 1.- Escrito con dobles negaciones (si SO6 no no detecta => SO6 detecta?).
-(-) 2.- Tanto si SO6 detecta como si no, las consecuencias son las mismas -> ¿Qué hace exactamente SO6?
+(+) 1.- Escrito con dobles negaciones (si SO6 no no detecta => SO6 detecta?).
+(+) 2.- Tanto si SO6 detecta como si no, las consecuencias son las mismas -> ¿Qué hace exactamente SO6?
 
 --------> secado_horizontal_CP()
-(-) 1.- 2500 segundos -> 2500 milisegundos?
-(-) 2.- Explicar qué indica SH_up_final.
-(-) 3.- Error gramatical "(...) el motor se controla con las *bandera (banderas) de secado_horizontal_ISR()".
+(+) 1.- 2500 segundos -> 2500 milisegundos?
+(+) 2.- Explicar qué indica SH_up_final.
+(+) 3.- Error gramatical "(...) el motor se controla con las *bandera (banderas) de secado_horizontal_ISR()".
 
 --------> secado_horizontal_ISR()
     Sin comentarios.
@@ -32,7 +32,9 @@ Correcciones flujogramas:
     Sin comentarios
 
 --------> luz_diagrama() y move_stop_Cinta
-    Son tan cortos que no merecen la pena. Se tarda menos en leer el código que en comprender el flujograma, por lo que creo que no deberíamos entregarlos. La razón de ser de un flujograma es ayudar en la comprensió y estructuración global de cierto código, no de la funcionalidad de cada función, por lo que aquí no tienen sentido.
+    Son tan cortos que no merecen la pena. Se tarda menos en leer el código que en comprender el flujograma, por lo que creo que no deberíamos entregarlos. 
+    La razón de ser de un flujograma es ayudar en la comprensió y estructuración global de cierto código, 
+    no de la funcionalidad de cada función, por lo que aquí no tienen sentido.
 
 --------> gestionSalida()
 (-) 1.- Falta hacerlo :)
