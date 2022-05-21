@@ -1,7 +1,3 @@
-/********************************************
-Funcion "gestionBarrera()". Se gestiona 
-cuando la barrera debe subir o bajar.
-********************************************/
 void gestionBarrera(mode_t modo)
 {
     switch (modo)

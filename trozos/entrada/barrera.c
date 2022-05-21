@@ -1,8 +1,3 @@
-/********************************************
-Funcion "barrera()". Se encarga de subir y 
-bajar la barrera bajo ciertas condiciones
-internamente implementadas.
-********************************************/
 void barrera(barrier_status_t estado)
 {
 	switch (estado)
