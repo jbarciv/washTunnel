@@ -60,9 +60,9 @@ void secado_horizontal_ISR()							// PCINT puerto B
 
 void secado_horizontal_CP()
 {
-	if(SH_up_final == 0)                                                    //Bandera de que se esta subiendo a la posicion final
+	if(SH_up_final == 0)	//Bandera de que se esta subiendo a la posicion final
 	{
-		if((PINK & (1 << 7)) == (1 << 7))									//Esto no funciona porque creemos que el SW2 no funciona
+		if((PINK & (1 << 7)) == (1 << 7))
 		{
 			motor(M5,M5_state,M5_dir);
 		}
@@ -93,9 +93,9 @@ void gestionSH(mode_t modo)
 		case STARTING:
 			if(SH_ready == 0)
 			{
-				if(SH_up_final == 0)                                                    //Bandera de que se esta subiendo a la posicion final
+				if(SH_up_final == 0) //Bandera de que se esta subiendo a la posicion final
 				{
-					if((PINK & (1 << 7)) == (1 << 7))                               //Esto no funciona porque creemos que el SW2 no funciona
+					if((PINK & (1 << 7)) == (1 << 7))
 					{
 						motor(M5,ON,IZQUIERDA);
 					}else

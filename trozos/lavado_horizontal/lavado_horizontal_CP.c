@@ -6,7 +6,8 @@ void lavado_horizontal_CP()
 		{
 			motor(M4,M4_state,DERECHA);
 			motor(M3,M3_state,M3_dir);
-		}else
+		}
+		else
 		{
 			M3_state = OFF;
 			M4_state = OFF;
@@ -15,9 +16,10 @@ void lavado_horizontal_CP()
 			motor(M4,OFF,DERECHA);
 			motor(M3,ON,DERECHA);
 		}
-	}else
+	}
+	else
 	{
-		if(milisecondsFinal_LH + 2500 < miliseconds)
+		if((milisecondsFinal_LH + 2500) < miliseconds)
 		{
 			LH_up_final = 0;
 			LH = 0;

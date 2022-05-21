@@ -12,11 +12,15 @@ void lavado_horizontal_ISR()
 			{
 				M3_state = OFF;
 			}
-		}else{
+		}
+		else
+		{
 			M3_state = ON;
 			M3_dir = DERECHA;
 		}
-	}else{
+	}
+	else
+	{
 		LH=1;
 		M4_state = ON;
 		M3_state = ON;
