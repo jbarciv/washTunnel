@@ -1,22 +1,27 @@
 void lavado_horizontal_ISR()
-{	//Bandera que indica si el lavado horizontal esta activo
-	if(LH == 1)
+{	
+	if(LH == 1)		//Bandera que indica si el lavado horizontal esta activo
 	{		
-		if(SO3_f && SO5_f)	//Se comprueba si S03 y S05 estan detectando algo
+		if(SO3_f && SO5_f)	//Se comprueba si S03 y S05 estan detectando algo, si detectan algo el lavado tiene q subir
 		{						
-			if(SO4_f)		//Se comprueba si S04 sin detectando algo			
+			if(SO4_f)	//Se comprueba si S04 sin detectando algo, si no detecta el lavado esta muy alto y tiene q bajar			
 			{													
 				M3_state = ON;
 				M3_dir = IZQUIERDA;
-			}else
+			}
+			else	//Si SO4 detecta y SO3 y SO5 el lavado esta en la posicion adecuada
 			{
 				M3_state = OFF;
 			}
-		}else{
+		}
+		else
+		{
 			M3_state = ON;
 			M3_dir = DERECHA;
 		}
-	}else{
+	}
+	else	//Si el la bandera LH esta a 0 y hay interrupcion se activa la bandera y se encienden los motores
+	{
 		LH=1;
 		M4_state = ON;
 		M3_state = ON;
