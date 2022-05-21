@@ -1,5 +1,5 @@
 ISR(INT3_vect) 
-{   // Espera bloqueante, será necesario resetear el micro.
+{   // Espera bloqueante, sera necesario resetear el micro.
     // Se entiede que el operario encargado del tunel de lavado
     // ha tenido que parar todo por un problema grave.
     while (1)  

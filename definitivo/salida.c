@@ -54,16 +54,16 @@ void carLeavingTunnel (mode_t mode)
 
         case WAITING:
         case BUSY:
-            if (SO12_f)                 // No hay nada cortando el sensor. No está detectando nada
+            if (SO12_f)  // No hay nada cortando el sensor. No está detectando nada
             {
                 if (prevState)
+                {   // No detecta nada
+                    prevState = TRUE;   
+                }    
+                else if (!prevState)    // Esto es un flanco de subida. Antes detectaba y ahora no. 
                 {
-                    prevState = TRUE;   // No detecta nada
-                }
-                else if (!prevState)    // Esto es un flanco de subida. Antes detectaba y ahora no.
-                {
-                    if (!SO11_f)        // Se produce un flanco de subida, pero sigue habiendo coche dentro => 
-                    {                   // => estan dando marcha atrás en la salida, ojo cuidao
+                    if (!SO11_f)    // Se produce un flanco de subida, pero sigue habiendo coche dentro => 
+                    {               // => estan dando marcha atrás en la salida
                         prevState = TRUE;
                     }
                     else if (SO11_f)    // Esta es la buena, aquí el coche está saliendo de verdad
@@ -77,30 +77,24 @@ void carLeavingTunnel (mode_t mode)
             }
             else if (!SO12_f)
             {
-                prevState = FALSE;      //aqui detecto
+                prevState = FALSE;    
             }
-			
 			if (!SO11_f && !SO10_f )
 			{
 				semaforo(GREEN);
 			}
-
             if (!SO10_f && !SO11_f && !SO12_f)
-            {
+            {   // Si detecto
                 carLeaving = TRUE;
-            }
-            
-            // Si hay un coche en el secado y otro en la salida, paramos la cinta para evitar choques
-            if (carLeaving && SH) 
+            }   // Si hay un coche en el secado y otro en la salida...
+            if (carLeaving && SH) // paramos la cinta para evitar choques
             {
-                gestionCinta(WAITING);
+                gestionCinta(WAITING);  
             }
-            
             break;
 
         case EMERGENCY:
             semaforo(RED);
             break;
     }
-    
 }
