@@ -5,16 +5,19 @@ WashTunnel is an undergraduate project that involves Microchip Studio programmin
 This project has been carried out using a prototype that models a typical car wash tunnel. This control systems learning platform is oriented towards experimentation with microprocessor systems. The control of this model has been carried out with an 8-bit microcontroller with AVR architecture, specifically the ATmega640.
 
 ## Content
-- [**Project Description**](#project-description)
-    1. [Final video](#1-final-video)
-    2. [Code](#2-code)
-    3. [Report](#3-report)
-- [**Acknowledgments**](#acknowledgments)
+**[1. Project Description](#1-project-description)**
 
-## Project Description
-### 1. Final video
+  * [1.1. Final video](#1-final-video)
+  * [1.2. Code](#12-code)
+  * [1.3 Report](#13-report)
+
+**[2. Acknowledgments](#2-acknowledgments)**
+
+
+## 1. Project Description
+### 1.1. Final video
 [![IROS 2019: FASTER: Fast and Safe Trajectory Planner for Flights in Unknown Environments](./imgs/washtunnel.gif)]
-### 2. Code
+### 1.2. Code
 #### **Salida (Exit Control):**
    - *Description*: This section handles the control of the car wash system's exit process. It likely includes logic for safely allowing vehicles to exit the car wash once the washing and drying processes are complete.
    - *Code*: **`salida.c`**
@@ -65,10 +68,10 @@ The specific bits assigned for each area of the model can be observed here:
  These definitions are included at the end of the *"commonstuff.c"* file, which plays a crucial role in achieving more *abstract* and *functional* programming. Out of the eight bits in the ***ready*** variable, only seven are utilized, and the one corresponding to the *light mode (LIGHT MODE)* isn't ultimately needed. *Code snippet 17* demonstrates the ***ready*** variable being compared to the binary number *0b01101111*.
 
 
-### 3. Report
+### 1.3. Report
 The explanation of the model and its operation can be found in the document *Wash_Tunnel_model.pdf*. The *Final_Report.pdf* explains the distribution of the work among the members of the group and the proposed solution. It includes a large number of code snippets as well as the flowcharts created for its implementation. At the end of this memory there is a schematic of the microprocessor connection to the pins of the model.
 
-## Acknowledgments
+## 2. Acknowledgments
 First of all, I would like to thank the members of the team (Marı́a del Mar Martı́n, Celia Ramos, Juan Galvañ, Mario Gómez and Gonzalo Quirós) for their tireless work to bring this project to completion. Everything has been very easy with them. 
 
 I would like to thank Jorge Portilla and Yago Tarroja professors of the Microprocessor Systems course (at [CEI](http://www.cei.upm.es/)) for their support and guidance during all the project. Special thanks to Yago Tarroja, author of the Tunnel Washer model guide.  
