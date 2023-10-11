@@ -13,6 +13,8 @@ This project has been carried out using a prototype that models a typical car wa
 
 ## Project Description
 ### 1. Final video
+Loading... Please wait.
+
 [![IROS 2019: FASTER: Fast and Safe Trajectory Planner for Flights in Unknown Environments](./imgs/washtunnel.gif)]
 ### 2. Code
 #### **Salida (Exit Control):**
